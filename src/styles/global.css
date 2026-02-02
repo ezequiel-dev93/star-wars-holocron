@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+:root {
+  --font-outfit: 'Outfit', system-ui, sans-serif;
+}
+
+.font-outfit {
+  font-family: var(--font-outfit);
+}

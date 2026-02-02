@@ -16,7 +16,7 @@
 
 ## 🎯 Visión General
 
-Este proyecto implementa un **Catálogo Interactivo de Star Wars** utilizando **Screaming Architecture** (Clean Architecture) con Next.js 14.
+Este proyecto implementa un **Catálogo Interactivo de Star Wars** utilizando **Screaming Architecture** (Clean Architecture) con Astro.
 
 ### Objetivos del Proyecto
 
@@ -28,14 +28,14 @@ Este proyecto implementa un **Catálogo Interactivo de Star Wars** utilizando **
 
 ### Stack Tecnológico
 
-- **Frontend:** Next.js 14 (App Router), React 18, TypeScript
-- **Styling:** Tailwind CSS
+- **Frontend:** Astro, React 19, TypeScript
+- **Styling:** Tailwind CSS v4
 - **Animaciones:** GSAP, Framer Motion
-- **Backend:** Next.js API Routes
+- **Backend:** Astro API Endpoints
 - **Database:** Supabase (PostgreSQL)
 - **Storage:** AWS S3 + CloudFront
 - **External API:** SWAPI (Star Wars API)
-- **Deployment:** Vercel
+- **Deployment:** Vercel / Netlify
 
 ---
 
@@ -120,15 +120,16 @@ src/
 │   ├── services/                # Clientes externos (SWAPI, Supabase, S3)
 │   └── cache/                   # Estrategias de caché
 │
-├── presentation/                # 🎨 UI Layer
+├── presentation/                # 🎨 UI Layer (React Islands)
 │   ├── components/              # Componentes React
 │   ├── hooks/                   # Custom hooks
 │   └── animations/              # Configuración de animaciones
 │
-├── app/                         # Next.js 14 App Router
-│   ├── api/                     # API Routes
-│   └── [pages]/                 # Páginas de la aplicación
+├── pages/                       # Astro Pages & API Endpoints
+│   ├── api/                     # API Endpoints
+│   └── [pages].astro            # Páginas de la aplicación
 │
+├── layouts/                     # Astro Layouts
 ├── config/                      # Configuración
 └── lib/                         # Utilidades compartidas
 ```
