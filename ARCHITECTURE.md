@@ -1,816 +1,523 @@
-# 🏛️ Arquitectura del Proyecto - Star Wars Catalog
+# Arquitectura - Star Wars Holocron
 
-## 📋 Tabla de Contenidos
-
-1. [Visión General](#visión-general)
-2. [Principios Arquitectónicos](#principios-arquitectónicos)
-3. [Estructura de Carpetas](#estructura-de-carpetas)
-4. [Capas de la Arquitectura](#capas-de-la-arquitectura)
-5. [Flujo de Datos](#flujo-de-datos)
-6. [Guías de Implementación](#guías-de-implementación)
-7. [Convenciones y Best Practices](#convenciones-y-best-practices)
-8. [Testing](#testing)
-9. [Deployment](#deployment)
-
----
-
-## 🎯 Visión General
-
-Este proyecto implementa un **Catálogo Interactivo de Star Wars** utilizando **Screaming Architecture** (Clean Architecture) con Astro.
-
-### Objetivos del Proyecto
-
-- ✅ Construir una API REST personalizada que extiende y enriquece datos de SWAPI
-- ✅ Implementar Screaming Architecture + Principios SOLID
-- ✅ Integrar múltiples servicios externos (SWAPI, Supabase, AWS S3)
-- ✅ Crear una interfaz moderna y animada (GSAP + Framer Motion)
-- ✅ Desplegar una aplicación full-stack en producción (Vercel)
-
-### Stack Tecnológico
-
-- **Frontend:** Astro, React 19, TypeScript
-- **Styling:** Tailwind CSS v4
-- **Animaciones:** GSAP, Framer Motion
-- **Backend:** Astro API Endpoints
-- **Database:** Supabase (PostgreSQL)
-- **Storage:** AWS S3 + CloudFront
-- **External API:** SWAPI (Star Wars API)
-- **Deployment:** Vercel / Netlify
+## Tabla de Contenidos
+1. Vision General
+2. Principios SOLID y Screaming Architecture
+3. Estructura de Carpetas
+4. Modulos de Dominio
+5. Capas dentro de un Modulo
+6. Flujo de Datos
+7. Shared Layer
+8. Composition Root
+9. Guias de Implementacion
+10. Testing
 
 ---
 
-## 🧩 Principios Arquitectónicos
+## Vision General
 
-### 1. Screaming Architecture
+Catalogo Interactivo de Star Wars con **Screaming Architecture** (Package by Feature),
+**Clean Architecture** y **SOLID**, sobre **Astro 5 + TypeScript**.
 
-La estructura del proyecto "grita" su propósito: **"SOY UN CATÁLOGO DE STAR WARS"**
+> La estructura de carpetas grita el dominio: Personajes, Naves, Planetas — no la tecnologia.
+
+| Area | Tecnologia |
+|---|---|
+| Framework | Astro 5 |
+| UI | React 19 (Islands), TypeScript |
+| Styling | Tailwind CSS v4 |
+| Animaciones | GSAP, Three.js |
+| Backend | Astro API Endpoints (Node.js SSR) |
+| External API | SWAPI (https://swapi.dev) |
+
+---
+
+## Principios Arquitectonicos
+
+### 1. Screaming Architecture (Package by Feature)
+
+La estructura de nivel superior comunica el **dominio del negocio**, no el patron tecnico:
 
 ```
 src/
-├── domain/          # El CORE grita "Characters, Planets, Species"
-├── application/     # Los casos de uso son evidentes
-├── infrastructure/  # Detalles de implementación ocultos
-└── presentation/    # UI separada del negocio
+└── modules/
+    ├── characters/   ← Grita Star Wars!
+    ├── starships/    ← Grita Star Wars!
+    ├── planets/      ← Grita Star Wars!
+    └── species/      ← Grita Star Wars!
 ```
+
+Cada modulo es **autocontenido** con sus propias capas (domain, application, infrastructure).
 
 ### 2. SOLID Principles
 
-#### **S - Single Responsibility Principle**
-Cada clase/módulo tiene una única razón para cambiar:
-- `Character.ts` → Solo define la entidad Character
-- `GetCharacters.ts` → Solo obtiene listado de personajes
-- `SwapiClient.ts` → Solo se comunica con SWAPI
+**S - Single Responsibility:** Cada clase tiene una unica razon para cambiar.
 
-#### **O - Open/Closed Principle**
-Abierto a extensión, cerrado a modificación:
+**O - Open/Closed:** `SwapiClient` depende de `IHttpClient` (abstraccion), no de `fetch` directamente.
+Para cambiar a Axios o agregar cache, solo implementas `IHttpClient` — sin tocar `SwapiClient`.
+
 ```typescript
-// ✅ Fácil cambiar de SWAPI a otra API sin tocar el domain
-interface ICharacterRepository {
-  findAll(): Promise<Character[]>
+// shared/http/IHttpClient.ts
+export interface IHttpClient { get<T>(url: string): Promise<T>; }
+
+// shared/http/FetchHttpClient.ts   <- implementacion actual
+// shared/http/AxiosHttpClient.ts   <- futura alternativa
+// shared/http/CachedHttpClient.ts  <- decorador con cache
+```
+
+**L - Liskov Substitution:** Cualquier `ICharacterRepository` es intercambiable:
+
+```typescript
+const repo: ICharacterRepository = new SwapiCharacterRepository(client);
+// o en el futuro:
+const repo: ICharacterRepository = new SupabaseCharacterRepository(db);
+```
+
+**I - Interface Segregation:** Interfaces pequenas y especificas por modulo:
+
+```typescript
+interface ICharacterRepository { findAll, findById, search }
+interface IStarshipRepository  { findAll, findById }
+```
+
+**D - Dependency Inversion:** Los Casos de Uso dependen de interfaces, nunca de implementaciones:
+
+```typescript
+// BIEN: Application Layer depende de abstraccion
+export class GetCharacters {
+    constructor(private repo: ICharacterRepository) { }
 }
-
-class SwapiCharacterRepository implements ICharacterRepository { }
-class AlternativeAPIRepository implements ICharacterRepository { }
-```
-
-#### **L - Liskov Substitution Principle**
-Las implementaciones son intercambiables:
-```typescript
-// Cualquier repositorio funciona igual
-const repo: ICharacterRepository = new SwapiCharacterRepository()
-// o
-const repo: ICharacterRepository = new SupabaseCharacterRepository()
-```
-
-#### **I - Interface Segregation Principle**
-Interfaces específicas y pequeñas:
-```typescript
-interface ICharacterRepository { }  // Solo para Characters
-interface IPlanetRepository { }     // Solo para Planets
-```
-
-#### **D - Dependency Inversion Principle**
-El domain NO depende de infrastructure:
-```typescript
-// ❌ MAL: Domain importa de Infrastructure
-import { SwapiClient } from '@/infrastructure/services/swapi'
-
-// ✅ BIEN: Domain usa interfaces
-import { ICharacterRepository } from '@/domain/repositories'
+// MAL: nunca importar implementaciones en application/
+// import { SwapiCharacterRepository } from '../infrastructure/...'
+// La unica clase que instancia implementaciones es config/dependencies.ts
 ```
 
 ---
 
-## 📁 Estructura de Carpetas
+## Estructura de Carpetas
 
 ```
 src/
-├── domain/                      # 💎 CORE - Lógica de negocio pura
-│   ├── entities/                # Modelos del dominio
-│   ├── value-objects/           # Objetos de valor inmutables
-│   └── repositories/            # Interfaces (contratos)
-│
-├── application/                 # ⚙️ Casos de uso
-│   ├── use-cases/               # Lógica de aplicación
-│   ├── dtos/                    # Data Transfer Objects
-│   └── services/                # Orquestación de casos de uso
-│
-├── infrastructure/              # 🔧 Implementaciones concretas
-│   ├── repositories/            # Implementaciones de interfaces
-│   ├── services/                # Clientes externos (SWAPI, Supabase, S3)
-│   └── cache/                   # Estrategias de caché
-│
-├── presentation/                # 🎨 UI Layer (React Islands)
-│   ├── components/              # Componentes React
-│   ├── hooks/                   # Custom hooks
-│   └── animations/              # Configuración de animaciones
-│
-├── pages/                       # Astro Pages & API Endpoints
-│   ├── api/                     # API Endpoints
-│   └── [pages].astro            # Páginas de la aplicación
-│
-├── layouts/                     # Astro Layouts
-├── config/                      # Configuración
-└── lib/                         # Utilidades compartidas
+|
++-- modules/                         # Modulos de negocio (Screaming Architecture)
+|   +-- characters/                  # Modulo Characters (autocontenido)
+|       +-- domain/
+|       |   +-- Character.ts         # Entidad de dominio
+|       |   +-- ICharacterRepository.ts  # Contrato (interfaz)
+|       +-- application/
+|       |   +-- dtos/
+|       |   |   +-- CharacterDTO.ts  # DTO + mapper toCharacterDTO()
+|       |   +-- use-cases/
+|       |       +-- GetCharacters.ts
+|       |       +-- GetCharacterById.ts
+|       +-- infrastructure/
+|           +-- SwapiCharacterRepository.ts  # Implementa ICharacterRepository
+|           +-- swapi/
+|               +-- SwapiClient.ts   # Cliente HTTP para SWAPI
+|               +-- types.ts         # Tipos de respuesta de SWAPI
+|               +-- index.ts
+|
++-- shared/                          # Codigo transversal (todos los modulos)
+|   +-- http/
+|       +-- IHttpClient.ts           # Interfaz + HttpError
+|       +-- FetchHttpClient.ts       # Implementacion con fetch nativo
+|
++-- config/
+|   +-- dependencies.ts             # Composition Root (unico punto de instanciacion)
+|
++-- pages/                           # Astro pages y API Routes
+|   +-- index.astro
+|   +-- api/characters/
+|       +-- index.ts                # GET /api/characters
+|       +-- [id].ts                 # GET /api/characters/:id
+|
++-- presentation/                    # Componentes UI (Astro + React Islands)
+|   +-- components/characters/
+|   |   +-- CharacterCard.astro
+|   |   +-- CharacterGrid.astro
+|   +-- shared/
+|       +-- Hero.astro
+|       +-- SectionContainer.astro
++-- layouts/
++-- lib/
++-- styles/
 ```
 
 ---
 
-## 🏗️ Capas de la Arquitectura
+## Modulos de Dominio
 
-### 1. Domain Layer (💎 CORE)
+### Regla de Oro: Modulos Aislados
 
-**Responsabilidad:** Define las reglas de negocio puras, independientes de cualquier framework o tecnología.
+Un modulo NO puede importar del `domain/` o `application/` de otro modulo directamente.
 
-**Ubicación:** `src/domain/`
+```
+PERMITIDO:    modules/characters/application -> modules/characters/domain
+NO PERMITIDO: modules/starships/application  -> modules/characters/domain
+PERMITIDO:    modules/starships              -> shared/http  (codigo transversal)
+PERMITIDO:    config/dependencies.ts         -> cualquier modulo (Composition Root)
+```
 
-**Reglas:**
-- ❌ NO puede importar de otras capas
-- ❌ NO puede depender de frameworks (React, Next.js)
-- ✅ Solo contiene lógica de negocio pura
-- ✅ Define interfaces, no implementaciones
+### Estado de Modulos
 
-**Ejemplo:**
+| Modulo | Estado | Descripcion |
+|---|---|---|
+| `characters` | Implementado | Personajes del universo Star Wars |
+| `starships` | Planificado | Naves espaciales |
+| `planets` | Planificado | Planetas |
+| `species` | Planificado | Especies |
+| `films` | Planificado | Peliculas |
+
+---
+
+## Capas dentro de un Modulo
+
+### Domain Layer (CORE)
+
+Entidades y contratos del negocio. No depende de nada externo.
+
+Reglas:
+- NO importa de otras capas ni frameworks
+- Solo logica de negocio pura
+- Define interfaces que la infraestructura debe implementar
 
 ```typescript
-// src/domain/entities/Character.ts
+// modules/characters/domain/Character.ts
 export class Character {
-  constructor(
-    public readonly id: string,
-    public readonly name: string,
-    public readonly status: CharacterStatus,
-    public readonly species: string
-  ) {}
-
-  isAlive(): boolean {
-    return this.status === CharacterStatus.ALIVE
-  }
+    constructor(
+        public readonly id: string,
+        public readonly name: string,
+        // ... resto de campos
+    ) { }
+    hasKnownHeight(): boolean { return this.height !== "unknown"; }
+    isHuman(): boolean { return this.species.length === 0; }
 }
 
-// src/domain/repositories/ICharacterRepository.ts
+// modules/characters/domain/ICharacterRepository.ts
 export interface ICharacterRepository {
-  findAll(page: number): Promise<Character[]>
-  findById(id: string): Promise<Character | null>
-  search(query: string): Promise<Character[]>
+    findAll(page?: number): Promise<PaginatedResult<Character>>;
+    findById(id: string): Promise<Character | null>;
+    search(query: string): Promise<Character[]>;
 }
 ```
 
----
+### Application Layer (Casos de Uso)
 
-### 2. Application Layer (⚙️ Casos de Uso)
+Orquesta la logica. Coordina entre Domain e Infrastructure sin conocerla directamente.
 
-**Responsabilidad:** Orquesta la lógica de aplicación. Coordina entre Domain e Infrastructure.
-
-**Ubicación:** `src/application/`
-
-**Reglas:**
-- ✅ Puede importar de `domain/`
-- ✅ Usa interfaces de `domain/repositories/`
-- ❌ NO importa implementaciones concretas de `infrastructure/`
-- ✅ Define DTOs para comunicación con Presentation
-
-**Ejemplo:**
+Reglas:
+- Solo importa del propio `domain/` del modulo
+- Depende de interfaces, nunca implementaciones concretas
+- Define y expone DTOs (nunca entidades crudas)
+- NO importa de `infrastructure/`
 
 ```typescript
-// src/application/use-cases/characters/GetCharacters.ts
-import { ICharacterRepository } from '@/domain/repositories/ICharacterRepository'
-import { CharacterDTO } from '@/application/dtos/CharacterDTO'
+// modules/characters/application/use-cases/GetCharacters.ts
+import type { ICharacterRepository } from '../../domain/ICharacterRepository';
+import { toCharacterDTO } from '../dtos/CharacterDTO';
 
 export class GetCharacters {
-  constructor(private characterRepository: ICharacterRepository) {}
+    constructor(private characterRepository: ICharacterRepository) { }
+    async execute(page: number = 1): Promise<PaginatedCharactersDTO> {
+        const result = await this.characterRepository.findAll(page);
+        return {
+            characters: result.data.map(toCharacterDTO),
+            total: result.total,
+            page: result.page,
+            totalPages: result.totalPages,
+            hasNext: result.hasNext,
+            hasPrevious: result.hasPrevious,
+        };
+    }
+}
+```
 
-  async execute(page: number = 1): Promise<CharacterDTO[]> {
-    const characters = await this.characterRepository.findAll(page)
-    return characters.map(char => CharacterDTO.fromEntity(char))
-  }
+### Infrastructure Layer (Implementaciones)
+
+Conecta el dominio con el mundo exterior (APIs, DB, archivos).
+
+Reglas:
+- Implementa interfaces del `domain/`
+- Puede usar servicios de `shared/`
+- NO es importada directamente por Application (solo via interfaces)
+
+```typescript
+// modules/characters/infrastructure/swapi/SwapiClient.ts
+import type { IHttpClient } from '@/shared/http/IHttpClient';
+
+export class SwapiClient {
+    constructor(private httpClient: IHttpClient, private baseUrl = "https://swapi.dev/api") { }
+    getPeople(page: number) {
+        return this.httpClient.get(`${this.baseUrl}/people/?page=${page}`);
+    }
 }
 ```
 
 ---
 
-### 3. Infrastructure Layer (🔧 Implementaciones)
+## Flujo de Datos
 
-**Responsabilidad:** Implementa los detalles técnicos. Se comunica con APIs externas, bases de datos, etc.
+```
+Usuario (Browser)
+    |
+    v
+Astro Page / API Route  (pages/)
+    | importa del Composition Root
+    v
+config/dependencies.ts
+    | ensambla e inyecta
+    v
+Use Case (GetCharacters)
+    | llama via interfaz
+    v
+ICharacterRepository --> SwapiCharacterRepository
+    |
+    v
+SwapiClient --> IHttpClient --> FetchHttpClient --> SWAPI REST API
+                                                          |
+                                                  Character Entity (domain)
+                                                          |
+                                                  CharacterDTO (application)
+                                                          |
+                                                  JSON Response -> UI
+```
 
-**Ubicación:** `src/infrastructure/`
-
-**Reglas:**
-- ✅ Implementa interfaces de `domain/repositories/`
-- ✅ Puede importar de `domain/`
-- ✅ Contiene toda la lógica de comunicación externa
-- ❌ NO es importada directamente por `application/` (solo via interfaces)
-
-**Ejemplo:**
+### Ejemplo: GET /api/characters
 
 ```typescript
-// src/infrastructure/repositories/SwapiCharacterRepository.ts
-import { ICharacterRepository } from '@/domain/repositories/ICharacterRepository'
-import { Character } from '@/domain/entities/Character'
-import { SwapiClient } from '@/infrastructure/services/swapi/SwapiClient'
+// pages/api/characters/index.ts
+import { getCharactersUseCase } from '@/config/dependencies';
 
-export class SwapiCharacterRepository implements ICharacterRepository {
-  constructor(private swapiClient: SwapiClient) {}
-
-  async findAll(page: number): Promise<Character[]> {
-    const response = await this.swapiClient.getCharacters(page)
-    return response.results.map(data => this.mapToEntity(data))
-  }
-
-  async findById(id: string): Promise<Character | null> {
-    const data = await this.swapiClient.getCharacterById(id)
-    return data ? this.mapToEntity(data) : null
-  }
-
-  private mapToEntity(data: any): Character {
-    // Transformación de SWAPI data a Character entity
-    return new Character(/* ... */)
-  }
-}
+export const GET: APIRoute = async ({ url }) => {
+    const page = Number(url.searchParams.get("page") || "1");
+    const result = await getCharactersUseCase.execute(page);
+    return new Response(JSON.stringify(result), {
+        headers: { "Content-Type": "application/json" }
+    });
+};
 ```
+
+La pagina nunca sabe que los datos vienen de SWAPI — eso es responsabilidad de infraestructura.
 
 ---
 
-### 4. Presentation Layer (🎨 UI)
+## Shared Layer
 
-**Responsabilidad:** Componentes React, hooks, y lógica de UI.
-
-**Ubicación:** `src/presentation/`
-
-**Reglas:**
-- ✅ Puede usar `application/use-cases/` (via API Routes)
-- ✅ Trabaja solo con DTOs
-- ❌ NO conoce entities del domain directamente
-- ✅ Solo responsabilidades de UI
-
-**Organización:**
+Codigo transversal que cualquier modulo puede usar.
 
 ```
-src/presentation/components/
-├── characters/           # Componentes específicos
-│   ├── CharacterCard.tsx
-│   ├── CharacterModal.tsx
-│   └── CharacterGrid.tsx
-│
-├── shared/               # Componentes reutilizables
-│   ├── ui/               # Atoms (Button, Card, Input)
-│   ├── feedback/         # Loading, Error, Toast
-│   └── navigation/       # SearchBar, Pagination
-│
-└── layout/               # Estructura de páginas
-    ├── Header.tsx
-    ├── Footer.tsx
-    └── Container.tsx
+shared/
++-- http/
+    +-- IHttpClient.ts      # Interfaz + HttpError
+    +-- FetchHttpClient.ts  # Implementacion con fetch nativo
 ```
 
-**Ejemplo:**
+Solo va en `shared/` si:
+- Es usado por mas de un modulo
+- No pertenece al dominio de ningun modulo especifico
 
-```typescript
-// src/presentation/components/characters/CharacterCard.tsx
-import { CharacterDTO } from '@/application/dtos/CharacterDTO'
-
-interface CharacterCardProps {
-  character: CharacterDTO  // Solo DTO, no Entity
-}
-
-export function CharacterCard({ character }: CharacterCardProps) {
-  return (
-    <div className="card">
-      <h3>{character.name}</h3>
-      <span>{character.status}</span>
-    </div>
-  )
-}
-```
+Futuros candidatos:
+- `shared/errors/` - AppError, NotFoundError
+- `shared/cache/` - estrategia de cache en memoria
 
 ---
 
-## 🔄 Flujo de Datos
+## Composition Root
 
-### Flujo Completo: Click → JSON Response
+Archivo: `src/config/dependencies.ts`
 
-```
-User Click
-    ↓
-Next.js Component (Presentation)
-    ↓
-API Route (/app/api/characters/[id]/route.ts)
-    ↓
-Use Case (GetCharacterById)
-    ↓
-Repository Interface (ICharacterRepository)
-    ↓
-Repository Implementation (SwapiCharacterRepository + SupabaseCharacterRepository)
-    ↓
-External Services (SWAPI + Supabase + S3)
-    ↓
-Entity (Character)
-    ↓
-DTO (CharacterDTO)
-    ↓
-JSON Response
-    ↓
-Component Update
-```
-
-### Ejemplo Práctico
-
-#### 1. Usuario hace click en una card
+Unico lugar donde se instancian implementaciones concretas y se ensambla el grafo de dependencias.
 
 ```typescript
-// src/presentation/components/characters/CharacterCard.tsx
-<div onClick={() => router.push(`/characters/${character.id}`)}>
-  {character.name}
-</div>
+// config/dependencies.ts
+import { FetchHttpClient } from '@/shared/http/FetchHttpClient';
+import { SwapiClient } from '@/modules/characters/infrastructure/swapi';
+import { SwapiCharacterRepository } from '@/modules/characters/infrastructure/SwapiCharacterRepository';
+import { GetCharacters } from '@/modules/characters/application/use-cases/GetCharacters';
+import { GetCharacterById } from '@/modules/characters/application/use-cases/GetCharacterById';
+
+const httpClient = new FetchHttpClient();          // 1. HTTP Transport
+const swapiClient = new SwapiClient(httpClient);  // 2. API Client
+export const characterRepository = new SwapiCharacterRepository(swapiClient);
+export const getCharactersUseCase = new GetCharacters(characterRepository);
+export const getCharacterByIdUseCase = new GetCharacterById(characterRepository);
 ```
 
-#### 2. Next.js navega a la página
-
-```typescript
-// src/app/characters/[id]/page.tsx
-export default async function CharacterPage({ params }: { params: { id: string } }) {
-  const response = await fetch(`/api/characters/${params.id}`)
-  const character = await response.json()
-  
-  return <CharacterDetails character={character} />
-}
-```
-
-#### 3. API Route ejecuta el Use Case
-
-```typescript
-// src/app/api/characters/[id]/route.ts
-import { GetCharacterById } from '@/application/use-cases/characters/GetCharacterById'
-
-export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
-  const useCase = new GetCharacterById(
-    new SwapiCharacterRepository(),
-    new SupabaseCharacterRepository()
-  )
-  
-  const character = await useCase.execute(params.id)
-  return Response.json(character)
-}
-```
-
-#### 4. Use Case orquesta los repositorios
-
-```typescript
-// src/application/use-cases/characters/GetCharacterById.ts
-export class GetCharacterById {
-  constructor(
-    private swapiRepo: ICharacterRepository,
-    private supabaseRepo: ICharacterRepository
-  ) {}
-
-  async execute(id: string): Promise<CharacterDTO> {
-    // Obtener datos base de SWAPI
-    const character = await this.swapiRepo.findById(id)
-    
-    // Enriquecer con datos custom de Supabase
-    const customData = await this.supabaseRepo.findById(id)
-    
-    // Combinar y retornar DTO
-    return CharacterDTO.fromEntity(character, customData)
-  }
-}
-```
+> Las paginas solo importan de `@/config/dependencies` — nunca de `infrastructure/` directamente.
 
 ---
 
-## 📝 Guías de Implementación
+## Guias de Implementacion
 
-### Agregar una Nueva Feature
+### Agregar un Nuevo Modulo (ejemplo: Starships)
 
-#### Ejemplo: Agregar "Starships" (Naves Espaciales)
-
-**1. Domain Layer**
-
+**1. Domain:**
 ```typescript
-// src/domain/entities/Starship.ts
-export class Starship {
-  constructor(
-    public readonly id: string,
-    public readonly name: string,
-    public readonly model: string,
-    public readonly manufacturer: string
-  ) {}
-}
+// modules/starships/domain/Starship.ts
+export class Starship { /* campos, metodos de negocio */ }
 
-// src/domain/repositories/IStarshipRepository.ts
+// modules/starships/domain/IStarshipRepository.ts
 export interface IStarshipRepository {
-  findAll(): Promise<Starship[]>
-  findById(id: string): Promise<Starship | null>
+    findAll(): Promise<Starship[]>;
+    findById(id: string): Promise<Starship | null>;
 }
 ```
 
-**2. Application Layer**
-
+**2. Application:**
 ```typescript
-// src/application/use-cases/starships/GetStarships.ts
+export interface StarshipDTO { id: string; name: string; model: string; }
+export function toStarshipDTO(s: Starship): StarshipDTO { /* mapper */ }
+
 export class GetStarships {
-  constructor(private starshipRepository: IStarshipRepository) {}
-  
-  async execute(): Promise<StarshipDTO[]> {
-    const starships = await this.starshipRepository.findAll()
-    return starships.map(s => StarshipDTO.fromEntity(s))
-  }
-}
-
-// src/application/dtos/StarshipDTO.ts
-export class StarshipDTO {
-  constructor(
-    public readonly id: string,
-    public readonly name: string,
-    public readonly model: string
-  ) {}
-  
-  static fromEntity(starship: Starship): StarshipDTO {
-    return new StarshipDTO(starship.id, starship.name, starship.model)
-  }
+    constructor(private repo: IStarshipRepository) { }
+    async execute(): Promise<StarshipDTO[]> { /* logica */ }
 }
 ```
 
-**3. Infrastructure Layer**
-
+**3. Infrastructure:**
 ```typescript
-// src/infrastructure/repositories/SwapiStarshipRepository.ts
-export class SwapiStarshipRepository implements IStarshipRepository {
-  async findAll(): Promise<Starship[]> {
-    // Implementación
-  }
-}
+export class SwapiStarshipRepository implements IStarshipRepository { /* ... */ }
 ```
 
-**4. Presentation Layer**
-
+**4. Composition Root** (agregar en `config/dependencies.ts`):
 ```typescript
-// src/presentation/components/starships/StarshipCard.tsx
-export function StarshipCard({ starship }: { starship: StarshipDTO }) {
-  return <div>{starship.name}</div>
-}
+import { GetStarships } from '@/modules/starships/application/use-cases/GetStarships';
+const starshipRepository = new SwapiStarshipRepository(swapiClient);
+export const getStarshipsUseCase = new GetStarships(starshipRepository);
 ```
 
-**5. API Route**
-
+**5. API Route:**
 ```typescript
-// src/app/api/starships/route.ts
-export async function GET() {
-  const useCase = new GetStarships(new SwapiStarshipRepository())
-  const starships = await useCase.execute()
-  return Response.json(starships)
-}
-```
-
-**6. Page**
-
-```typescript
-// src/app/starships/page.tsx
-export default async function StarshipsPage() {
-  const response = await fetch('/api/starships')
-  const starships = await response.json()
-  
-  return <StarshipGrid starships={starships} />
-}
+// pages/api/starships/index.ts
+import { getStarshipsUseCase } from '@/config/dependencies';
+export const GET: APIRoute = async () => { /* ejecutar */ }
 ```
 
 ---
 
-### Cambiar un Servicio Externo
+### Enriquecer con Datos Locales (JSON)
 
-#### Ejemplo: Cambiar de SWAPI a otra API
+Para agregar descripciones, imagenes propias:
 
-**Gracias a la arquitectura, solo cambias Infrastructure:**
+```
+modules/characters/
++-- infrastructure/
+    +-- data/
+    |   +-- characters.json         <- datos propios
+    +-- LocalCharacterDataSource.ts <- lee el JSON
+    +-- SwapiCharacterRepository.ts <- fusiona ambas fuentes
+```
+
+La capa de domain ve `Character` con `description`. Nadie fuera de infrastructure
+sabe que viene de un JSON local.
+
+---
+
+### Cambiar Fuente de Datos
+
+Solo se modifica el Composition Root:
 
 ```typescript
-// src/infrastructure/repositories/AlternativeAPICharacterRepository.ts
-export class AlternativeAPICharacterRepository implements ICharacterRepository {
-  // Nueva implementación
-  async findAll(page: number): Promise<Character[]> {
-    // Llama a la nueva API
-  }
-}
-
-// En tu API Route, solo cambias la instancia:
 // ANTES:
-const repo = new SwapiCharacterRepository()
+const characterRepository = new SwapiCharacterRepository(swapiClient);
 
-// DESPUÉS:
-const repo = new AlternativeAPICharacterRepository()
+// DESPUES:
+const characterRepository = new SupabaseCharacterRepository(supabaseClient);
 
-// ¡El resto del código NO cambia! 🎉
+// El resto del sistema NO cambia!
 ```
 
 ---
 
-## ✅ Convenciones y Best Practices
+## Convenciones y Best Practices
 
-### Naming Conventions
+### Naming
 
-#### Archivos y Carpetas
-- **PascalCase** para componentes: `CharacterCard.tsx`
-- **camelCase** para utilities: `validators.ts`
-- **kebab-case** para carpetas multi-palabra: `use-cases/`
+| Tipo | Convencion | Ejemplo |
+|---|---|---|
+| Entidades | PascalCase | `Character.ts` |
+| Interfaces | Prefijo `I` | `ICharacterRepository.ts` |
+| DTOs | Sufijo `DTO` | `CharacterDTO.ts` |
+| Casos de Uso | Verbo + Sustantivo | `GetCharacters.ts` |
+| Repositorios | Proveedor + Tipo | `SwapiCharacterRepository.ts` |
+| Carpetas multi-palabra | kebab-case | `use-cases/` |
 
-#### Código
-- **Interfaces:** Prefijo `I` → `ICharacterRepository`
-- **DTOs:** Sufijo `DTO` → `CharacterDTO`
-- **Entities:** Nombre simple → `Character`
-- **Use Cases:** Verbo + Noun → `GetCharacters`, `CreateCharacter`
-
-### Imports
-
-**Usar path aliases:**
+### Imports - Usar Alias @/
 
 ```typescript
-// ✅ BIEN
-import { Character } from '@/domain/entities/Character'
-import { GetCharacters } from '@/application/use-cases/characters/GetCharacters'
+// BIEN - alias absoluto desde src/
+import { GetCharacters } from '@/modules/characters/application/use-cases/GetCharacters'
+import { FetchHttpClient } from '@/shared/http/FetchHttpClient'
 
-// ❌ MAL
-import { Character } from '../../../domain/entities/Character'
-```
-
-**Orden de imports:**
-
-```typescript
-// 1. External packages
-import React from 'react'
-import { useRouter } from 'next/navigation'
-
-// 2. Domain
-import { Character } from '@/domain/entities/Character'
-
-// 3. Application
-import { CharacterDTO } from '@/application/dtos/CharacterDTO'
-
-// 4. Infrastructure
-import { SwapiClient } from '@/infrastructure/services/swapi/SwapiClient'
-
-// 5. Presentation
-import { CharacterCard } from '@/presentation/components/characters/CharacterCard'
-
-// 6. Types
-import type { CharacterCardProps } from './types'
-```
-
-### Manejo de Errores
-
-```typescript
-// src/lib/errors/AppError.ts
-export class AppError extends Error {
-  constructor(
-    public readonly message: string,
-    public readonly statusCode: number = 500,
-    public readonly code?: string
-  ) {
-    super(message)
-    this.name = 'AppError'
-  }
-}
-
-export class NotFoundError extends AppError {
-  constructor(resource: string) {
-    super(`${resource} not found`, 404, 'NOT_FOUND')
-  }
-}
-
-// Uso en Use Case:
-if (!character) {
-  throw new NotFoundError('Character')
-}
-```
-
-### Validación
-
-```typescript
-// src/lib/utils/validators.ts
-export function validateId(id: string): boolean {
-  return /^\d+$/.test(id)
-}
-
-// Uso:
-if (!validateId(params.id)) {
-  throw new AppError('Invalid ID format', 400)
-}
+// MAL - rutas relativas largas
+import { GetCharacters } from '../../../../modules/characters/...'
 ```
 
 ---
 
-## 🧪 Testing
+## Testing
 
-### Estructura de Tests
-
-```
-src/
-├── domain/
-│   ├── entities/
-│   │   ├── Character.ts
-│   │   └── Character.test.ts      # Tests unitarios
-│
-├── application/
-│   ├── use-cases/
-│   │   └── characters/
-│   │       ├── GetCharacters.ts
-│   │       └── GetCharacters.test.ts
-│
-└── presentation/
-    └── components/
-        └── characters/
-            ├── CharacterCard.tsx
-            └── CharacterCard.test.tsx
-```
-
-### Testing por Capa
-
-#### Domain Layer (Tests Unitarios Puros)
+### Domain Layer - Tests Unitarios Puros
 
 ```typescript
-// src/domain/entities/Character.test.ts
-import { Character } from './Character'
-import { CharacterStatus } from '@/domain/value-objects/CharacterStatus'
-
-describe('Character Entity', () => {
-  it('should identify alive character', () => {
-    const character = new Character('1', 'Luke', CharacterStatus.ALIVE, 'Human')
-    expect(character.isAlive()).toBe(true)
-  })
-  
-  it('should identify dead character', () => {
-    const character = new Character('2', 'Vader', CharacterStatus.DEAD, 'Human')
-    expect(character.isAlive()).toBe(false)
-  })
-})
+describe("Character Entity", () => {
+    it("should identify human character", () => {
+        const ch = new Character("1","Luke","172","77",
+            "blond","fair","blue","19BBY","male","url",[],[],[],[]);
+        expect(ch.isHuman()).toBe(true);
+    });
+});
 ```
 
-#### Application Layer (Mock Repositories)
+### Application Layer - Mock del Repositorio
 
 ```typescript
-// src/application/use-cases/characters/GetCharacters.test.ts
-import { GetCharacters } from './GetCharacters'
-import { ICharacterRepository } from '@/domain/repositories/ICharacterRepository'
-
-describe('GetCharacters Use Case', () => {
-  it('should return characters from repository', async () => {
-    // Mock del repositorio
-    const mockRepo: ICharacterRepository = {
-      findAll: jest.fn().mockResolvedValue([
-        new Character('1', 'Luke', CharacterStatus.ALIVE, 'Human')
-      ])
-    }
-    
-    const useCase = new GetCharacters(mockRepo)
-    const result = await useCase.execute(1)
-    
-    expect(result).toHaveLength(1)
-    expect(result[0].name).toBe('Luke')
-  })
-})
+const mockRepo: ICharacterRepository = {
+    findAll: jest.fn().mockResolvedValue({
+        data: [], total: 82, page: 1, totalPages: 9,
+        hasNext: true, hasPrevious: false
+    }),
+    findById: jest.fn(), search: jest.fn()
+};
+const result = await new GetCharacters(mockRepo).execute(1);
+expect(result.total).toBe(82);
 ```
 
-#### Presentation Layer (Component Tests)
+### Infrastructure Layer - Mock del HTTP Client
 
 ```typescript
-// src/presentation/components/characters/CharacterCard.test.tsx
-import { render, screen } from '@testing-library/react'
-import { CharacterCard } from './CharacterCard'
+const mockHttp: IHttpClient = {
+    get: jest.fn().mockResolvedValue({ count: 82, results: [] })
+};
+const repo = new SwapiCharacterRepository(new SwapiClient(mockHttp));
+```
 
-describe('CharacterCard', () => {
-  it('should render character name', () => {
-    const character = { id: '1', name: 'Luke', status: 'alive' }
-    render(<CharacterCard character={character} />)
-    expect(screen.getByText('Luke')).toBeInTheDocument()
-  })
-})
+### Ubicacion de Tests
+
+```
+modules/characters/
++-- domain/
+|   +-- Character.ts
+|   +-- Character.test.ts
++-- application/use-cases/
+|   +-- GetCharacters.ts
+|   +-- GetCharacters.test.ts
++-- infrastructure/
+    +-- SwapiCharacterRepository.ts
+    +-- SwapiCharacterRepository.test.ts
 ```
 
 ---
 
-## 🚀 Deployment
+## Checklist de PR
 
-### Estructura en Vercel
-
-```
-Vercel Project
-├── Frontend (Next.js SSR)
-│   ├── Static pages (ISR)
-│   └── Server Components
-│
-└── Backend (Edge Functions)
-    └── API Routes (/api/*)
-```
-
-### Variables de Entorno
-
-```env
-# .env.local (desarrollo)
-NEXT_PUBLIC_API_URL=http://localhost:3000/api
-SWAPI_BASE_URL=https://swapi.dev/api
-SUPABASE_URL=your-supabase-url
-SUPABASE_ANON_KEY=your-anon-key
-AWS_S3_BUCKET=your-bucket
-AWS_REGION=us-east-1
-```
-
-### Performance Optimization
-
-#### 1. Caching Strategy
-
-```typescript
-// src/infrastructure/cache/CacheStrategy.ts
-export class CacheStrategy {
-  private cache = new Map<string, { data: any; timestamp: number }>()
-  private TTL = 5 * 60 * 1000 // 5 minutos
-  
-  get(key: string): any | null {
-    const cached = this.cache.get(key)
-    if (!cached) return null
-    
-    if (Date.now() - cached.timestamp > this.TTL) {
-      this.cache.delete(key)
-      return null
-    }
-    
-    return cached.data
-  }
-  
-  set(key: string, data: any): void {
-    this.cache.set(key, { data, timestamp: Date.now() })
-  }
-}
-```
-
-#### 2. Next.js ISR (Incremental Static Regeneration)
-
-```typescript
-// src/app/characters/page.tsx
-export const revalidate = 3600 // Revalidar cada hora
-
-export default async function CharactersPage() {
-  // Esta página se regenera cada hora
-}
-```
+- [ ] Codigo en el modulo y capa correctos
+- [ ] Modulos no importan entre si directamente
+- [ ] Dependencias fluyen: Domain <- Application (via interfaz) <- Infrastructure
+- [ ] Nuevas instancias registradas en `config/dependencies.ts`
+- [ ] Pages/API routes solo importan de `config/dependencies.ts`
+- [ ] `npx tsc --noEmit` pasa sin errores
 
 ---
 
-## 📚 Recursos Adicionales
-
-### Lecturas Recomendadas
-
-- [Clean Architecture - Robert C. Martin](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
-- [SOLID Principles](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)
-- [Next.js 14 Documentation](https://nextjs.org/docs)
-
-### Diagramas
-
-Ver `/docs/architecture-diagram.jsx` para una visualización interactiva de la arquitectura.
-
----
-
-## 🤝 Contribuir
-
-### Antes de agregar código
-
-1. **¿A qué capa pertenece?** Identifica la capa correcta
-2. **¿Respeta SOLID?** Verifica que no violas principios
-3. **¿Es testeable?** Asegúrate de poder escribir tests
-4. **¿Sigue las convenciones?** Revisa naming y estructura
-
-### Checklist de PR
-
-- [ ] Los archivos están en la capa correcta
-- [ ] Las dependencias fluyen en la dirección correcta (Domain ← Application ← Infrastructure)
-- [ ] Se agregaron tests (cuando corresponde)
-- [ ] Se actualizó la documentación (si es necesario)
-- [ ] El código sigue las convenciones de naming
-- [ ] No hay imports circulares
-
----
-
-## 📞 Contacto
-
-Si tienes dudas sobre la arquitectura, consulta este documento primero. Si la respuesta no está aquí, siéntete libre de abrir un issue.
-
-**¡Que la Fuerza te acompañe!**
+Que la Fuerza (y la arquitectura limpia) te acompanen!

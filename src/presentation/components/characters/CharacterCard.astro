@@ -1,0 +1,73 @@
+---
+import type { CharacterDTO } from "@/modules/characters/application/dtos/CharacterDTO";
+
+interface Props {
+    character: CharacterDTO;
+}
+
+const { character } = Astro.props;
+
+// Usa el avatar de Supabase si existe, sino el fallback de visualguide
+const imageSrc = character.avatarUrl ?? character.imageUrl;
+---
+
+<section
+    class="group relative bg-slate-800/50 rounded-xl overflow-hidden border border-slate-700/50 hover:border-amber-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-amber-500/10"
+>
+    <!-- Badge favorito -->
+    {
+        character.isFavorite && (
+            <div class="absolute top-2 right-2 z-10 bg-amber-500 text-slate-900 text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                ★ Favorito
+            </div>
+        )
+    }
+
+    <!-- Imagen -->
+    <picture class="aspect-[3/4] overflow-hidden bg-slate-900 block">
+        <img
+            src={imageSrc}
+            alt={character.name}
+            class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
+            loading="lazy"
+            onerror={`this.src='${character.imageUrl}'`}
+        />
+    </picture>
+
+    <!-- Info -->
+    <article class="p-4">
+        <h2
+            class="text-lg font-semibold text-slate-100 group-hover:text-amber-400 transition-colors"
+        >
+            {character.name}
+        </h2>
+
+        <!-- Description de Supabase -->
+        {
+            character.description && (
+                <p class="mt-1 text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                    {character.description}
+                </p>
+            )
+        }
+
+        <div class="mt-2 flex flex-wrap gap-2 text-xs text-slate-400">
+            {
+                character.birthYear !== "unknown" && (
+                    <span class="px-2 py-1 bg-slate-700/50 rounded">
+                        {character.birthYear}
+                    </span>
+                )
+            }
+            <span class="px-2 py-1 bg-slate-700/50 rounded capitalize">
+                {character.gender}
+            </span>
+        </div>
+    </article>
+
+    <!-- Hover overlay -->
+    <div
+        class="absolute inset-0 bg-gradient-to-t from-amber-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+    >
+    </div>
+</section>
