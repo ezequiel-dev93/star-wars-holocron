@@ -135,7 +135,7 @@ src/
 |   +-- components/characters/
 |   |   +-- CharacterCard.astro
 |   |   +-- CharacterGrid.astro
-|   +-- shared/
+|   +-- common/
 |       +-- Hero.astro
 |       +-- SectionContainer.astro
 +-- layouts/

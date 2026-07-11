@@ -1,6 +1,6 @@
 /*
- * Character Entity - Domain Layer
- * Representa un personaje del universo Star Wars
+ - Character Entity - Domain Layer
+ - Representa un personaje del universo Star Wars
  */
 export class Character {
     constructor(

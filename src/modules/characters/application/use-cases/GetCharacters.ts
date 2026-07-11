@@ -1,6 +1,6 @@
-import type { ICharacterRepository } from '../../domain/ICharacterRepository';
-import type { PaginatedCharactersDTO } from '../dtos/CharacterDTO';
-import { toCharacterDTO } from '../dtos/CharacterDTO';
+import type { ICharacterRepository } from '@/modules/characters/domain/ICharacterRepository';
+import type { PaginatedCharactersDTO } from '@/modules/characters/application/dtos/CharacterDTO';
+import { toCharacterDTO } from '@/modules/characters/application/dtos/CharacterDTO';
 
 export class GetCharacters {
     constructor(private characterRepository: ICharacterRepository) { }

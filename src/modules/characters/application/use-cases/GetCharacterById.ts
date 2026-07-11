@@ -1,6 +1,6 @@
-import type { ICharacterRepository } from '../../domain/ICharacterRepository';
-import type { CharacterDTO } from '../dtos/CharacterDTO';
-import { toCharacterDTO } from '../dtos/CharacterDTO';
+import type { ICharacterRepository } from '@/modules/characters/domain/ICharacterRepository';
+import type { CharacterDTO } from '@/modules/characters/application/dtos/CharacterDTO';
+import { toCharacterDTO } from '@/modules/characters/application/dtos/CharacterDTO';
 
 export class GetCharacterById {
     constructor(private characterRepository: ICharacterRepository) { }

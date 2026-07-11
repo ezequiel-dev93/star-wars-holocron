@@ -1,4 +1,4 @@
-import type { Character } from './Character';
+import type { Character } from '@/modules/characters/domain/Character';
 
 export interface PaginatedResult<T> {
     data: T[];

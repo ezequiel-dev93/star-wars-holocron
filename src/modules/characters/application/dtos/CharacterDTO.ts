@@ -1,4 +1,4 @@
-import type { Character } from '../../domain/Character';
+import type { Character } from '@/modules/characters/domain/Character';
 
 export interface CharacterDTO {
     id: string;

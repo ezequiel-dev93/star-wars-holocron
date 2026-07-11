@@ -1,32 +1,10 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { getCharactersUseCase as getCharacters } from "@/config/dependencies";
-import CharacterGrid from "@/presentation/components/characters/CharacterGrid.astro";
-import SectionContainer from "@/presentation/shared/SectionContainer.astro";
-import Hero from "@/presentation/shared/Hero.astro";
-
-// Obtener personajes en el servidor
-const { characters, total, page, totalPages } = await getCharacters.execute(1);
+import Hero from "@/presentation/common/Hero.astro";
 ---
 
 <Layout title="Star Wars Holocron API | Personajes">
   <main class="">
     <Hero />
-
-    <div class="max-w-7xl mx-auto">
-      <header class="text-center mb-12 px-4">
-        <p class="text-xl text-slate-400">
-          {total} personajes en la galaxia
-        </p>
-      </header>
-
-      <SectionContainer>
-        <CharacterGrid characters={characters} />
-      </SectionContainer>
-
-      <div class="mt-12 text-center text-slate-400 pb-12">
-        <p>Página {page} de {totalPages}</p>
-      </div>
-    </div>
   </main>
 </Layout>
