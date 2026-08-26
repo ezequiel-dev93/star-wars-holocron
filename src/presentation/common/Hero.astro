@@ -1,0 +1,25 @@
+﻿<section
+  class="relative w-full h-screen flex items-center justify-center overflow-hidden"
+>
+  <canvas id="starfield-canvas" class="absolute inset-0 w-full h-full"></canvas>
+</section>
+
+<script>
+  import { Starfield } from "@lib/three/Starfield.ts";
+
+  function init() {
+    const canvas = document.getElementById(
+      "starfield-canvas",
+    ) as HTMLCanvasElement;
+    if (!canvas) return;
+    const sf = new Starfield(canvas);
+
+    // Cleanup al navegar en Astro
+    document.addEventListener("astro:before-swap", () => sf.destroy(), {
+      once: true,
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("astro:page-load", init);
+</script>

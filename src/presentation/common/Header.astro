@@ -1,0 +1,414 @@
+---
+import NavItem from "@presentation/common/NavItem.astro";
+import DocsIcon from "@presentation/components/icons/DocsIcon.astro";
+import MenuIcon from "@presentation/components/icons/MenuIcon.astro";
+import CloseIcon from "@presentation/components/icons/CloseIcon.astro";
+import { Image } from "astro:assets";
+import logoImage from "@/assets/images/logos/logo.png";
+---
+
+<header id="site-header" class="site-header">
+  <div class="header-top">
+    <div class="header-brand">
+      <a
+        href="/"
+        class="header-logo-link"
+        aria-label="Star Wars Holocron — Inicio"
+      >
+        <Image
+          src={logoImage}
+          alt="Logo de Star Wars"
+          class="header-logo"
+          widths={[48, 96]}
+          sizes="48px"
+          loading="eager"
+        />
+        <span class="header-logo-text" aria-hidden="true">Holocron</span>
+      </a>
+    </div>
+
+    <div class="header-right flex items-center gap-4">
+      <a href="/introduccion" class="header-docs-btn">
+        <DocsIcon size={14} aria-hidden="true" />
+        Docs
+      </a>
+
+      <button
+        id="mobile-menu-toggle"
+        class="mobile-menu-btn"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-nav-container"
+      >
+        <MenuIcon id="menu-icon" />
+        <CloseIcon id="close-icon" style="display: none;" />
+      </button>
+      <!-- Acciones futuras: Cafecito + Dark Mode -->
+      <!-- 
+      <div class="header-actions">
+        <a
+          href="https://cafecito.app/TU_USUARIO"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="header-action-btn"
+          aria-label="Invitame un cafecito"
+        >
+          ☕
+        </a>
+
+        <button
+          id="dark-mode-toggle"
+          class="header-action-btn"
+          aria-label="Cambiar tema"
+        >
+          🌙
+        </button>
+      </div>
+      -->
+    </div>
+  </div>
+
+  <nav
+    id="mobile-nav-container"
+    class="header-nav"
+    aria-label="Navegación principal"
+  >
+    <ul class="header-nav-list">
+      <NavItem href="/characters" class="header-nav-link" data-nav="characters">
+        Personajes
+      </NavItem>
+      <NavItem href="/planets" class="header-nav-link" data-nav="planets">
+        Planetas
+      </NavItem>
+      <NavItem href="/movies" class="header-nav-link" data-nav="movies">
+        Películas
+      </NavItem>
+      <NavItem href="/weapons" class="header-nav-link" data-nav="weapons">
+        Armas
+      </NavItem>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    /* Glassmorphism base */
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition:
+      background 0.4s ease,
+      border-color 0.4s ease,
+      backdrop-filter 0.4s ease;
+  }
+
+  /* Estado scrolled (añadido por JS) */
+  .site-header.is-scrolled {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+  }
+
+  /* ─── Fila 1: Brand + Acciones ───────────────────── */
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 2rem;
+  }
+
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  /* Logo link */
+  .header-logo-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    text-decoration: none;
+  }
+
+  .header-logo {
+    width: 48px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 6px rgba(255, 200, 0, 0.45));
+    transition: filter 0.3s ease;
+  }
+
+  .header-logo-link:hover .header-logo {
+    filter: drop-shadow(0 0 12px rgba(255, 200, 0, 0.75));
+  }
+
+  .header-logo-text {
+    font-family: var(--font-orbitron);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  /* Botón Docs */
+  .header-docs-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8rem;
+    font-family: var(--font-inter);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    text-decoration: none;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .header-docs-btn:hover {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Acciones futuras (Cafecito / Dark Mode) */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .header-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .header-action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* ─── Fila 2: Nav ─────────────────────────────────── */
+  .header-nav {
+    display: flex;
+    justify-content: center;
+    padding: 0 2rem 0.65rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .header-nav-list {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Links del nav */
+  .header-nav-link {
+    position: relative;
+    display: inline-block;
+    padding: 0.45rem 1rem;
+    font-size: 0.78rem;
+    font-family: var(--font-inter);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: color 0.2s ease, outline 0.2s ease;
+  }
+
+  .header-nav-link:focus-visible,
+  .header-docs-btn:focus-visible,
+  .header-logo-link:focus-visible,
+  .mobile-menu-btn:focus-visible {
+    outline: 2px solid rgba(255, 200, 0, 0.8);
+    outline-offset: 4px;
+  }
+
+  /* Línea animada inferior */
+  .header-nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.6);
+    transition:
+      left 0.25s ease,
+      right 0.25s ease;
+  }
+
+  .header-nav-link:hover {
+    color: #fff;
+  }
+
+  .header-nav-link:hover::after {
+    left: 1rem;
+    right: 1rem;
+  }
+
+  /* Link activo */
+  .header-nav-link.is-active {
+    color: #fff;
+  }
+
+  .header-nav-link.is-active::after {
+    left: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  /* ─── Responsive (Mobile) ─────────────────────────── */
+  .mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.75);
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.2s ease;
+  }
+
+  .mobile-menu-btn:hover {
+    color: #fff;
+  }
+
+  @media (max-width: 768px) {
+    .header-top {
+      padding: 0.75rem 1rem;
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-nav {
+      display: none; /* Hide by default on mobile */
+      flex-direction: column;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .header-nav.is-open {
+      display: flex;
+    }
+
+    .header-nav-list {
+      flex-direction: column;
+      width: 100%;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    .header-nav-link {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .header-nav-link:last-child {
+      border-bottom: none;
+    }
+
+    .header-nav-link::after {
+      display: none; /* Disable line animation on mobile */
+    }
+
+    .header-nav-link:hover,
+    .header-nav-link.is-active {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+</style>
+
+<script>
+  // ── Efecto glassmorphism al hacer scroll ──────────────
+  const header = document.getElementById("site-header");
+
+  function updateHeader() {
+    if (!header) return;
+    if (window.scrollY > 10) {
+      header.classList.add("is-scrolled");
+    } else {
+      header.classList.remove("is-scrolled");
+    }
+  }
+
+  window.addEventListener("scroll", updateHeader, { passive: true });
+  updateHeader(); // Run on mount
+
+  // ── Marcar link activo según la ruta actual ───────────
+  const currentPath = window.location.pathname;
+  document
+    .querySelectorAll<HTMLAnchorElement>(".header-nav-link")
+    .forEach((link) => {
+      if (currentPath.startsWith(link.getAttribute("href") ?? "")) {
+        link.classList.add("is-active");
+      }
+    });
+
+  // ── Mobile Menu Toggle ───────────
+  const mobileMenuBtn = document.getElementById("mobile-menu-toggle");
+  const navContainer = document.querySelector(".header-nav");
+  const menuIcon = document.getElementById("menu-icon");
+  const closeIcon = document.getElementById("close-icon");
+
+  if (mobileMenuBtn && navContainer && menuIcon && closeIcon) {
+    mobileMenuBtn.addEventListener("click", () => {
+      navContainer.classList.toggle("is-open");
+      const isOpen = navContainer.classList.contains("is-open");
+      
+      mobileMenuBtn.setAttribute("aria-expanded", isOpen.toString());
+      mobileMenuBtn.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+
+      if (isOpen) {
+        menuIcon.style.display = "none";
+        closeIcon.style.display = "block";
+      } else {
+        menuIcon.style.display = "block";
+        closeIcon.style.display = "none";
+      }
+    });
+  }
+</script>

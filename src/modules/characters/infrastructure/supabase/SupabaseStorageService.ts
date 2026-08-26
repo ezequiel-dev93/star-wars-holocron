@@ -1,9 +1,9 @@
-import type { IStorageService } from '../../domain/IStorageService';
+import type { IStorageService } from '@/modules/characters/domain/IStorageService';
 import { supabaseClient } from '@/shared/supabase/supabaseClient';
 
 export class SupabaseStorageService implements IStorageService {
   private readonly bucketName = 'avatars';
-  constructor(private client = supabaseClient) {}
+  constructor(private client = supabaseClient) { }
   async uploadFile(path: string, file: File | Blob): Promise<string> {
     const { data, error } = await this.client.storage.from(this.bucketName).upload(path, file, { cacheControl: '3600', upsert: true });
     if (error || !data) throw new Error('Could not upload file');

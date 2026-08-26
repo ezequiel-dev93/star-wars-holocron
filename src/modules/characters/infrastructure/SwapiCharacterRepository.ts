@@ -1,7 +1,7 @@
-import { Character } from '../domain/Character';
-import type { ICharacterRepository, PaginatedResult } from '../domain/ICharacterRepository';
-import { SwapiClient } from './swapi';
-import type { SwapiPerson } from './swapi';
+import { Character } from '@/modules/characters/domain/Character';
+import type { ICharacterRepository, PaginatedResult } from '@/modules/characters/domain/ICharacterRepository';
+import { SwapiClient } from '@/modules/characters/infrastructure/swapi';
+import type { SwapiPerson } from '@/modules/characters/infrastructure/swapi';
 
 export class SwapiCharacterRepository implements ICharacterRepository {
     private client: SwapiClient;

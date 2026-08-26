@@ -1,4 +1,4 @@
-import type { SwapiPeopleResponse, SwapiPerson } from './types';
+import type { SwapiPeopleResponse, SwapiPerson } from '@/modules/characters/infrastructure/swapi/types';
 import type { IHttpClient } from '@/shared/http/IHttpClient';
 import { HttpError } from '@/shared/http/IHttpClient';
 

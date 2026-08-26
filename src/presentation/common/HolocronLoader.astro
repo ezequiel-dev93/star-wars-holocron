@@ -1,0 +1,84 @@
+﻿---
+import { Image } from "astro:assets";
+import logoImage from "@/assets/images/logos/logo.png";
+---
+
+<div class="holocron-loader" id="holocron-loader" aria-live="polite">
+  <p class="intro-text" aria-label="Cargando...">
+    Inicializando el Holocron...
+  </p>
+
+  <h1 class="main-title flex flex-col items-center gap-4">
+    <span class="sr-only">Star Wars Holocron - Inicio</span>
+    <Image
+      src={logoImage}
+      alt="Logo de Star Wars"
+      class="hero-logo"
+      width={320}
+      height={320}
+      draggable="false"
+      loading="eager"
+    />
+    <span
+      class="text-blue-300/90 font-bold tracking-[0.3em] uppercase block neon-text-blue"
+      style="font-size: clamp(1rem, 3vw, 2rem); font-family: var(--font-inter);"
+      aria-hidden="true"
+    >
+      Holocron
+    </span>
+  </h1>
+</div>
+
+<style>
+  .holocron-loader {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    pointer-events: none;
+  }
+
+  .intro-text {
+    color: rgba(147, 197, 253, 0.8); /* text-blue-200/80 */
+    font-size: clamp(1rem, 3vw, 1.875rem);
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-align: center;
+    max-width: 42rem;
+  }
+
+  .hero-logo {
+    width: clamp(180px, 30vw, 340px);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 12px rgba(255, 200, 0, 0.5))
+      drop-shadow(0 0 40px rgba(255, 200, 0, 0.2));
+    animation: logo-pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes logo-pulse {
+    0%, 100% {
+      filter: drop-shadow(0 0 12px rgba(255, 200, 0, 0.5))
+              drop-shadow(0 0 40px rgba(255, 200, 0, 0.2));
+    }
+    50% {
+      filter: drop-shadow(0 0 22px rgba(255, 200, 0, 0.8))
+              drop-shadow(0 0 60px rgba(255, 200, 0, 0.35));
+    }
+  }
+</style>
+
+<script>
+  import { playHolocronIntro } from "@lib/gsap/index.ts";
+
+  function init() {
+    playHolocronIntro();
+  }
+
+  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("astro:page-load", init);
+</script>

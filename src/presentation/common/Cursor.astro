@@ -1,0 +1,162 @@
+﻿---
+// Cursor Sable de Luz — Star Wars
+// Reemplaza el cursor nativo por un punto brillante con halo de energia.
+// Al hacer click emite una onda expansiva (pulso del kyber crystal).
+---
+
+<div id="sw-cursor" aria-hidden="true">
+  <div id="sw-cursor-dot"></div>
+  <div id="sw-cursor-glow"></div>
+  <div id="sw-cursor-ring"></div>
+</div>
+
+<style>
+  /* Ocultar cursor nativo en toda la pagina */
+  :global(html) {
+    cursor: none;
+  }
+  :global(a),
+  :global(button),
+  :global([role="button"]) {
+    cursor: none;
+  }
+
+  #sw-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    /* translate se aplica via JS */
+  }
+
+  /* Punto central — el cristal Kyber */
+  #sw-cursor-dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow:
+      0 0 4px  2px rgba(147, 210, 255, 1),
+      0 0 8px  4px rgba(100, 180, 255, 0.9),
+      0 0 16px 6px rgba(56,  150, 255, 0.6);
+    transform: translate(-50%, -50%);
+    will-change: transform;
+  }
+
+  /* Halo de energia — resplandor del sable */
+  #sw-cursor-glow {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(100, 180, 255, 0.25) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    will-change: transform;
+    transition: width 0.15s ease, height 0.15s ease;
+  }
+
+  /* Anillo exterior — se activa al hacer click */
+  #sw-cursor-ring {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(147, 210, 255, 0.6);
+    transform: translate(-50%, -50%);
+    will-change: transform;
+    transition: border-color 0.2s ease;
+  }
+
+  /* Estado hover sobre elementos interactivos */
+  :global(html.cursor-hover) #sw-cursor-dot {
+    box-shadow:
+      0 0 6px  3px rgba(147, 210, 255, 1),
+      0 0 14px 6px rgba(100, 180, 255, 0.9),
+      0 0 28px 10px rgba(56, 150, 255, 0.5);
+  }
+
+  :global(html.cursor-hover) #sw-cursor-glow {
+    width: 44px;
+    height: 44px;
+  }
+
+  :global(html.cursor-hover) #sw-cursor-ring {
+    border-color: rgba(147, 210, 255, 0.9);
+  }
+</style>
+
+<script>
+  import { gsap } from "@lib/gsap/index.ts";
+
+  const cursor = document.getElementById("sw-cursor")!;
+  const dot    = document.getElementById("sw-cursor-dot")!;
+  const glow   = document.getElementById("sw-cursor-glow")!;
+  const ring   = document.getElementById("sw-cursor-ring")!;
+
+  let mouseX = -200;
+  let mouseY = -200;
+  // El dot sigue al instante; el glow/ring van con lag suave
+  let glowX  = -200;
+  let glowY  = -200;
+
+  // --- Seguimiento del mouse ---
+  window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    // Dot: posicion exacta sin lag
+    gsap.set(dot,  { x: mouseX, y: mouseY });
+  });
+
+  // Glow y ring con lag elastico via gsap.ticker
+  gsap.ticker.add(() => {
+    glowX += (mouseX - glowX) * 0.12;
+    glowY += (mouseY - glowY) * 0.12;
+    gsap.set(glow, { x: glowX, y: glowY });
+    gsap.set(ring, { x: glowX, y: glowY });
+  });
+
+  // --- Click: onda expansiva (pulso del cristal Kyber) ---
+  window.addEventListener("click", (e) => {
+    // Crear un elemento de onda temporal
+    const pulse = document.createElement("div");
+    pulse.style.cssText = `
+      position: fixed;
+      left: ${e.clientX}px;
+      top: ${e.clientY}px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 2px solid rgba(147, 210, 255, 0.9);
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+    `;
+    document.body.appendChild(pulse);
+
+    gsap.to(pulse, {
+      width: 60,
+      height: 60,
+      opacity: 0,
+      duration: 0.5,
+      ease: "power2.out",
+      onComplete: () => pulse.remove(),
+    });
+  });
+
+  // --- Hover sobre interactivos: expandir cursor ---
+  const interactives = "a, button, [role='button'], input, label, select, textarea";
+  document.querySelectorAll(interactives).forEach((el) => {
+    el.addEventListener("mouseenter", () => document.documentElement.classList.add("cursor-hover"));
+    el.addEventListener("mouseleave", () => document.documentElement.classList.remove("cursor-hover"));
+  });
+
+  // Ocultar al salir de la ventana
+  document.addEventListener("mouseleave", () => {
+    gsap.to([dot, glow, ring], { opacity: 0, duration: 0.2 });
+  });
+  document.addEventListener("mouseenter", () => {
+    gsap.to([dot, glow, ring], { opacity: 1, duration: 0.2 });
+  });
+</script>

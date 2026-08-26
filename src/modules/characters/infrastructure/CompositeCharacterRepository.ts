@@ -1,6 +1,6 @@
-import type { ICharacterRepository, PaginatedResult } from '../domain/ICharacterRepository';
-import { Character } from '../domain/Character';
-import type { SupabaseCharacterRepository } from './supabase/SupabaseCharacterRepository';
+import type { ICharacterRepository, PaginatedResult } from '@modules/characters/domain/ICharacterRepository';
+import { Character } from '@modules/characters//domain/Character';
+import type { SupabaseCharacterRepository } from '@modules/characters/infrastructure/supabase/SupabaseCharacterRepository';
 
 export class CompositeCharacterRepository implements ICharacterRepository {
     constructor(

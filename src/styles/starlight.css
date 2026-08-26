@@ -1,0 +1,102 @@
+/* ============================================ */
+/* Star Wars Holocron — Starlight Custom Theme  */
+/* ============================================ */
+
+/* Paleta específica para los docs (independiente del sitio) */
+:root {
+  /* Colores de acento: amarillo Star Wars */
+  --sl-color-accent-low:    #3a2e00;
+  --sl-color-accent:        #f5c518;
+  --sl-color-accent-high:   #ffe175;
+
+  /* Fondo oscuro espacial */
+  --sl-color-bg:            #0a0a0f;
+  --sl-color-bg-nav:        #0d0d14;
+  --sl-color-bg-sidebar:    #0d0d14;
+  --sl-color-hairline:      rgba(245, 197, 24, 0.12);
+  --sl-color-hairline-light: rgba(255, 255, 255, 0.06);
+
+  /* Texto */
+  --sl-color-white:         #f0f0f0;
+  --sl-color-gray-1:        #d0d0d0;
+  --sl-color-gray-2:        #a0a0b0;
+  --sl-color-gray-3:        #606070;
+  --sl-color-gray-4:        #3a3a4a;
+  --sl-color-gray-5:        #252530;
+  --sl-color-gray-6:        #18181f;
+
+  /* Fuentes */
+  --sl-font: 'Inter', system-ui, sans-serif;
+  --sl-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ── Logo en el header de starlight ─────────── */
+.site-title img {
+  filter: drop-shadow(0 0 6px rgba(245, 197, 24, 0.5));
+}
+
+/* ── Barra de navegación superior ─────────── */
+header.header {
+  border-bottom: 1px solid rgba(245, 197, 24, 0.15);
+  background: rgba(10, 10, 15, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ── Sidebar ───────────────────────────────── */
+.sidebar-content {
+  border-right: 1px solid rgba(245, 197, 24, 0.10);
+}
+
+/* Link activo en sidebar */
+[aria-current='page'] {
+  background: rgba(245, 197, 24, 0.08) !important;
+  color: var(--sl-color-accent-high) !important;
+  border-left: 2px solid var(--sl-color-accent);
+}
+
+/* ── Badges "Próximo" ──────────────────────── */
+.badge-note {
+  background: rgba(245, 197, 24, 0.12);
+  color: var(--sl-color-accent-high);
+  border: 1px solid rgba(245, 197, 24, 0.25);
+}
+
+/* ── Bloques de código ─────────────────────── */
+pre {
+  border: 1px solid rgba(245, 197, 24, 0.12) !important;
+  background: #0d0d18 !important;
+}
+
+/* ── Tablas ────────────────────────────────── */
+table {
+  border-collapse: collapse;
+}
+
+th {
+  background: rgba(245, 197, 24, 0.07);
+  color: var(--sl-color-accent-high);
+  font-family: 'Orbitron', var(--sl-font);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+td, th {
+  border: 1px solid rgba(245, 197, 24, 0.10);
+}
+
+/* ── Títulos con acento ────────────────────── */
+h1, h2 {
+  color: var(--sl-color-white);
+}
+
+h2 {
+  border-bottom: 1px solid rgba(245, 197, 24, 0.15);
+  padding-bottom: 0.3rem;
+}
+
+/* ── Aside (caution, note) ─────────────────── */
+.starlight-aside--caution {
+  border-color: rgba(245, 197, 24, 0.4);
+  background: rgba(245, 197, 24, 0.05);
+}

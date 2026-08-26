@@ -2,9 +2,9 @@ import type { APIRoute } from 'astro';
 import { getCharactersUseCase as getCharacters } from '@/config/dependencies';
 
 /**
- * GET /api/characters
- * Obtiene lista paginada de personajes
- */
+ - GET /api/characters
+ - Obtiene lista paginada de personajes
+*/
 export const GET: APIRoute = async ({ url }) => {
     try {
         const page = Number(url.searchParams.get('page') || '1');
