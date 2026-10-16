@@ -30,7 +30,7 @@ const imageSrc = character.avatarUrl ?? character.imageUrl;
             alt={character.name}
             class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
             loading="lazy"
-            onerror={`this.src='${character.imageUrl}'`}
+            onerror="this.onerror=null; this.src='/images/logos/logo.png'; this.classList.add('p-8', 'opacity-40');"
         />
     </picture>
 

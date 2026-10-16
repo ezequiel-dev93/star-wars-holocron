@@ -1,24 +1,167 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Header from "@presentation/common/Header.astro";
+import CharacterGrid from "@/presentation/components/characters/CharacterGrid.astro";
+import { getCharactersUseCase, characterRepository } from "@/config/dependencies";
+import type { CharacterDTO } from "@/modules/characters/application/dtos/CharacterDTO";
+
+const url = Astro.url;
+const page = Math.max(1, Number(url.searchParams.get("page") || "1"));
+const query = (url.searchParams.get("q") || "").trim();
+
+let characters: CharacterDTO[] = [];
+let total = 0;
+let totalPages = 1;
+let hasNext = false;
+let hasPrevious = false;
+
+if (query) {
+  const searched = await characterRepository.search(query);
+  total = searched.length;
+  totalPages = Math.max(1, Math.ceil(total / 24));
+  const start = (page - 1) * 24;
+  characters = searched.slice(start, start + 24).map((c) => ({
+    id: c.id,
+    name: c.name,
+    height: c.height,
+    mass: c.mass,
+    hairColor: c.hairColor,
+    skinColor: c.skinColor,
+    eyeColor: c.eyeColor,
+    birthYear: c.birthYear,
+    gender: c.gender,
+    homeworldUrl: c.homeworld,
+    imageUrl: `/images/characters/${c.id}.jpeg`,
+    description: c.description,
+    avatarUrl: c.avatarUrl,
+    isFavorite: c.isFavorite,
+  }));
+  hasNext = page < totalPages;
+  hasPrevious = page > 1;
+} else {
+  const result = await getCharactersUseCase.execute(page, 24);
+  characters = result.characters;
+  total = result.total;
+  totalPages = result.totalPages;
+  hasNext = result.hasNext;
+  hasPrevious = result.hasPrevious;
+}
+
+const buildPageUrl = (p: number) => {
+  const params = new URLSearchParams(url.searchParams);
+  params.set("page", String(p));
+  return `/characters?${params.toString()}`;
+};
 ---
 
-<Layout title="Personajes | Star Wars Holocron" description="Explora los personajes del universo Star Wars">
+<Layout title="Personajes | Star Wars Holocron" description="Explora más de 360 personajes canónicos del universo Star Wars con datos oficiales y retratos en alta resolución.">
   <Header />
 
-  <main class="pt-32 pb-16 px-4 min-h-screen">
+  <main class="pt-32 pb-20 px-4 min-h-screen bg-slate-950 text-slate-100">
     <div class="max-w-7xl mx-auto">
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-        Personajes
-      </h1>
-      <p class="text-slate-400 text-lg mb-12 max-w-2xl">
-        Explora los personajes del universo Star Wars.
-      </p>
+      <!-- Encabezado -->
+      <div class="mb-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-800 pb-8">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold uppercase tracking-wider mb-3">
+            Catálogo Oficial de Star Wars
+          </div>
+          <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+            Holocron de Personajes
+          </h1>
+          <p class="text-slate-400 text-base md:text-lg mt-2 max-w-2xl">
+            Explora {total} personajes del canon oficial de Star Wars, enriquecidos con biometría, afiliaciones, apariciones y retratos oficiales.
+          </p>
+        </div>
 
-      <!-- Placeholder: acá irá el CharacterGrid -->
-      <div class="flex items-center justify-center py-20 border border-dashed border-slate-700 rounded-xl">
-        <p class="text-slate-500 text-lg">Próximamente — Grid de personajes</p>
+        <!-- Buscador -->
+        <form method="GET" action="/characters" class="w-full md:w-80">
+          <div class="relative">
+            <input
+              type="text"
+              name="q"
+              value={query}
+              placeholder="Buscar personaje..."
+              class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-4 py-2.5 pl-10 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
+            />
+            <svg
+              class="absolute left-3 top-3 w-4 h-4 text-slate-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            {query && (
+              <a
+                href="/characters"
+                class="absolute right-3 top-2.5 text-xs text-slate-400 hover:text-amber-400"
+              >
+                Limpiar
+              </a>
+            )}
+          </div>
+        </form>
       </div>
+
+      <!-- Grid de Personajes -->
+      {characters.length > 0 ? (
+        <CharacterGrid characters={characters} />
+      ) : (
+        <div class="text-center py-24 border border-dashed border-slate-800 rounded-2xl bg-slate-900/40">
+          <p class="text-xl text-slate-300 font-semibold mb-2">No se encontraron resultados</p>
+          <p class="text-sm text-slate-500 mb-6">No hay personajes que coincidan con "{query}".</p>
+          <a
+            href="/characters"
+            class="inline-flex items-center px-4 py-2 bg-amber-500 text-slate-950 font-bold rounded-lg text-sm hover:bg-amber-400 transition-colors"
+          >
+            Ver todos los personajes
+          </a>
+        </div>
+      )}
+
+      <!-- Paginación -->
+      {totalPages > 1 && (
+        <nav aria-label="Paginación" class="mt-14 flex items-center justify-between border-t border-slate-800/80 pt-6">
+          <div>
+            <p class="text-xs text-slate-400">
+              Página <span class="font-bold text-slate-200">{page}</span> de{" "}
+              <span class="font-bold text-slate-200">{totalPages}</span> ({total} resultados)
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            {hasPrevious ? (
+              <a
+                href={buildPageUrl(page - 1)}
+                class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-800 text-slate-200 hover:bg-amber-500 hover:text-slate-950 border border-slate-700 transition-colors"
+              >
+                ← Anterior
+              </a>
+            ) : (
+              <span class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-900/50 text-slate-600 border border-slate-800/50 cursor-not-allowed">
+                ← Anterior
+              </span>
+            )}
+
+            <div class="hidden sm:flex items-center gap-1 px-2">
+              <span class="text-xs text-slate-400">Pág. {page}</span>
+            </div>
+
+            {hasNext ? (
+              <a
+                href={buildPageUrl(page + 1)}
+                class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-800 text-slate-200 hover:bg-amber-500 hover:text-slate-950 border border-slate-700 transition-colors"
+              >
+                Siguiente →
+              </a>
+            ) : (
+              <span class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-900/50 text-slate-600 border border-slate-800/50 cursor-not-allowed">
+                Siguiente →
+              </span>
+            )}
+          </div>
+        </nav>
+      )}
     </div>
   </main>
 </Layout>

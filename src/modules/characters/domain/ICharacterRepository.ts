@@ -10,7 +10,7 @@ export interface PaginatedResult<T> {
 }
 
 export interface ICharacterRepository {
-    findAll(page?: number): Promise<PaginatedResult<Character>>;
+    findAll(page?: number, pageSize?: number): Promise<PaginatedResult<Character>>;
     findById(id: string): Promise<Character | null>;
     search(query: string): Promise<Character[]>;
 }
