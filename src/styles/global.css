@@ -2,11 +2,25 @@
 @import "@fontsource-variable/orbitron";
 @import "@fontsource-variable/inter";
 
-
 :root {
   --font-orbitron: 'Orbitron', system-ui, sans-serif;
   --font-inter: 'Inter', system-ui, sans-serif;
-  --text: #ffffff;
+
+  /* Paleta Holocron Dark Mode (Default) */
+  --club-black: #0A0A0A;
+  --neon-mint: #7FFFD4;
+  --glow-white: #F8FFF0;
+  --smoke-gray: #3D3D3D;
+
+  --bg: #0A0A0A;
+  --bg-surface: #121212;
+  --bg-card: rgba(18, 18, 18, 0.85);
+  --text: #F8FFF0;
+  --text-muted: #A3A3A3;
+  --accent: #7FFFD4;
+  --accent-muted: rgba(127, 255, 212, 0.15);
+  --border: #3D3D3D;
+  --border-accent: rgba(127, 255, 212, 0.3);
 
   --space-s: clamp(1rem, 2vw, 1.45rem);
   --space-m: clamp(1.5rem, 3vw, 2.18rem);
@@ -15,7 +29,20 @@
   --scape-2xl: clamp(6rem, 10vw, 8rem);
 }
 
-/* Reseteamos los margin y paddings de todas las etiquetas */
+/* Paleta Holocron Light Mode */
+[data-theme="light"], .light {
+  --bg: #F8FFF0;
+  --bg-surface: #FFFFFF;
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --text: #0A0A0A;
+  --text-muted: #525252;
+  --accent: #00A878;
+  --accent-muted: rgba(0, 168, 120, 0.12);
+  --border: #E2E8F0;
+  --border-accent: rgba(0, 168, 120, 0.35);
+}
+
+/* Reset y caja */
 :where(*, *::before, *::after) {
   margin: 0;
   padding: 0;
@@ -26,6 +53,14 @@
 
 :where(*::before, *::after) {
   display: block;
+}
+
+/* Contenedor estándar global del 92% alineado al flujo natural */
+.sectionContenedor {
+  width: 92%;
+  max-width: 1750px;
+  margin-left: 4%;
+  margin-right: 4%;
 }
 
 /* Evitamos problemas con las imagenes */
@@ -45,17 +80,14 @@
   font-size: inherit;
 }
 
-/* Excepto los que se encuentran en párrafos */
 :where(p a) {
   display: inline;
 }
 
-/* Quitamos los puntos de los <li> */
 :where(li) {
   list-style-type: none;
 }
 
-/* Desactivamos estilos por defecto de las principales etiquetas de texto */
 :where(h1, h2, h3, h4, h5, h6, p, span, a, strong, blockquote, i, b, u, em) {
   font-size: inherit;
   font-weight: inherit;
@@ -64,34 +96,33 @@
   color: inherit;
 }
 
-/* Evitamos problemas con los pseudoelementos de quotes */
 :where(blockquote:before, blockquote:after, q:before, q:after) {
   content: '';
   content: none;
 }
 
-/* Configuramos el texto que seleccionamos */
+/* Selección de texto en color Neon Mint */
 ::selection {
-  background-color: rgba(0, 240, 255, 0.35);
-  color: #ffffff;
+  background-color: rgba(127, 255, 212, 0.35);
+  color: #F8FFF0;
 }
 
-/* Scrollbar Star Wars Kyber */
+/* Scrollbar Holocron Mint */
 ::-webkit-scrollbar {
   width: 0.4rem;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #040711;
+  background-color: var(--bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 240, 255, 0.4);
+  background-color: var(--smoke-gray);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 240, 255, 0.8);
+  background-color: var(--accent);
 }
 
 /* Lenis Smooth Scroll Styles */
@@ -112,9 +143,9 @@ html.lenis, html.lenis body {
 }
 
 html {
-  background-color: #040711;
+  background-color: var(--bg);
   -webkit-text-size-adjust: 100%;
-  color: #f1f5f9;
+  color: var(--text);
   font-size: 1rem;
   line-height: 1.5;
   font-family: var(--font-inter);
@@ -127,10 +158,11 @@ html {
 
 body {
   min-height: 100vh;
-  background-color: #040711;
-  color: #f1f5f9;
+  background-color: var(--bg);
+  color: var(--text);
   isolation: isolate;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 main {
@@ -139,20 +171,19 @@ main {
   position: relative;
 }
 
-/* Efectos Especiales Holocron */
-.neon-cyan {
+/* Efectos Especiales Holocron Mint */
+.neon-mint {
   text-shadow:
-    0 0 8px rgba(0, 240, 255, 0.7),
-    0 0 20px rgba(0, 240, 255, 0.4),
-    0 0 40px rgba(0, 240, 255, 0.2);
+    0 0 8px rgba(127, 255, 212, 0.8),
+    0 0 20px rgba(127, 255, 212, 0.45),
+    0 0 40px rgba(127, 255, 212, 0.25);
 }
 
-.neon-gold {
-  text-shadow:
-    0 0 8px rgba(255, 232, 31, 0.7),
-    0 0 20px rgba(255, 232, 31, 0.4);
+.box-mint-glow {
+  box-shadow: 0 0 30px -5px rgba(127, 255, 212, 0.35);
 }
 
-.box-cyan-glow {
-  box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.35);
+.border-mint-glow {
+  border-color: rgba(127, 255, 212, 0.4);
+  box-shadow: 0 0 15px rgba(127, 255, 212, 0.2);
 }

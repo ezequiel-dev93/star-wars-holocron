@@ -4,8 +4,8 @@
     "slug": "luke-skywalker",
     "name": "Luke Skywalker",
     "physical_traits": {
-      "height_cm": 172.0,
-      "mass_kg": 77.0,
+      "height_cm": 172,
+      "mass_kg": 77,
       "hair_color": "blond",
       "eye_color": "blue"
     },
@@ -67,8 +67,8 @@
     "slug": "c-3po",
     "name": "C-3PO",
     "physical_traits": {
-      "height_cm": 167.0,
-      "mass_kg": 75.0,
+      "height_cm": 167,
+      "mass_kg": 75,
       "hair_color": null,
       "eye_color": "yellow"
     },
@@ -110,8 +110,8 @@
     "slug": "r2-d2",
     "name": "R2-D2",
     "physical_traits": {
-      "height_cm": 96.0,
-      "mass_kg": 32.0,
+      "height_cm": 96,
+      "mass_kg": 32,
       "hair_color": null,
       "eye_color": "red"
     },
@@ -153,8 +153,8 @@
     "slug": "darth-vader",
     "name": "Darth Vader",
     "physical_traits": {
-      "height_cm": 202.0,
-      "mass_kg": 136.0,
+      "height_cm": 202,
+      "mass_kg": 136,
       "hair_color": null,
       "eye_color": "yellow"
     },
@@ -217,8 +217,8 @@
     "slug": "leia-organa",
     "name": "Leia Organa",
     "physical_traits": {
-      "height_cm": 150.0,
-      "mass_kg": 49.0,
+      "height_cm": 150,
+      "mass_kg": 49,
       "hair_color": "brown",
       "eye_color": "brown"
     },
@@ -256,8 +256,8 @@
     "slug": "owen-lars",
     "name": "Owen Lars",
     "physical_traits": {
-      "height_cm": 178.0,
-      "mass_kg": 120.0,
+      "height_cm": 178,
+      "mass_kg": 120,
       "hair_color": "brown, grey",
       "eye_color": "blue"
     },
@@ -302,8 +302,8 @@
     "slug": "beru-whitesun-lars",
     "name": "Beru Whitesun lars",
     "physical_traits": {
-      "height_cm": 165.0,
-      "mass_kg": 75.0,
+      "height_cm": 165,
+      "mass_kg": 75,
       "hair_color": "brown",
       "eye_color": "blue"
     },
@@ -340,8 +340,8 @@
     "slug": "r5-d4",
     "name": "R5-D4",
     "physical_traits": {
-      "height_cm": 97.0,
-      "mass_kg": 32.0,
+      "height_cm": 97,
+      "mass_kg": 32,
       "hair_color": null,
       "eye_color": "red"
     },
@@ -378,8 +378,8 @@
     "slug": "biggs-darklighter",
     "name": "Biggs Darklighter",
     "physical_traits": {
-      "height_cm": 183.0,
-      "mass_kg": 84.0,
+      "height_cm": 183,
+      "mass_kg": 84,
       "hair_color": "black",
       "eye_color": "brown"
     },
@@ -414,8 +414,8 @@
     "slug": "obi-wan-kenobi",
     "name": "Obi-Wan Kenobi",
     "physical_traits": {
-      "height_cm": 182.0,
-      "mass_kg": 77.0,
+      "height_cm": 182,
+      "mass_kg": 77,
       "hair_color": "auburn, white",
       "eye_color": "blue-gray"
     },
@@ -474,8 +474,8 @@
     "slug": "anakin-skywalker",
     "name": "Anakin Skywalker",
     "physical_traits": {
-      "height_cm": 188.0,
-      "mass_kg": 84.0,
+      "height_cm": 188,
+      "mass_kg": 84,
       "hair_color": "blond",
       "eye_color": "blue"
     },
@@ -525,7 +525,7 @@
     "slug": "wilhuff-tarkin",
     "name": "Wilhuff Tarkin",
     "physical_traits": {
-      "height_cm": 180.0,
+      "height_cm": 180,
       "mass_kg": null,
       "hair_color": "auburn, grey",
       "eye_color": "blue"
@@ -562,8 +562,8 @@
     "slug": "chewbacca",
     "name": "Chewbacca",
     "physical_traits": {
-      "height_cm": 228.0,
-      "mass_kg": 112.0,
+      "height_cm": 228,
+      "mass_kg": 112,
       "hair_color": "brown",
       "eye_color": "blue"
     },
@@ -619,8 +619,8 @@
     "slug": "han-solo",
     "name": "Han Solo",
     "physical_traits": {
-      "height_cm": 180.0,
-      "mass_kg": 80.0,
+      "height_cm": 180,
+      "mass_kg": 80,
       "hair_color": "brown",
       "eye_color": "brown"
     },
@@ -668,8 +668,8 @@
     "slug": "greedo",
     "name": "Greedo",
     "physical_traits": {
-      "height_cm": 173.0,
-      "mass_kg": 74.0,
+      "height_cm": 173,
+      "mass_kg": 74,
       "hair_color": null,
       "eye_color": "black"
     },
@@ -706,7 +706,7 @@
     "slug": "jabba-desilijic-tiure",
     "name": "Jabba Desilijic Tiure",
     "physical_traits": {
-      "height_cm": 175.0,
+      "height_cm": 175,
       "mass_kg": 1.358,
       "hair_color": null,
       "eye_color": "orange"
@@ -746,8 +746,8 @@
     "slug": "wedge-antilles",
     "name": "Wedge Antilles",
     "physical_traits": {
-      "height_cm": 170.0,
-      "mass_kg": 77.0,
+      "height_cm": 170,
+      "mass_kg": 77,
       "hair_color": "brown",
       "eye_color": "hazel"
     },
@@ -784,8 +784,8 @@
     "slug": "jek-tono-porkins",
     "name": "Jek Tono Porkins",
     "physical_traits": {
-      "height_cm": 180.0,
-      "mass_kg": 110.0,
+      "height_cm": 180,
+      "mass_kg": 110,
       "hair_color": "brown",
       "eye_color": "blue"
     },
@@ -820,8 +820,8 @@
     "slug": "yoda",
     "name": "Yoda",
     "physical_traits": {
-      "height_cm": 66.0,
-      "mass_kg": 17.0,
+      "height_cm": 66,
+      "mass_kg": 17,
       "hair_color": "white",
       "eye_color": "brown"
     },
@@ -862,8 +862,8 @@
     "slug": "palpatine",
     "name": "Palpatine",
     "physical_traits": {
-      "height_cm": 170.0,
-      "mass_kg": 75.0,
+      "height_cm": 170,
+      "mass_kg": 75,
       "hair_color": "grey",
       "eye_color": "yellow"
     },
@@ -902,7 +902,7 @@
     "slug": "boba-fett",
     "name": "Boba Fett",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": 78.2,
       "hair_color": "black",
       "eye_color": "brown"
@@ -953,8 +953,8 @@
     "slug": "ig-88",
     "name": "IG-88",
     "physical_traits": {
-      "height_cm": 200.0,
-      "mass_kg": 140.0,
+      "height_cm": 200,
+      "mass_kg": 140,
       "hair_color": null,
       "eye_color": "red"
     },
@@ -992,8 +992,8 @@
     "slug": "bossk",
     "name": "Bossk",
     "physical_traits": {
-      "height_cm": 190.0,
-      "mass_kg": 113.0,
+      "height_cm": 190,
+      "mass_kg": 113,
       "hair_color": null,
       "eye_color": "red"
     },
@@ -1033,8 +1033,8 @@
     "slug": "lando-calrissian",
     "name": "Lando Calrissian",
     "physical_traits": {
-      "height_cm": 177.0,
-      "mass_kg": 79.0,
+      "height_cm": 177,
+      "mass_kg": 79,
       "hair_color": "black",
       "eye_color": "brown"
     },
@@ -1083,8 +1083,8 @@
     "slug": "lobot",
     "name": "Lobot",
     "physical_traits": {
-      "height_cm": 175.0,
-      "mass_kg": 79.0,
+      "height_cm": 175,
+      "mass_kg": 79,
       "hair_color": null,
       "eye_color": "blue"
     },
@@ -1123,8 +1123,8 @@
     "slug": "ackbar",
     "name": "Ackbar",
     "physical_traits": {
-      "height_cm": 180.0,
-      "mass_kg": 83.0,
+      "height_cm": 180,
+      "mass_kg": 83,
       "hair_color": null,
       "eye_color": "orange"
     },
@@ -1161,7 +1161,7 @@
     "slug": "mon-mothma",
     "name": "Mon Mothma",
     "physical_traits": {
-      "height_cm": 150.0,
+      "height_cm": 150,
       "mass_kg": null,
       "hair_color": "auburn",
       "eye_color": "blue"
@@ -1244,8 +1244,8 @@
     "slug": "wicket-systri-warrick",
     "name": "Wicket Systri Warrick",
     "physical_traits": {
-      "height_cm": 88.0,
-      "mass_kg": 20.0,
+      "height_cm": 88,
+      "mass_kg": 20,
       "hair_color": "brown",
       "eye_color": "brown"
     },
@@ -1282,8 +1282,8 @@
     "slug": "nien-nunb",
     "name": "Nien Nunb",
     "physical_traits": {
-      "height_cm": 160.0,
-      "mass_kg": 68.0,
+      "height_cm": 160,
+      "mass_kg": 68,
       "hair_color": null,
       "eye_color": "black"
     },
@@ -1324,8 +1324,8 @@
     "slug": "qui-gon-jinn",
     "name": "Qui-Gon Jinn",
     "physical_traits": {
-      "height_cm": 193.0,
-      "mass_kg": 89.0,
+      "height_cm": 193,
+      "mass_kg": 89,
       "hair_color": "brown",
       "eye_color": "blue"
     },
@@ -1360,8 +1360,8 @@
     "slug": "nute-gunray",
     "name": "Nute Gunray",
     "physical_traits": {
-      "height_cm": 191.0,
-      "mass_kg": 90.0,
+      "height_cm": 191,
+      "mass_kg": 90,
       "hair_color": null,
       "eye_color": "red"
     },
@@ -1405,7 +1405,7 @@
     "slug": "finis-valorum",
     "name": "Finis Valorum",
     "physical_traits": {
-      "height_cm": 170.0,
+      "height_cm": 170,
       "mass_kg": null,
       "hair_color": "blond",
       "eye_color": "blue"
@@ -1441,8 +1441,8 @@
     "slug": "padmé-amidala",
     "name": "Padmé Amidala",
     "physical_traits": {
-      "height_cm": 185.0,
-      "mass_kg": 45.0,
+      "height_cm": 185,
+      "mass_kg": 45,
       "hair_color": "brown",
       "eye_color": "brown"
     },
@@ -1479,8 +1479,8 @@
     "slug": "jar-jar-binks",
     "name": "Jar Jar Binks",
     "physical_traits": {
-      "height_cm": 196.0,
-      "mass_kg": 66.0,
+      "height_cm": 196,
+      "mass_kg": 66,
       "hair_color": null,
       "eye_color": "orange"
     },
@@ -1518,8 +1518,8 @@
     "slug": "roos-tarpals",
     "name": "Roos Tarpals",
     "physical_traits": {
-      "height_cm": 224.0,
-      "mass_kg": 82.0,
+      "height_cm": 224,
+      "mass_kg": 82,
       "hair_color": null,
       "eye_color": "orange"
     },
@@ -1556,7 +1556,7 @@
     "slug": "rugor-nass",
     "name": "Rugor Nass",
     "physical_traits": {
-      "height_cm": 206.0,
+      "height_cm": 206,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": "orange"
@@ -1594,7 +1594,7 @@
     "slug": "ric-olié",
     "name": "Ric Olié",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": "brown",
       "eye_color": "blue"
@@ -1630,7 +1630,7 @@
     "slug": "watto",
     "name": "Watto",
     "physical_traits": {
-      "height_cm": 137.0,
+      "height_cm": 137,
       "mass_kg": null,
       "hair_color": "black",
       "eye_color": "yellow"
@@ -1673,8 +1673,8 @@
     "slug": "sebulba",
     "name": "Sebulba",
     "physical_traits": {
-      "height_cm": 112.0,
-      "mass_kg": 40.0,
+      "height_cm": 112,
+      "mass_kg": 40,
       "hair_color": null,
       "eye_color": "orange"
     },
@@ -1713,7 +1713,7 @@
     "slug": "quarsh-panaka",
     "name": "Quarsh Panaka",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": "black",
       "eye_color": "brown"
@@ -1749,7 +1749,7 @@
     "slug": "shmi-skywalker",
     "name": "Shmi Skywalker",
     "physical_traits": {
-      "height_cm": 163.0,
+      "height_cm": 163,
       "mass_kg": null,
       "hair_color": "black",
       "eye_color": "brown"
@@ -1786,8 +1786,8 @@
     "slug": "darth-maul",
     "name": "Darth Maul",
     "physical_traits": {
-      "height_cm": 175.0,
-      "mass_kg": 80.0,
+      "height_cm": 175,
+      "mass_kg": 80,
       "hair_color": null,
       "eye_color": "yellow"
     },
@@ -1832,7 +1832,7 @@
     "slug": "bib-fortuna",
     "name": "Bib Fortuna",
     "physical_traits": {
-      "height_cm": 180.0,
+      "height_cm": 180,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": "pink"
@@ -1875,8 +1875,8 @@
     "slug": "ayla-secura",
     "name": "Ayla Secura",
     "physical_traits": {
-      "height_cm": 178.0,
-      "mass_kg": 55.0,
+      "height_cm": 178,
+      "mass_kg": 55,
       "hair_color": null,
       "eye_color": "hazel"
     },
@@ -1915,8 +1915,8 @@
     "slug": "ratts-tyerel",
     "name": "Ratts Tyerel",
     "physical_traits": {
-      "height_cm": 79.0,
-      "mass_kg": 15.0,
+      "height_cm": 79,
+      "mass_kg": 15,
       "hair_color": null,
       "eye_color": null
     },
@@ -1953,8 +1953,8 @@
     "slug": "dud-bolt",
     "name": "Dud Bolt",
     "physical_traits": {
-      "height_cm": 94.0,
-      "mass_kg": 45.0,
+      "height_cm": 94,
+      "mass_kg": 45,
       "hair_color": null,
       "eye_color": "yellow"
     },
@@ -1991,7 +1991,7 @@
     "slug": "gasgano",
     "name": "Gasgano",
     "physical_traits": {
-      "height_cm": 122.0,
+      "height_cm": 122,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": "black"
@@ -2030,8 +2030,8 @@
     "slug": "ben-quadinaros",
     "name": "Ben Quadinaros",
     "physical_traits": {
-      "height_cm": 163.0,
-      "mass_kg": 65.0,
+      "height_cm": 163,
+      "mass_kg": 65,
       "hair_color": null,
       "eye_color": "orange"
     },
@@ -2070,8 +2070,8 @@
     "slug": "mace-windu",
     "name": "Mace Windu",
     "physical_traits": {
-      "height_cm": 188.0,
-      "mass_kg": 84.0,
+      "height_cm": 188,
+      "mass_kg": 84,
       "hair_color": null,
       "eye_color": "brown"
     },
@@ -2108,8 +2108,8 @@
     "slug": "ki-adi-mundi",
     "name": "Ki-Adi-Mundi",
     "physical_traits": {
-      "height_cm": 198.0,
-      "mass_kg": 82.0,
+      "height_cm": 198,
+      "mass_kg": 82,
       "hair_color": "white",
       "eye_color": "yellow"
     },
@@ -2155,8 +2155,8 @@
     "slug": "kit-fisto",
     "name": "Kit Fisto",
     "physical_traits": {
-      "height_cm": 196.0,
-      "mass_kg": 87.0,
+      "height_cm": 196,
+      "mass_kg": 87,
       "hair_color": null,
       "eye_color": "black"
     },
@@ -2198,7 +2198,7 @@
     "slug": "eeth-koth",
     "name": "Eeth Koth",
     "physical_traits": {
-      "height_cm": 171.0,
+      "height_cm": 171,
       "mass_kg": null,
       "hair_color": "black",
       "eye_color": "brown"
@@ -2237,8 +2237,8 @@
     "slug": "adi-gallia",
     "name": "Adi Gallia",
     "physical_traits": {
-      "height_cm": 184.0,
-      "mass_kg": 50.0,
+      "height_cm": 184,
+      "mass_kg": 50,
       "hair_color": null,
       "eye_color": "blue"
     },
@@ -2276,7 +2276,7 @@
     "slug": "saesee-tiin",
     "name": "Saesee Tiin",
     "physical_traits": {
-      "height_cm": 188.0,
+      "height_cm": 188,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": "orange"
@@ -2319,7 +2319,7 @@
     "slug": "yarael-poof",
     "name": "Yarael Poof",
     "physical_traits": {
-      "height_cm": 264.0,
+      "height_cm": 264,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": "yellow"
@@ -2357,8 +2357,8 @@
     "slug": "plo-koon",
     "name": "Plo Koon",
     "physical_traits": {
-      "height_cm": 188.0,
-      "mass_kg": 80.0,
+      "height_cm": 188,
+      "mass_kg": 80,
       "hair_color": null,
       "eye_color": "black"
     },
@@ -2401,7 +2401,7 @@
     "slug": "mas-amedda",
     "name": "Mas Amedda",
     "physical_traits": {
-      "height_cm": 196.0,
+      "height_cm": 196,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": "blue"
@@ -2445,8 +2445,8 @@
     "slug": "gregar-typho",
     "name": "Gregar Typho",
     "physical_traits": {
-      "height_cm": 185.0,
-      "mass_kg": 85.0,
+      "height_cm": 185,
+      "mass_kg": 85,
       "hair_color": "black",
       "eye_color": "brown"
     },
@@ -2482,7 +2482,7 @@
     "slug": "cordé",
     "name": "Cordé",
     "physical_traits": {
-      "height_cm": 157.0,
+      "height_cm": 157,
       "mass_kg": null,
       "hair_color": "brown",
       "eye_color": "brown"
@@ -2518,7 +2518,7 @@
     "slug": "cliegg-lars",
     "name": "Cliegg Lars",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": "brown",
       "eye_color": "blue"
@@ -2554,8 +2554,8 @@
     "slug": "poggle-the-lesser",
     "name": "Poggle the Lesser",
     "physical_traits": {
-      "height_cm": 183.0,
-      "mass_kg": 80.0,
+      "height_cm": 183,
+      "mass_kg": 80,
       "hair_color": null,
       "eye_color": "yellow"
     },
@@ -2593,7 +2593,7 @@
     "slug": "luminara-unduli",
     "name": "Luminara Unduli",
     "physical_traits": {
-      "height_cm": 170.0,
+      "height_cm": 170,
       "mass_kg": 56.2,
       "hair_color": "black",
       "eye_color": "blue"
@@ -2636,8 +2636,8 @@
     "slug": "barriss-offee",
     "name": "Barriss Offee",
     "physical_traits": {
-      "height_cm": 166.0,
-      "mass_kg": 50.0,
+      "height_cm": 166,
+      "mass_kg": 50,
       "hair_color": "black",
       "eye_color": "blue"
     },
@@ -2674,7 +2674,7 @@
     "slug": "dormé",
     "name": "Dormé",
     "physical_traits": {
-      "height_cm": 165.0,
+      "height_cm": 165,
       "mass_kg": null,
       "hair_color": "brown",
       "eye_color": "brown"
@@ -2712,8 +2712,8 @@
     "slug": "dooku",
     "name": "Dooku",
     "physical_traits": {
-      "height_cm": 193.0,
-      "mass_kg": 80.0,
+      "height_cm": 193,
+      "mass_kg": 80,
       "hair_color": "white",
       "eye_color": "brown"
     },
@@ -2751,7 +2751,7 @@
     "slug": "bail-prestor-organa",
     "name": "Bail Prestor Organa",
     "physical_traits": {
-      "height_cm": 191.0,
+      "height_cm": 191,
       "mass_kg": null,
       "hair_color": "black",
       "eye_color": "brown"
@@ -2793,8 +2793,8 @@
     "slug": "jango-fett",
     "name": "Jango Fett",
     "physical_traits": {
-      "height_cm": 183.0,
-      "mass_kg": 79.0,
+      "height_cm": 183,
+      "mass_kg": 79,
       "hair_color": "black",
       "eye_color": "brown"
     },
@@ -2829,8 +2829,8 @@
     "slug": "zam-wesell",
     "name": "Zam Wesell",
     "physical_traits": {
-      "height_cm": 168.0,
-      "mass_kg": 55.0,
+      "height_cm": 168,
+      "mass_kg": 55,
       "hair_color": "blonde",
       "eye_color": "yellow"
     },
@@ -2869,8 +2869,8 @@
     "slug": "dexter-jettster",
     "name": "Dexter Jettster",
     "physical_traits": {
-      "height_cm": 198.0,
-      "mass_kg": 102.0,
+      "height_cm": 198,
+      "mass_kg": 102,
       "hair_color": null,
       "eye_color": "yellow"
     },
@@ -2909,8 +2909,8 @@
     "slug": "lama-su",
     "name": "Lama Su",
     "physical_traits": {
-      "height_cm": 229.0,
-      "mass_kg": 88.0,
+      "height_cm": 229,
+      "mass_kg": 88,
       "hair_color": null,
       "eye_color": "black"
     },
@@ -2947,7 +2947,7 @@
     "slug": "taun-we",
     "name": "Taun We",
     "physical_traits": {
-      "height_cm": 213.0,
+      "height_cm": 213,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": "black"
@@ -2985,7 +2985,7 @@
     "slug": "jocasta-nu",
     "name": "Jocasta Nu",
     "physical_traits": {
-      "height_cm": 167.0,
+      "height_cm": 167,
       "mass_kg": null,
       "hair_color": "white",
       "eye_color": "blue"
@@ -3023,7 +3023,7 @@
     "slug": "r4-p17",
     "name": "R4-P17",
     "physical_traits": {
-      "height_cm": 96.0,
+      "height_cm": 96,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": "red, blue"
@@ -3062,8 +3062,8 @@
     "slug": "wat-tambor",
     "name": "Wat Tambor",
     "physical_traits": {
-      "height_cm": 193.0,
-      "mass_kg": 48.0,
+      "height_cm": 193,
+      "mass_kg": 48,
       "hair_color": null,
       "eye_color": null
     },
@@ -3100,7 +3100,7 @@
     "slug": "san-hill",
     "name": "San Hill",
     "physical_traits": {
-      "height_cm": 191.0,
+      "height_cm": 191,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": "gold"
@@ -3139,8 +3139,8 @@
     "slug": "shaak-ti",
     "name": "Shaak Ti",
     "physical_traits": {
-      "height_cm": 178.0,
-      "mass_kg": 57.0,
+      "height_cm": 178,
+      "mass_kg": 57,
       "hair_color": null,
       "eye_color": "black"
     },
@@ -3181,8 +3181,8 @@
     "slug": "grievous",
     "name": "Grievous",
     "physical_traits": {
-      "height_cm": 216.0,
-      "mass_kg": 159.0,
+      "height_cm": 216,
+      "mass_kg": 159,
       "hair_color": null,
       "eye_color": "green, yellow"
     },
@@ -3219,8 +3219,8 @@
     "slug": "tarfful",
     "name": "Tarfful",
     "physical_traits": {
-      "height_cm": 234.0,
-      "mass_kg": 136.0,
+      "height_cm": 234,
+      "mass_kg": 136,
       "hair_color": "brown",
       "eye_color": "blue"
     },
@@ -3260,8 +3260,8 @@
     "slug": "raymus-antilles",
     "name": "Raymus Antilles",
     "physical_traits": {
-      "height_cm": 188.0,
-      "mass_kg": 79.0,
+      "height_cm": 188,
+      "mass_kg": 79,
       "hair_color": "brown",
       "eye_color": "brown"
     },
@@ -3297,8 +3297,8 @@
     "slug": "sly-moore",
     "name": "Sly Moore",
     "physical_traits": {
-      "height_cm": 178.0,
-      "mass_kg": 48.0,
+      "height_cm": 178,
+      "mass_kg": 48,
       "hair_color": null,
       "eye_color": "white"
     },
@@ -3339,8 +3339,8 @@
     "slug": "tion-medon",
     "name": "Tion Medon",
     "physical_traits": {
-      "height_cm": 206.0,
-      "mass_kg": 80.0,
+      "height_cm": 206,
+      "mass_kg": 80,
       "hair_color": null,
       "eye_color": "black"
     },
@@ -3413,8 +3413,9 @@
     },
     "force_sensitive": false,
     "is_canon": true,
-    "avatar_url": null,
-    "created_at": "2026-04-04T22:55:07.583442"
+    "avatar_url": "/images/characters/the-mandalorian.jpeg",
+    "created_at": "2026-04-04T22:55:07.583442",
+    "image": "/images/characters/the-mandalorian.jpeg"
   },
   {
     "id": 84,
@@ -4186,7 +4187,7 @@
     "slug": "dewback",
     "name": "Dewback",
     "physical_traits": {
-      "height_cm": 2.0,
+      "height_cm": 2,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -4847,7 +4848,7 @@
     "slug": "the-mandalorian",
     "name": "The Mandalorian (Din Djarin)",
     "physical_traits": {
-      "height_cm": 180.0,
+      "height_cm": 180,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -4887,7 +4888,7 @@
     "slug": "cad-bane",
     "name": "Cad Bane",
     "physical_traits": {
-      "height_cm": 185.0,
+      "height_cm": 185,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -4965,7 +4966,7 @@
     "slug": "8d8",
     "name": "8D8",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -5001,7 +5002,7 @@
     "slug": "sabine-wren",
     "name": "Sabine Wren",
     "physical_traits": {
-      "height_cm": 171.0,
+      "height_cm": 171,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -5116,7 +5117,7 @@
     "slug": "hera-syndulla",
     "name": "Hera Syndulla",
     "physical_traits": {
-      "height_cm": 173.0,
+      "height_cm": 173,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -5161,7 +5162,7 @@
     "slug": "ezra-bridger",
     "name": "Ezra Bridger",
     "physical_traits": {
-      "height_cm": 182.0,
+      "height_cm": 182,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -5210,7 +5211,7 @@
     "slug": "grand-admiral-thrawn",
     "name": "Grand Admiral Thrawn",
     "physical_traits": {
-      "height_cm": 193.0,
+      "height_cm": 193,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -5247,7 +5248,7 @@
     "slug": "chopper",
     "name": "Chopper (C1-10P)",
     "physical_traits": {
-      "height_cm": 104.0,
+      "height_cm": 104,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -5364,7 +5365,7 @@
     "slug": "jai-kell",
     "name": "Jai Kell",
     "physical_traits": {
-      "height_cm": 173.0,
+      "height_cm": 173,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -5404,7 +5405,7 @@
     "slug": "ryder-azadi",
     "name": "Ryder Azadi",
     "physical_traits": {
-      "height_cm": 191.0,
+      "height_cm": 191,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -5443,7 +5444,7 @@
     "slug": "cassian-andor",
     "name": "Cassian Andor",
     "physical_traits": {
-      "height_cm": 178.0,
+      "height_cm": 178,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -5555,7 +5556,7 @@
     "slug": "syril-karn",
     "name": "Syril Karn - Andor",
     "physical_traits": {
-      "height_cm": 178.0,
+      "height_cm": 178,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -5844,7 +5845,7 @@
     "slug": "saw-gerrera",
     "name": "Saw Gerrera",
     "physical_traits": {
-      "height_cm": 187.0,
+      "height_cm": 187,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -5982,7 +5983,7 @@
     "slug": "princess-leia-organa",
     "name": "Princess Leia Organa",
     "physical_traits": {
-      "height_cm": 150.0,
+      "height_cm": 150,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6034,7 +6035,7 @@
     "slug": "beru-lars",
     "name": "Beru Lars",
     "physical_traits": {
-      "height_cm": 165.0,
+      "height_cm": 165,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6074,7 +6075,7 @@
     "slug": "bail-organa",
     "name": "Bail Organa",
     "physical_traits": {
-      "height_cm": 199.0,
+      "height_cm": 199,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6264,7 +6265,7 @@
     "slug": "galen-erso",
     "name": "Galen Erso",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6303,7 +6304,7 @@
     "slug": "grand-moff-tarkin",
     "name": "Grand Moff Tarkin",
     "physical_traits": {
-      "height_cm": 185.0,
+      "height_cm": 185,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6344,7 +6345,7 @@
     "slug": "tobias-beckett",
     "name": "Tobias Beckett",
     "physical_traits": {
-      "height_cm": 178.0,
+      "height_cm": 178,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6383,7 +6384,7 @@
     "slug": "val",
     "name": "Val",
     "physical_traits": {
-      "height_cm": 157.0,
+      "height_cm": 157,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6419,7 +6420,7 @@
     "slug": "rio-durant",
     "name": "Rio Durant",
     "physical_traits": {
-      "height_cm": 149.0,
+      "height_cm": 149,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6455,7 +6456,7 @@
     "slug": "l3-37",
     "name": "L3-37",
     "physical_traits": {
-      "height_cm": 179.0,
+      "height_cm": 179,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6489,7 +6490,7 @@
     "slug": "dryden-vos",
     "name": "Dryden Vos",
     "physical_traits": {
-      "height_cm": 192.0,
+      "height_cm": 192,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6524,7 +6525,7 @@
     "slug": "enfys-nest",
     "name": "Enfys Nest",
     "physical_traits": {
-      "height_cm": 187.0,
+      "height_cm": 187,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6558,7 +6559,7 @@
     "slug": "qimir",
     "name": "The Stranger (Qimir) - The Acolyte",
     "physical_traits": {
-      "height_cm": 182.0,
+      "height_cm": 182,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6592,7 +6593,7 @@
     "slug": "jecki-lon",
     "name": "Jecki - The Acolyte",
     "physical_traits": {
-      "height_cm": 161.0,
+      "height_cm": 161,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6629,7 +6630,7 @@
     "slug": "yord-fandar",
     "name": "Yord - The Acolyte",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6663,7 +6664,7 @@
     "slug": "mother-aniseya",
     "name": "Mother Aniseya - The Acolyte",
     "physical_traits": {
-      "height_cm": 175.0,
+      "height_cm": 175,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6697,7 +6698,7 @@
     "slug": "mother-koril",
     "name": "Mother Koril",
     "physical_traits": {
-      "height_cm": 168.0,
+      "height_cm": 168,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6733,7 +6734,7 @@
     "slug": "the-stranger",
     "name": "The Stranger (Qimir) - The Acolyte",
     "physical_traits": {
-      "height_cm": 182.0,
+      "height_cm": 182,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6767,7 +6768,7 @@
     "slug": "bazil",
     "name": "Bazil - The Acolyte",
     "physical_traits": {
-      "height_cm": 117.0,
+      "height_cm": 117,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6803,7 +6804,7 @@
     "slug": "wim",
     "name": "Wim - Skeleton Crew",
     "physical_traits": {
-      "height_cm": 143.0,
+      "height_cm": 143,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6837,7 +6838,7 @@
     "slug": "neel",
     "name": "Neel - Skeleton Crew",
     "physical_traits": {
-      "height_cm": 133.0,
+      "height_cm": 133,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6871,7 +6872,7 @@
     "slug": "kb",
     "name": "KB - Skeleton Crew",
     "physical_traits": {
-      "height_cm": 157.0,
+      "height_cm": 157,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6905,7 +6906,7 @@
     "slug": "fern",
     "name": "Fern - Skeleton Crew",
     "physical_traits": {
-      "height_cm": 156.0,
+      "height_cm": 156,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -6939,7 +6940,7 @@
     "slug": "jod-na-nawood",
     "name": "Jod - Skeleton Crew",
     "physical_traits": {
-      "height_cm": 182.0,
+      "height_cm": 182,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -7075,7 +7076,7 @@
     "slug": "khymm",
     "name": "Kh'ymm",
     "physical_traits": {
-      "height_cm": 46.0,
+      "height_cm": 46,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -7143,7 +7144,7 @@
     "slug": "rey",
     "name": "Rey",
     "physical_traits": {
-      "height_cm": 170.0,
+      "height_cm": 170,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -7228,7 +7229,7 @@
     "slug": "finn",
     "name": "Finn",
     "physical_traits": {
-      "height_cm": 178.0,
+      "height_cm": 178,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -7319,7 +7320,7 @@
     "slug": "bb-8",
     "name": "BB-8",
     "physical_traits": {
-      "height_cm": 67.0,
+      "height_cm": 67,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -7396,7 +7397,7 @@
     "slug": "captain-phasma",
     "name": "Captain Phasma",
     "physical_traits": {
-      "height_cm": 200.0,
+      "height_cm": 200,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -7434,7 +7435,7 @@
     "slug": "general-hux",
     "name": "General Hux",
     "physical_traits": {
-      "height_cm": 185.0,
+      "height_cm": 185,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -7473,7 +7474,7 @@
     "slug": "maz-kanata",
     "name": "Maz Kanata",
     "physical_traits": {
-      "height_cm": 124.0,
+      "height_cm": 124,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -7754,7 +7755,7 @@
     "slug": "count-dooku",
     "name": "Count Dooku",
     "physical_traits": {
-      "height_cm": 193.0,
+      "height_cm": 193,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -7793,7 +7794,7 @@
     "slug": "general-grievous",
     "name": "General Grievous",
     "physical_traits": {
-      "height_cm": 216.0,
+      "height_cm": 216,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -7828,7 +7829,7 @@
     "slug": "padme-amidala",
     "name": "Padmé Amidala",
     "physical_traits": {
-      "height_cm": 165.0,
+      "height_cm": 165,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -7870,7 +7871,7 @@
     "slug": "clone-commander-cody",
     "name": "Clone Commander Cody",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -7907,7 +7908,7 @@
     "slug": "jan-dodonna",
     "name": "Jan Dodonna",
     "physical_traits": {
-      "height_cm": 182.0,
+      "height_cm": 182,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -7947,7 +7948,7 @@
     "slug": "admiral-motti",
     "name": "Admiral Motti",
     "physical_traits": {
-      "height_cm": 170.0,
+      "height_cm": 170,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8021,7 +8022,7 @@
     "slug": "ponda-baba",
     "name": "Ponda Baba",
     "physical_traits": {
-      "height_cm": 185.0,
+      "height_cm": 185,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8058,7 +8059,7 @@
     "slug": "doctor-cornelius-evazan",
     "name": "Doctor Cornelius Evazan",
     "physical_traits": {
-      "height_cm": 170.0,
+      "height_cm": 170,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8171,7 +8172,7 @@
     "slug": "momaw-nadon",
     "name": "Momaw Nadon",
     "physical_traits": {
-      "height_cm": 195.0,
+      "height_cm": 195,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8284,7 +8285,7 @@
     "slug": "general-veers",
     "name": "General Veers",
     "physical_traits": {
-      "height_cm": 193.0,
+      "height_cm": 193,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8320,7 +8321,7 @@
     "slug": "admiral-piett",
     "name": "Admiral Piett",
     "physical_traits": {
-      "height_cm": 165.0,
+      "height_cm": 165,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8355,7 +8356,7 @@
     "slug": "captain-needa",
     "name": "Captain Needa",
     "physical_traits": {
-      "height_cm": 175.0,
+      "height_cm": 175,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8389,7 +8390,7 @@
     "slug": "dengar",
     "name": "Dengar",
     "physical_traits": {
-      "height_cm": 187.0,
+      "height_cm": 187,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8425,7 +8426,7 @@
     "slug": "zuckuss",
     "name": "Zuckuss",
     "physical_traits": {
-      "height_cm": 150.0,
+      "height_cm": 150,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8459,7 +8460,7 @@
     "slug": "4-lom",
     "name": "4-LOM",
     "physical_traits": {
-      "height_cm": 160.0,
+      "height_cm": 160,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8493,7 +8494,7 @@
     "slug": "dak-ralter",
     "name": "Dak Ralter",
     "physical_traits": {
-      "height_cm": 162.0,
+      "height_cm": 162,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8527,7 +8528,7 @@
     "slug": "admiral-ackbar",
     "name": "Admiral Ackbar",
     "physical_traits": {
-      "height_cm": 180.0,
+      "height_cm": 180,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8568,7 +8569,7 @@
     "slug": "wicket-w-warrick",
     "name": "Wicket W. Warrick",
     "physical_traits": {
-      "height_cm": 80.0,
+      "height_cm": 80,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8608,7 +8609,7 @@
     "slug": "max-rebo",
     "name": "Max Rebo",
     "physical_traits": {
-      "height_cm": 150.0,
+      "height_cm": 150,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8643,7 +8644,7 @@
     "slug": "oola",
     "name": "Oola",
     "physical_traits": {
-      "height_cm": 160.0,
+      "height_cm": 160,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8682,7 +8683,7 @@
     "slug": "malakili",
     "name": "Malakili",
     "physical_traits": {
-      "height_cm": 172.0,
+      "height_cm": 172,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8721,7 +8722,7 @@
     "slug": "moff-jerjerrod",
     "name": "Moff Jerjerrod",
     "physical_traits": {
-      "height_cm": 170.0,
+      "height_cm": 170,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8758,7 +8759,7 @@
     "slug": "aayla-secura",
     "name": "Aayla Secura",
     "physical_traits": {
-      "height_cm": 170.0,
+      "height_cm": 170,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8798,7 +8799,7 @@
     "slug": "boss-nass",
     "name": "Boss Nass",
     "physical_traits": {
-      "height_cm": 206.0,
+      "height_cm": 206,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -8905,7 +8906,7 @@
     "slug": "lyra-erso",
     "name": "Lyra Erso",
     "physical_traits": {
-      "height_cm": 170.0,
+      "height_cm": 170,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -9012,7 +9013,7 @@
     "slug": "general-draven",
     "name": "General Draven",
     "physical_traits": {
-      "height_cm": 191.0,
+      "height_cm": 191,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -9085,7 +9086,7 @@
     "slug": "lady-proxima",
     "name": "Lady Proxima",
     "physical_traits": {
-      "height_cm": 488.0,
+      "height_cm": 488,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -9124,7 +9125,7 @@
     "slug": "quay-tolsite",
     "name": "Quay Tolsite",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -9162,7 +9163,7 @@
     "slug": "rebolt",
     "name": "Rebolt",
     "physical_traits": {
-      "height_cm": 173.0,
+      "height_cm": 173,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -9545,7 +9546,7 @@
     "slug": "sol",
     "name": "Sol - The Acolyte",
     "physical_traits": {
-      "height_cm": 179.0,
+      "height_cm": 179,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -9579,7 +9580,7 @@
     "slug": "indara",
     "name": "Indara - The Acolyte",
     "physical_traits": {
-      "height_cm": 177.0,
+      "height_cm": 177,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -9613,7 +9614,7 @@
     "slug": "kelnacca",
     "name": "Kelnacca - The Acolyte",
     "physical_traits": {
-      "height_cm": 229.0,
+      "height_cm": 229,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -9647,7 +9648,7 @@
     "slug": "torbin",
     "name": "Torbin - The Acolyte",
     "physical_traits": {
-      "height_cm": 180.0,
+      "height_cm": 180,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -9681,7 +9682,7 @@
     "slug": "mog-adana",
     "name": "Mog Adana - The Acolyte",
     "physical_traits": {
-      "height_cm": 185.0,
+      "height_cm": 185,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -9715,7 +9716,7 @@
     "slug": "senator-rayencourt",
     "name": "Senator Rayencourt",
     "physical_traits": {
-      "height_cm": 178.0,
+      "height_cm": 178,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -9897,7 +9898,7 @@
     "slug": "unkar-plutt",
     "name": "Unkar Plutt",
     "physical_traits": {
-      "height_cm": 180.0,
+      "height_cm": 180,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -9933,7 +9934,7 @@
     "slug": "bala-tik",
     "name": "Bala-Tik",
     "physical_traits": {
-      "height_cm": 180.0,
+      "height_cm": 180,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -9969,7 +9970,7 @@
     "slug": "tasu-leech",
     "name": "Tasu Leech",
     "physical_traits": {
-      "height_cm": 157.0,
+      "height_cm": 157,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10038,7 +10039,7 @@
     "slug": "snap-wexley",
     "name": "Snap Wexley",
     "physical_traits": {
-      "height_cm": 188.0,
+      "height_cm": 188,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10074,7 +10075,7 @@
     "slug": "jess-pava",
     "name": "Jess Pava",
     "physical_traits": {
-      "height_cm": 169.0,
+      "height_cm": 169,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10394,7 +10395,7 @@
     "slug": "captain-panaka",
     "name": "Captain Panaka",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10430,7 +10431,7 @@
     "slug": "rune-haako",
     "name": "Rune Haako",
     "physical_traits": {
-      "height_cm": 196.0,
+      "height_cm": 196,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10468,7 +10469,7 @@
     "slug": "ric-olie",
     "name": "Ric Olie",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10504,7 +10505,7 @@
     "slug": "sabe",
     "name": "Sabé",
     "physical_traits": {
-      "height_cm": 165.0,
+      "height_cm": 165,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10540,7 +10541,7 @@
     "slug": "clone-captain-rex",
     "name": "Clone Captain Rex",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10586,7 +10587,7 @@
     "slug": "clone-commander-wolffe",
     "name": "Clone Commander Wolffe",
     "physical_traits": {
-      "height_cm": 181.0,
+      "height_cm": 181,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10628,7 +10629,7 @@
     "slug": "gregor",
     "name": "Gregor",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10671,7 +10672,7 @@
     "slug": "clone-commander-fox",
     "name": "Clone Commander Fox",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10712,7 +10713,7 @@
     "slug": "arc-trooper-fives",
     "name": "ARC Trooper Fives",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10753,7 +10754,7 @@
     "slug": "echo",
     "name": "Echo",
     "physical_traits": {
-      "height_cm": 181.0,
+      "height_cm": 181,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10795,7 +10796,7 @@
     "slug": "clone-99",
     "name": "Clone 99",
     "physical_traits": {
-      "height_cm": 168.0,
+      "height_cm": 168,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10836,7 +10837,7 @@
     "slug": "jesse",
     "name": "Clone Trooper Jesse",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10877,7 +10878,7 @@
     "slug": "waxer",
     "name": "Clone Trooper Waxer",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10918,7 +10919,7 @@
     "slug": "boil",
     "name": "Clone Trooper Boil",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10959,7 +10960,7 @@
     "slug": "clone-commander-thorn",
     "name": "Clone Commander Thorn",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -10998,7 +10999,7 @@
     "slug": "clone-commander-stone",
     "name": "Clone Commander Stone",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11039,7 +11040,7 @@
     "slug": "clone-commander-doom",
     "name": "Clone Commander Doom",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11080,7 +11081,7 @@
     "slug": "clone-commander-ponds",
     "name": "Clone Commander Ponds",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11122,7 +11123,7 @@
     "slug": "asajj-ventress",
     "name": "Asajj Ventress",
     "physical_traits": {
-      "height_cm": 179.0,
+      "height_cm": 179,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11162,7 +11163,7 @@
     "slug": "savage-opress",
     "name": "Savage Opress",
     "physical_traits": {
-      "height_cm": 189.0,
+      "height_cm": 189,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11202,7 +11203,7 @@
     "slug": "mother-talzin",
     "name": "Mother Talzin",
     "physical_traits": {
-      "height_cm": 223.0,
+      "height_cm": 223,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11240,7 +11241,7 @@
     "slug": "pre-vizsla",
     "name": "Pre Vizsla",
     "physical_traits": {
-      "height_cm": 184.0,
+      "height_cm": 184,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11276,7 +11277,7 @@
     "slug": "admiral-trench",
     "name": "Admiral Trench",
     "physical_traits": {
-      "height_cm": 189.0,
+      "height_cm": 189,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11312,7 +11313,7 @@
     "slug": "general-pong-krell",
     "name": "General Pong Krell",
     "physical_traits": {
-      "height_cm": 236.0,
+      "height_cm": 236,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11348,7 +11349,7 @@
     "slug": "aurra-sing",
     "name": "Aurra Sing",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11385,7 +11386,7 @@
     "slug": "sugi",
     "name": "Sugi (Character)",
     "physical_traits": {
-      "height_cm": 182.0,
+      "height_cm": 182,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11421,7 +11422,7 @@
     "slug": "embo",
     "name": "Embo",
     "physical_traits": {
-      "height_cm": 199.0,
+      "height_cm": 199,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11460,7 +11461,7 @@
     "slug": "rush-clovis",
     "name": "Rush Clovis",
     "physical_traits": {
-      "height_cm": 192.0,
+      "height_cm": 192,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11496,7 +11497,7 @@
     "slug": "duchess-satine-kryze",
     "name": "Duchess Satine Kryze",
     "physical_traits": {
-      "height_cm": 177.0,
+      "height_cm": 177,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11532,7 +11533,7 @@
     "slug": "hondo-ohnaka",
     "name": "Hondo Ohnaka",
     "physical_traits": {
-      "height_cm": 185.0,
+      "height_cm": 185,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11574,7 +11575,7 @@
     "slug": "cham-syndulla",
     "name": "Cham Syndulla",
     "physical_traits": {
-      "height_cm": 190.0,
+      "height_cm": 190,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11614,7 +11615,7 @@
     "slug": "steela-gerrera",
     "name": "Steela Gerrera",
     "physical_traits": {
-      "height_cm": 179.0,
+      "height_cm": 179,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11650,7 +11651,7 @@
     "slug": "quinlan-vos",
     "name": "Quinlan Vos",
     "physical_traits": {
-      "height_cm": 191.0,
+      "height_cm": 191,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11687,7 +11688,7 @@
     "slug": "tera-sinube",
     "name": "Tera Sinube",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11724,7 +11725,7 @@
     "slug": "hunter",
     "name": "Hunter",
     "physical_traits": {
-      "height_cm": 180.0,
+      "height_cm": 180,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11767,7 +11768,7 @@
     "slug": "wrecker",
     "name": "Wrecker",
     "physical_traits": {
-      "height_cm": 210.0,
+      "height_cm": 210,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11810,7 +11811,7 @@
     "slug": "tech",
     "name": "Tech",
     "physical_traits": {
-      "height_cm": 182.0,
+      "height_cm": 182,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11852,7 +11853,7 @@
     "slug": "crosshair",
     "name": "Crosshair",
     "physical_traits": {
-      "height_cm": 192.0,
+      "height_cm": 192,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11895,7 +11896,7 @@
     "slug": "omega",
     "name": "Omega",
     "physical_traits": {
-      "height_cm": 129.0,
+      "height_cm": 129,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -11974,7 +11975,7 @@
     "slug": "phee-genoa",
     "name": "Phee Genoa",
     "physical_traits": {
-      "height_cm": 171.0,
+      "height_cm": 171,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -12076,7 +12077,7 @@
     "slug": "clone-captain-howzer",
     "name": "Clone Captain Howzer",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -12115,7 +12116,7 @@
     "slug": "clone-commander-scorch",
     "name": "Clone Commander Scorch",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -12232,7 +12233,7 @@
     "slug": "clone-x-trooper",
     "name": "Clone X trooper",
     "physical_traits": {
-      "height_cm": 183.0,
+      "height_cm": 183,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -12271,7 +12272,7 @@
     "slug": "gungi",
     "name": "Gungi",
     "physical_traits": {
-      "height_cm": 153.0,
+      "height_cm": 153,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -12308,7 +12309,7 @@
     "slug": "riyo-chuchi",
     "name": "Riyo Chuchi",
     "physical_traits": {
-      "height_cm": 165.0,
+      "height_cm": 165,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -12381,7 +12382,7 @@
     "slug": "mox",
     "name": "Mox",
     "physical_traits": {
-      "height_cm": 164.0,
+      "height_cm": 164,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -12420,7 +12421,7 @@
     "slug": "stak",
     "name": "Stak",
     "physical_traits": {
-      "height_cm": 156.0,
+      "height_cm": 156,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -12503,7 +12504,7 @@
     "slug": "zeb-orrelios",
     "name": "Garazeb \"Zeb\" Orrelios",
     "physical_traits": {
-      "height_cm": 210.0,
+      "height_cm": 210,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null
@@ -13169,7 +13170,7 @@
     "slug": "general-kalani",
     "name": "General Kalani",
     "physical_traits": {
-      "height_cm": 194.0,
+      "height_cm": 194,
       "mass_kg": null,
       "hair_color": null,
       "eye_color": null

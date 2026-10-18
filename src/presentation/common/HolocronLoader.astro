@@ -1,84 +1,152 @@
-﻿---
-import { Image } from "astro:assets";
-import logoImage from "@/assets/images/logos/logo.png";
+---
+// HolocronLoader.astro - Cinematic 4-Column Curtain Loader (GSAP 3)
+const loaderColumns = [
+  {
+    name: "Luke Skywalker",
+    src: "/images/characters/luke-skywalker.jpeg",
+  },
+  {
+    name: "Darth Vader",
+    src: "/images/characters/darth-vader.jpeg",
+  },
+  {
+    name: "Ahsoka Tano",
+    src: "/images/characters/ahsoka-tano.jpeg",
+  },
+  {
+    name: "The Mandalorian",
+    src: "/images/characters/the-mandalorian.jpeg",
+  },
+];
 ---
 
-<div class="holocron-loader" id="holocron-loader" aria-live="polite">
-  <p class="intro-text" aria-label="Cargando...">
-    Inicializando el Holocron...
-  </p>
-
-  <h1 class="main-title flex flex-col items-center gap-4">
-    <span class="sr-only">Star Wars Holocron - Inicio</span>
-    <Image
-      src={logoImage}
-      alt="Logo de Star Wars"
-      class="hero-logo"
-      width={320}
-      height={320}
-      draggable="false"
-      loading="eager"
-    />
-    <span
-      class="text-blue-300/90 font-bold tracking-[0.3em] uppercase block neon-text-blue"
-      style="font-size: clamp(1rem, 3vw, 2rem); font-family: var(--font-inter);"
-      aria-hidden="true"
-    >
-      Holocron
-    </span>
-  </h1>
+<div id="holocron-cinematic-loader" class="holocron-loader-root" aria-hidden="true">
+  <div class="loader-grid">
+    {loaderColumns.map((col, index) => (
+      <div class="loader-column" data-index={index}>
+        <img
+          src={col.src}
+          alt={col.name}
+          class="loader-column-img"
+          loading="eager"
+          decoding="sync"
+        />
+      </div>
+    ))}
+  </div>
 </div>
 
 <style>
-  .holocron-loader {
-    position: absolute;
+  .holocron-loader-root {
+    position: fixed;
     inset: 0;
-    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    height: 100svh;
+    z-index: 99999;
+    pointer-events: auto;
+    background: transparent;
+    overflow: hidden;
+  }
+
+  .loader-grid {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    align-items: flex-end; /* Anclado al fondo para que el alto caiga de arriba a abajo */
   }
 
-  .intro-text {
-    color: rgba(147, 197, 253, 0.8); /* text-blue-200/80 */
-    font-size: clamp(1rem, 3vw, 1.875rem);
-    font-weight: 300;
-    letter-spacing: 0.2em;
-    text-align: center;
-    max-width: 42rem;
+  .loader-column {
+    flex: 1 1 25%;
+    width: 25%;
+    height: 100%;
+    background-color: #0A0A0A;
+    overflow: hidden;
+    position: relative;
+    will-change: height;
   }
 
-  .hero-logo {
-    width: clamp(180px, 30vw, 340px);
-    height: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 0 12px rgba(255, 200, 0, 0.5))
-      drop-shadow(0 0 40px rgba(255, 200, 0, 0.2));
-    animation: logo-pulse 4s ease-in-out infinite;
+  .loader-column-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    will-change: transform;
+    user-select: none;
+    -webkit-user-drag: none;
   }
 
-  @keyframes logo-pulse {
-    0%, 100% {
-      filter: drop-shadow(0 0 12px rgba(255, 200, 0, 0.5))
-              drop-shadow(0 0 40px rgba(255, 200, 0, 0.2));
-    }
-    50% {
-      filter: drop-shadow(0 0 22px rgba(255, 200, 0, 0.8))
-              drop-shadow(0 0 60px rgba(255, 200, 0, 0.35));
+  @media (prefers-reduced-motion: reduce) {
+    .holocron-loader-root {
+      display: none !important;
     }
   }
 </style>
 
 <script>
-  import { playHolocronIntro } from "@lib/gsap/index.ts";
+  import gsap from "gsap";
 
-  function init() {
-    playHolocronIntro();
+  function initCinematicLoader() {
+    const loader = document.getElementById("holocron-cinematic-loader");
+    if (!loader) return;
+
+    // Respetar preferencia de reducción de movimiento
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      loader.remove();
+      return;
+    }
+
+    const images = loader.querySelectorAll<HTMLImageElement>(".loader-column-img");
+    const columns = loader.querySelectorAll<HTMLElement>(".loader-column");
+
+    if (!images.length || !columns.length) {
+      loader.remove();
+      return;
+    }
+
+    // Estado inicial: imágenes fuera de su columna por la izquierda
+    gsap.set(images, {
+      xPercent: -100,
+    });
+
+    // Aseguramos columnas ancladas al 100% de altura
+    gsap.set(columns, {
+      height: "100%",
+    });
+
+    // Timeline único de GSAP 3
+    const tl = gsap.timeline({
+      onComplete: () => {
+        loader.remove();
+      },
+    });
+
+    // Fase 1: Deslizamiento horizontal de cada imagen (-100% a 200%)
+    tl.to(images, {
+      xPercent: 200,
+      duration: 2.6,
+      ease: "power2.inOut",
+      stagger: 0.25,
+    })
+    // Fase 2: Cortina final desde height 100% a 0, ancladas en la base (revelación de arriba hacia abajo)
+    .to(columns, {
+      height: 0,
+      duration: 1.2,
+      ease: "power4.inOut",
+      stagger: {
+        each: 0.11,
+        from: "end",
+      },
+    });
   }
 
-  document.addEventListener("DOMContentLoaded", init);
-  document.addEventListener("astro:page-load", init);
+  // Ejecución inmediata
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCinematicLoader, { once: true });
+  } else {
+    initCinematicLoader();
+  }
 </script>

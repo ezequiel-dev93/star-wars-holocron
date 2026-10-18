@@ -12,31 +12,31 @@
   <!-- Modal Card -->
   <div
     id="holocron-modal-card"
-    class="relative w-full max-w-4xl max-h-[90vh] bg-[#050B18] border border-cyan-500/40 rounded-2xl shadow-[0_0_50px_rgba(0,240,255,0.25)] flex flex-col overflow-hidden text-slate-100"
+    class="relative w-full max-w-4xl max-h-[90vh] bg-[#0E0E0E] border border-[#7FFFD4]/40 rounded-2xl shadow-[0_0_50px_rgba(127,255,212,0.25)] flex flex-col overflow-hidden text-[#F8FFF0]"
   >
     <!-- Header del Modal -->
-    <div class="flex items-center justify-between px-6 py-4 border-b border-cyan-500/20 bg-slate-950/60">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-[#3D3D3D] bg-[#141414]">
       <div class="flex items-center gap-3">
-        <span class="inline-block w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_#00F0FF]"></span>
-        <h2 id="modal-character-name" class="text-xl sm:text-2xl font-bold font-['Orbitron',sans-serif] text-white tracking-wide">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#7FFFD4] animate-pulse shadow-[0_0_10px_#7FFFD4]"></span>
+        <h2 id="modal-character-name" class="text-xl sm:text-2xl font-bold font-['Orbitron',sans-serif] text-[#F8FFF0] tracking-wide">
           Cargando...
         </h2>
-        <span id="modal-character-id" class="px-2 py-0.5 text-xs font-mono rounded bg-cyan-950 text-cyan-400 border border-cyan-500/30">
+        <span id="modal-character-id" class="px-2 py-0.5 text-xs font-mono rounded bg-[#0A0A0A] text-[#7FFFD4] border border-[#7FFFD4]/30">
           #000
         </span>
       </div>
 
       <!-- Tabs Switcher -->
-      <div class="flex items-center gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800 text-xs font-['Orbitron',sans-serif]">
+      <div class="flex items-center gap-1 bg-[#0A0A0A] p-1 rounded-xl border border-[#3D3D3D] text-xs font-['Orbitron',sans-serif]">
         <button
           id="tab-btn-info"
-          class="px-3 py-1.5 rounded-lg bg-cyan-500 text-slate-950 font-bold transition-all shadow-sm"
+          class="px-3 py-1.5 rounded-lg bg-[#7FFFD4] text-[#0A0A0A] font-bold transition-all shadow-sm"
         >
           Ficha Canónica
         </button>
         <button
           id="tab-btn-json"
-          class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-cyan-300 font-medium transition-all"
+          class="px-3 py-1.5 rounded-lg text-[#A3A3A3] hover:text-[#7FFFD4] font-medium transition-all"
         >
           {`{ }`} Ver JSON
         </button>
@@ -45,7 +45,7 @@
       <!-- Close Button -->
       <button
         id="modal-close-btn"
-        class="ml-3 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+        class="ml-3 p-1.5 rounded-lg text-[#A3A3A3] hover:text-[#F8FFF0] hover:bg-[#1F1F1F] transition-colors"
         aria-label="Cerrar modal"
       >
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,7 +61,7 @@
       <div id="tab-content-info" class="grid grid-cols-1 md:grid-cols-12 gap-6">
         <!-- Retrato y Badge -->
         <div class="md:col-span-5 flex flex-col items-center">
-          <div class="w-full aspect-[3/4] rounded-xl overflow-hidden border border-cyan-500/30 bg-slate-950 shadow-lg relative group">
+          <div class="w-full aspect-[3/4] rounded-xl overflow-hidden border border-[#3D3D3D] bg-[#121212] shadow-lg relative group">
             <img
               id="modal-character-image"
               src="/images/characters/placeholder.svg"
@@ -72,50 +72,50 @@
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
           </div>
           
-          <div id="modal-character-homeworld" class="mt-3 text-xs text-slate-400 flex items-center gap-1.5 font-mono">
+          <div id="modal-character-homeworld" class="mt-3 text-xs text-[#A3A3A3] flex items-center gap-1.5 font-mono">
             <span>🪐 Planeta:</span>
-            <span class="text-cyan-300 font-semibold" id="modal-homeworld-val">Desconocido</span>
+            <span class="text-[#7FFFD4] font-semibold" id="modal-homeworld-val">Desconocido</span>
           </div>
         </div>
 
         <!-- Detalles Biográficos y Técnicos -->
         <div class="md:col-span-7 flex flex-col gap-4">
           <!-- Biometría Quick Facts -->
-          <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 text-center font-mono text-xs">
+          <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-[#141414] border border-[#3D3D3D] text-center font-mono text-xs">
             <div>
-              <p class="text-slate-500 text-[10px] uppercase">Altura</p>
-              <p id="modal-height" class="text-cyan-300 font-semibold mt-0.5">--</p>
+              <p class="text-[#A3A3A3] text-[10px] uppercase">Altura</p>
+              <p id="modal-height" class="text-[#7FFFD4] font-semibold mt-0.5">--</p>
             </div>
-            <div class="border-x border-slate-800">
-              <p class="text-slate-500 text-[10px] uppercase">Peso</p>
-              <p id="modal-mass" class="text-cyan-300 font-semibold mt-0.5">--</p>
+            <div class="border-x border-[#3D3D3D]">
+              <p class="text-[#A3A3A3] text-[10px] uppercase">Peso</p>
+              <p id="modal-mass" class="text-[#7FFFD4] font-semibold mt-0.5">--</p>
             </div>
             <div>
-              <p class="text-slate-500 text-[10px] uppercase">Género</p>
-              <p id="modal-gender" class="text-cyan-300 font-semibold mt-0.5 capitalize">--</p>
+              <p class="text-[#A3A3A3] text-[10px] uppercase">Género</p>
+              <p id="modal-gender" class="text-[#7FFFD4] font-semibold mt-0.5 capitalize">--</p>
             </div>
           </div>
 
           <!-- Biografía -->
           <div>
-            <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider font-['Orbitron',sans-serif] mb-1.5">
+            <h3 class="text-xs font-bold text-[#7FFFD4] uppercase tracking-wider font-['Orbitron',sans-serif] mb-1.5">
               Registro Histórico
             </h3>
-            <p id="modal-description" class="text-sm text-slate-300 leading-relaxed bg-slate-900/40 p-3.5 rounded-xl border border-slate-800/60">
+            <p id="modal-description" class="text-sm text-[#F8FFF0]/90 leading-relaxed bg-[#121212] p-3.5 rounded-xl border border-[#3D3D3D]">
               Sin descripción disponible en los archivos del Holocron.
             </p>
           </div>
 
           <!-- Endpoint API Directo -->
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-cyan-500/20 flex items-center justify-between text-xs font-mono">
-            <span class="text-slate-400 truncate max-w-[280px]" id="modal-api-url">
+          <div class="p-3 rounded-xl bg-[#121212] border border-[#3D3D3D] flex items-center justify-between text-xs font-mono">
+            <span class="text-[#A3A3A3] truncate max-w-[280px]" id="modal-api-url">
               GET /api/characters/1
             </span>
             <a
               id="modal-api-link"
               href="/api/characters/1"
               target="_blank"
-              class="px-2.5 py-1 rounded bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 transition-colors"
+              class="px-2.5 py-1 rounded bg-[#7FFFD4]/10 hover:bg-[#7FFFD4]/20 text-[#7FFFD4] border border-[#7FFFD4]/30 transition-colors"
             >
               Abrir Endpoint ↗
             </a>
@@ -125,11 +125,11 @@
 
       <!-- VISTA 2: Visor JSON (Oculto por defecto) -->
       <div id="tab-content-json" class="hidden flex flex-col gap-3">
-        <div class="flex items-center justify-between bg-slate-900/80 px-4 py-2 rounded-lg border border-slate-800 text-xs">
-          <span class="font-mono text-slate-400">application/json (UTF-8)</span>
+        <div class="flex items-center justify-between bg-[#141414] px-4 py-2 rounded-lg border border-[#3D3D3D] text-xs">
+          <span class="font-mono text-[#A3A3A3]">application/json (UTF-8)</span>
           <button
             id="copy-json-btn"
-            class="flex items-center gap-1.5 px-3 py-1 bg-cyan-500 text-slate-950 font-bold rounded-md hover:bg-cyan-400 transition-colors font-mono"
+            class="flex items-center gap-1.5 px-3 py-1 bg-[#7FFFD4] text-[#0A0A0A] font-bold rounded-md hover:bg-white transition-colors font-mono"
           >
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
@@ -138,7 +138,7 @@
           </button>
         </div>
 
-        <pre class="p-4 rounded-xl bg-[#03060E] border border-cyan-500/20 overflow-x-auto text-xs font-mono text-cyan-300 leading-relaxed selection:bg-cyan-500/30"><code id="modal-json-code">{ }</code></pre>
+        <pre class="p-4 rounded-xl bg-[#080808] border border-[#3D3D3D] overflow-x-auto text-xs font-mono text-[#7FFFD4] leading-relaxed selection:bg-[#7FFFD4]/30"><code id="modal-json-code">{ }</code></pre>
       </div>
 
     </div>
@@ -211,63 +211,57 @@
     if (tab === "info") {
       tabContentInfo?.classList.remove("hidden");
       tabContentJson?.classList.add("hidden");
-      tabBtnInfo?.classList.add("bg-cyan-500", "text-slate-950", "font-bold");
-      tabBtnInfo?.classList.remove("text-slate-400");
-      tabBtnJson?.classList.remove("bg-cyan-500", "text-slate-950", "font-bold");
-      tabBtnJson?.classList.add("text-slate-400");
+      tabBtnInfo?.classList.add("bg-[#7FFFD4]", "text-[#0A0A0A]", "font-bold");
+      tabBtnInfo?.classList.remove("text-[#A3A3A3]");
+      tabBtnJson?.classList.remove("bg-[#7FFFD4]", "text-[#0A0A0A]", "font-bold");
+      tabBtnJson?.classList.add("text-[#A3A3A3]");
     } else {
       tabContentInfo?.classList.add("hidden");
       tabContentJson?.classList.remove("hidden");
-      tabBtnJson?.classList.add("bg-cyan-500", "text-slate-950", "font-bold");
-      tabBtnJson?.classList.remove("text-slate-400");
-      tabBtnInfo?.classList.remove("bg-cyan-500", "text-slate-950", "font-bold");
-      tabBtnInfo?.classList.add("text-slate-400");
+      tabBtnJson?.classList.add("bg-[#7FFFD4]", "text-[#0A0A0A]", "font-bold");
+      tabBtnJson?.classList.remove("text-[#A3A3A3]");
+      tabBtnInfo?.classList.remove("bg-[#7FFFD4]", "text-[#0A0A0A]", "font-bold");
+      tabBtnInfo?.classList.add("text-[#A3A3A3]");
     }
   }
 
-  // Delegación de eventos para clicks en cartas
-  function setupCardListeners() {
-    document.querySelectorAll(".character-card").forEach((card) => {
-      card.addEventListener("click", () => {
-        const raw = card.getAttribute("data-character");
-        if (raw) {
-          try {
-            const data = JSON.parse(raw);
-            openCharacterModal(data);
-          } catch (e) {
-            console.error("Error parsing character data", e);
-          }
-        }
-      });
-    });
-  }
-
-  setupCardListeners();
-  document.addEventListener("astro:page-load", setupCardListeners);
-
-  // Tabs events
+  // Event Listeners
   tabBtnInfo?.addEventListener("click", () => showTab("info"));
   tabBtnJson?.addEventListener("click", () => showTab("json"));
-
-  // Close events
   closeBtn?.addEventListener("click", closeModal);
+
   modal?.addEventListener("click", (e) => {
     if (e.target === modal) closeModal();
   });
+
   window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeModal();
+    if (e.key === "Escape" && !modal?.classList.contains("hidden")) {
+      closeModal();
+    }
   });
 
   // Copiar JSON
-  copyBtn?.addEventListener("click", () => {
-    if (currentCharacterData) {
-      navigator.clipboard.writeText(JSON.stringify(currentCharacterData, null, 2));
-      if (copyBtnText) copyBtnText.textContent = "¡Copiado! ✓";
-      copyBtn?.classList.add("bg-green-400");
-      setTimeout(() => {
-        if (copyBtnText) copyBtnText.textContent = "Copiar JSON";
-        copyBtn?.classList.remove("bg-green-400");
-      }, 2000);
+  copyBtn?.addEventListener("click", async () => {
+    if (!currentCharacterData) return;
+    await navigator.clipboard.writeText(JSON.stringify(currentCharacterData, null, 2));
+    if (copyBtnText) copyBtnText.textContent = "¡Copiado!";
+    setTimeout(() => {
+      if (copyBtnText) copyBtnText.textContent = "Copiar JSON";
+    }, 2000);
+  });
+
+  // Delegación de eventos para todas las tarjetas de personajes
+  document.addEventListener("click", (e) => {
+    const card = (e.target as HTMLElement).closest(".character-card");
+    if (!card) return;
+    const rawData = card.getAttribute("data-character");
+    if (rawData) {
+      try {
+        const parsed = JSON.parse(rawData);
+        openCharacterModal(parsed);
+      } catch (err) {
+        console.error("Error al parsear datos de personaje", err);
+      }
     }
   });
 </script>

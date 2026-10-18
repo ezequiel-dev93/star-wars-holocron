@@ -1,0 +1,76 @@
+---
+interface Props {
+  size?: "sm" | "md" | "lg";
+  class?: string;
+  withIcon?: boolean;
+}
+
+const { size = "md", class: className = "", withIcon = true } = Astro.props;
+
+const sizeStyles = {
+  sm: {
+    main: "text-sm sm:text-base tracking-[0.2em]",
+    sub: "text-[9px] sm:text-[10px] tracking-[0.35em]",
+    icon: "w-5 h-5",
+    gap: "gap-2",
+  },
+  md: {
+    main: "text-lg sm:text-xl tracking-[0.25em]",
+    sub: "text-[11px] sm:text-xs tracking-[0.4em]",
+    icon: "w-7 h-7",
+    gap: "gap-2.5",
+  },
+  lg: {
+    main: "text-3xl sm:text-5xl md:text-6xl tracking-[0.25em]",
+    sub: "text-xs sm:text-base md:text-lg tracking-[0.45em]",
+    icon: "w-10 h-10 sm:w-14 sm:h-14",
+    gap: "gap-3",
+  },
+};
+
+const current = sizeStyles[size] || sizeStyles.md;
+---
+
+<div class={`inline-flex items-center ${current.gap} select-none group ${className}`}>
+  {withIcon && (
+    <div class={`relative flex items-center justify-center ${current.icon} shrink-0`}>
+      <!-- Holocron Hexagonal Crystal Glyph -->
+      <svg
+        viewBox="0 0 100 100"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-full h-full text-[#7FFFD4] drop-shadow-[0_0_12px_rgba(127,255,212,0.65)] group-hover:rotate-12 transition-transform duration-500"
+      >
+        <!-- Outer Holocron Crystal -->
+        <polygon
+          points="50,5 90,25 90,75 50,95 10,75 10,25"
+          stroke="currentColor"
+          stroke-width="5"
+          fill="rgba(127, 255, 212, 0.08)"
+        />
+        <!-- Inner Kyber Core -->
+        <polygon
+          points="50,22 75,36 75,64 50,78 25,64 25,36"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-dasharray="4 2"
+          fill="rgba(127, 255, 212, 0.2)"
+        />
+        <circle cx="50" cy="50" r="7" fill="#F8FFF0" class="animate-pulse" />
+      </svg>
+    </div>
+  )}
+
+  <div class="flex flex-col items-center justify-center text-center">
+    <span
+      class={`font-extrabold uppercase text-[#F8FFF0] font-['Orbitron',sans-serif] leading-none transition-colors group-hover:text-white ${current.main}`}
+    >
+      STAR WARS
+    </span>
+    <span
+      class={`font-black uppercase text-[#7FFFD4] font-['Orbitron',sans-serif] leading-tight mt-1 transition-all duration-300 drop-shadow-[0_0_8px_rgba(127,255,212,0.8)] group-hover:drop-shadow-[0_0_16px_rgba(127,255,212,1)] ${current.sub}`}
+    >
+      HOLOCRON
+    </span>
+  </div>
+</div>

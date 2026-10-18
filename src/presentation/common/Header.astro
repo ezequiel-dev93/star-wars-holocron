@@ -3,31 +3,19 @@ import NavItem from "@presentation/common/NavItem.astro";
 import DocsIcon from "@presentation/components/icons/DocsIcon.astro";
 import MenuIcon from "@presentation/components/icons/MenuIcon.astro";
 import CloseIcon from "@presentation/components/icons/CloseIcon.astro";
-import { Image } from "astro:assets";
-import logoImage from "@/assets/images/logos/logo.png";
+import Logo from "@presentation/common/Logo.astro";
 ---
 
 <header id="site-header" class="site-header">
   <div class="header-inner">
-    <!-- Brand -->
+    <!-- Brand con Logo Holocron -->
     <div class="header-brand">
       <a
         href="/"
-        class="header-logo-link group"
+        class="header-logo-link"
         aria-label="Star Wars Holocron — Inicio"
       >
-        <Image
-          src={logoImage}
-          alt="Logo de Star Wars"
-          class="header-logo"
-          widths={[40, 80]}
-          sizes="40px"
-          loading="eager"
-        />
-        <div class="flex flex-col">
-          <span class="header-logo-text" aria-hidden="true">HOLOCRON</span>
-          <span class="header-logo-sub">CANON API</span>
-        </div>
+        <Logo size="sm" />
       </a>
     </div>
 
@@ -106,7 +94,7 @@ import logoImage from "@/assets/images/logos/logo.png";
         </NavItem>
       </li>
       <li>
-        <a href="/introduccion" class="mobile-nav-link text-cyan-400 font-semibold">
+        <a href="/introduccion" class="mobile-nav-link text-[#7FFFD4] font-semibold">
           Documentación REST API ↗
         </a>
       </li>
@@ -122,27 +110,28 @@ import logoImage from "@/assets/images/logos/logo.png";
     right: 0;
     z-index: 50;
     width: 100%;
-    background: rgba(4, 7, 17, 0.85);
+    background: rgba(10, 10, 10, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(0, 240, 255, 0.12);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(127, 255, 212, 0.15);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
     transition: all 0.3s ease;
   }
 
   .site-header.is-scrolled {
-    background: rgba(3, 5, 12, 0.95);
-    border-bottom-color: rgba(0, 240, 255, 0.25);
-    box-shadow: 0 8px 32px rgba(0, 240, 255, 0.08);
+    background: rgba(10, 10, 10, 0.96);
+    border-bottom-color: rgba(127, 255, 212, 0.3);
+    box-shadow: 0 8px 32px rgba(127, 255, 212, 0.08);
   }
 
   .header-inner {
-    max-width: 1700px;
+    width: 92%;
+    max-width: 1750px;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.75rem 1.5rem;
+    padding: 0.75rem 0;
     height: 70px;
   }
 
@@ -155,40 +144,7 @@ import logoImage from "@/assets/images/logos/logo.png";
   .header-logo-link {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
     text-decoration: none;
-  }
-
-  .header-logo {
-    width: 38px;
-    height: auto;
-    filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.5));
-    transition: transform 0.3s ease, filter 0.3s ease;
-  }
-
-  .header-logo-link:hover .header-logo {
-    transform: scale(1.08) rotate(-4deg);
-    filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.8));
-  }
-
-  .header-logo-text {
-    font-family: var(--font-orbitron);
-    font-size: 0.95rem;
-    font-weight: 800;
-    letter-spacing: 0.2em;
-    color: #ffffff;
-    line-height: 1;
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
-  }
-
-  .header-logo-sub {
-    font-family: var(--font-inter);
-    font-size: 0.58rem;
-    font-weight: 700;
-    letter-spacing: 0.25em;
-    color: #00f0ff;
-    opacity: 0.85;
-    margin-top: 2px;
   }
 
   /* Desktop Nav */
@@ -210,8 +166,8 @@ import logoImage from "@/assets/images/logos/logo.png";
     list-style: none;
     margin: 0;
     padding: 0.25rem 0.5rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(61, 61, 61, 0.25);
+    border: 1px solid rgba(61, 61, 61, 0.5);
     border-radius: 9999px;
   }
 
@@ -223,22 +179,22 @@ import logoImage from "@/assets/images/logos/logo.png";
     font-family: var(--font-orbitron);
     font-weight: 600;
     letter-spacing: 0.08em;
-    color: rgba(241, 245, 249, 0.7);
+    color: rgba(248, 255, 240, 0.75);
     border-radius: 9999px;
     transition: all 0.25s ease;
   }
 
   .header-nav-link:hover {
-    color: #00f0ff;
-    background: rgba(0, 240, 255, 0.1);
-    text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+    color: #7FFFD4;
+    background: rgba(127, 255, 212, 0.1);
+    text-shadow: 0 0 8px rgba(127, 255, 212, 0.5);
   }
 
   .header-nav-link.is-active {
-    color: #00f0ff;
-    background: rgba(0, 240, 255, 0.15);
-    border: 1px solid rgba(0, 240, 255, 0.3);
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+    color: #7FFFD4;
+    background: rgba(127, 255, 212, 0.15);
+    border: 1px solid rgba(127, 255, 212, 0.35);
+    text-shadow: 0 0 10px rgba(127, 255, 212, 0.6);
   }
 
   /* Right Actions */
@@ -257,18 +213,18 @@ import logoImage from "@/assets/images/logos/logo.png";
     font-family: var(--font-orbitron);
     font-weight: 700;
     letter-spacing: 0.06em;
-    color: #00f0ff;
-    border: 1px solid rgba(0, 240, 255, 0.35);
+    color: #7FFFD4;
+    border: 1px solid rgba(127, 255, 212, 0.4);
     border-radius: 8px;
-    background: rgba(0, 240, 255, 0.06);
+    background: rgba(127, 255, 212, 0.08);
     text-decoration: none;
     transition: all 0.25s ease;
   }
 
   .header-docs-btn:hover {
-    color: #ffffff;
-    background: #00f0ff;
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+    color: #0A0A0A;
+    background: #7FFFD4;
+    box-shadow: 0 0 18px rgba(127, 255, 212, 0.6);
   }
 
   /* Mobile menu button */
@@ -276,7 +232,7 @@ import logoImage from "@/assets/images/logos/logo.png";
     display: none;
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(248, 255, 240, 0.85);
     cursor: pointer;
     padding: 0.5rem;
     border-radius: 6px;
@@ -296,8 +252,8 @@ import logoImage from "@/assets/images/logos/logo.png";
     display: none;
     flex-direction: column;
     padding: 1rem 1.5rem;
-    background: rgba(4, 7, 17, 0.98);
-    border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+    background: rgba(10, 10, 10, 0.98);
+    border-bottom: 1px solid rgba(127, 255, 212, 0.2);
   }
 
   .header-mobile-nav.is-open {
@@ -318,17 +274,17 @@ import logoImage from "@/assets/images/logos/logo.png";
     padding: 0.75rem 1rem;
     font-family: var(--font-orbitron);
     font-size: 0.9rem;
-    color: rgba(241, 245, 249, 0.8);
+    color: rgba(248, 255, 240, 0.8);
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(61, 61, 61, 0.4);
     transition: all 0.2s ease;
   }
 
   .mobile-nav-link:hover,
   .mobile-nav-link.is-active {
-    color: #00f0ff;
-    background: rgba(0, 240, 255, 0.1);
-    border-color: rgba(0, 240, 255, 0.3);
+    color: #7FFFD4;
+    background: rgba(127, 255, 212, 0.1);
+    border-color: rgba(127, 255, 212, 0.35);
   }
 </style>
 

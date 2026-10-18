@@ -2,7 +2,7 @@
 import type { CharacterDTO } from "@/modules/characters/application/dtos/CharacterDTO";
 
 interface Props {
-    character: CharacterDTO;
+  character: CharacterDTO;
 }
 
 const { character } = Astro.props;
@@ -12,62 +12,62 @@ const rawJson = JSON.stringify(character);
 ---
 
 <div
-    class="character-card group relative bg-[#070d1e]/80 rounded-xl overflow-hidden border border-cyan-500/20 hover:border-cyan-400 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_0_25px_rgba(0,240,255,0.25)] cursor-pointer flex flex-col justify-between"
-    role="button"
-    tabindex="0"
-    data-character={rawJson}
-    aria-label={`Ver ficha y JSON de ${character.name}`}
+  class="character-card group relative bg-[#0E0E0E] rounded-xl overflow-hidden border border-[#3D3D3D] hover:border-[#7FFFD4] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_0_25px_rgba(127,255,212,0.25)] cursor-pointer flex flex-col justify-between"
+  role="button"
+  tabindex="0"
+  data-character={rawJson}
+  aria-label={`Ver ficha y JSON de ${character.name}`}
 >
-    <!-- Corner Sci-Fi accents -->
-    <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-cyan-400 opacity-60 group-hover:opacity-100 transition-opacity z-10"></div>
-    <div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-cyan-400 opacity-60 group-hover:opacity-100 transition-opacity z-10"></div>
-    <div class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-cyan-400 opacity-60 group-hover:opacity-100 transition-opacity z-10"></div>
-    <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-cyan-400 opacity-60 group-hover:opacity-100 transition-opacity z-10"></div>
+  <!-- Corner Sci-Fi accents -->
+  <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#7FFFD4] opacity-50 group-hover:opacity-100 transition-opacity z-10"></div>
+  <div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#7FFFD4] opacity-50 group-hover:opacity-100 transition-opacity z-10"></div>
+  <div class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#7FFFD4] opacity-50 group-hover:opacity-100 transition-opacity z-10"></div>
+  <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#7FFFD4] opacity-50 group-hover:opacity-100 transition-opacity z-10"></div>
 
-    <div>
-        <!-- Imagen con ratio 3:4 -->
-        <picture class="aspect-[3/4] overflow-hidden bg-slate-950 block relative">
-            <img
-                src={imageSrc}
-                alt={character.name}
-                class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-                onerror="this.onerror=null; this.src='/images/characters/placeholder.svg';"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-[#070d1e] via-transparent to-transparent opacity-80"></div>
-            
-            <!-- Badge ID / Canon -->
-            <div class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded bg-black/60 backdrop-blur-md border border-cyan-500/30 text-[10px] font-mono text-cyan-300">
-                #{character.id.padStart(3, '0')}
-            </div>
+  <div>
+    <!-- Imagen con ratio 3:4 -->
+    <picture class="aspect-[3/4] overflow-hidden bg-[#121212] block relative">
+      <img
+        src={imageSrc}
+        alt={character.name}
+        class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+        loading="lazy"
+        onerror="this.onerror=null; this.src='/images/characters/placeholder.svg';"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-[#0E0E0E] via-transparent to-transparent opacity-80"></div>
+      
+      <!-- Badge ID / Canon -->
+      <div class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded bg-[#0A0A0A]/80 backdrop-blur-md border border-[#7FFFD4]/30 text-[10px] font-mono text-[#7FFFD4]">
+        #{character.id.padStart(3, '0')}
+      </div>
 
-            <!-- Hint "Click para JSON" -->
-            <div class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded bg-cyan-950/80 backdrop-blur-md border border-cyan-400/40 text-[10px] font-mono text-cyan-200 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                <span>{`{ }`} JSON</span>
-            </div>
-        </picture>
+      <!-- Hint "Click para JSON" -->
+      <div class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded bg-[#0A0A0A]/90 backdrop-blur-md border border-[#7FFFD4]/50 text-[10px] font-mono text-[#7FFFD4] opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 shadow-[0_0_10px_rgba(127,255,212,0.3)]">
+        <span>{`{ }`} JSON</span>
+      </div>
+    </picture>
 
-        <!-- Información -->
-        <div class="p-3.5">
-            <h2 class="text-base font-bold text-slate-100 group-hover:text-cyan-300 transition-colors line-clamp-1 font-['Orbitron',sans-serif]">
-                {character.name}
-            </h2>
+    <!-- Información -->
+    <div class="p-3.5">
+      <h2 class="text-base font-bold text-[#F8FFF0] group-hover:text-[#7FFFD4] transition-colors line-clamp-1 font-['Orbitron',sans-serif]">
+        {character.name}
+      </h2>
 
-            {character.description && (
-                <p class="mt-1 text-xs text-slate-400 line-clamp-2 leading-relaxed">
-                    {character.description}
-                </p>
-            )}
-        </div>
+      {character.description && (
+        <p class="mt-1 text-xs text-[#A3A3A3] line-clamp-2 leading-relaxed font-['Inter',sans-serif]">
+          {character.description}
+        </p>
+      )}
     </div>
+  </div>
 
-    <!-- Tags en la base -->
-    <div class="px-3.5 pb-3.5 pt-1 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
-        <span class="capitalize text-slate-400 font-medium">
-            {character.gender !== "unknown" ? character.gender : "Droide / N/A"}
-        </span>
-        <span class="text-cyan-400/80 font-mono text-[10px] group-hover:text-cyan-300">
-            Ficha + API →
-        </span>
-    </div>
+  <!-- Tags en la base -->
+  <div class="px-3.5 pb-3.5 pt-1 border-t border-[#3D3D3D]/60 flex items-center justify-between text-[11px] text-[#A3A3A3]">
+    <span class="capitalize font-medium">
+      {character.gender !== "unknown" ? character.gender : "Droide / N/A"}
+    </span>
+    <span class="text-[#7FFFD4] font-mono text-[10px] group-hover:underline">
+      Ficha + API →
+    </span>
+  </div>
 </div>

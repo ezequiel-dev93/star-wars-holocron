@@ -1,0 +1,236 @@
+---
+// LegendsRunway.astro - Pasarela cinematográfica de iconos galácticos
+import rawCharacters from "@/data/characters.json";
+
+const legendSlugs = [
+  "luke-skywalker",
+  "darth-vader",
+  "ahsoka-tano",
+  "the-mandalorian",
+  "obi-wan-kenobi",
+  "darth-maul",
+  "yoda",
+  "boba-fett",
+  "leia-organa",
+  "han-solo",
+  "anakin-skywalker",
+  "palpatine",
+];
+
+const legends = legendSlugs
+  .map((slug) => rawCharacters.find((c: any) => c.slug === slug))
+  .filter(Boolean);
+---
+
+<section class="relative z-10 py-16 overflow-hidden border-t border-[#3D3D3D]/60 bg-[#0A0A0A]">
+  <!-- Header de la Pasarela -->
+  <div class="sectionContenedor mb-10">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 text-xs font-mono text-[#7FFFD4] uppercase tracking-widest mb-2 font-semibold">
+          <span class="w-2 h-2 rounded-full bg-[#7FFFD4] inline-block animate-pulse"></span>
+          ARCHIVOS CLASIFICADOS
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-black text-[#F8FFF0] font-['Orbitron',sans-serif] tracking-wider">
+          PASARELA DE LEYENDAS
+        </h2>
+        <p class="text-xs sm:text-sm text-[#A3A3A3] mt-1 max-w-xl font-['Inter',sans-serif]">
+          Los maestros, caballeros, señores Sith y cazadores que definieron el destino de la galaxia.
+        </p>
+      </div>
+
+      <a
+        href="/characters"
+        class="inline-flex items-center gap-2 text-xs sm:text-sm font-['Orbitron',sans-serif] text-[#7FFFD4] hover:text-white transition-colors group font-bold tracking-wider"
+      >
+        <span>Ver catálogo completo (364)</span>
+        <span class="group-hover:translate-x-1 transition-transform">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Marquee Infinito de Leyendas -->
+  <div class="runway-marquee-container group/marquee">
+    <div class="runway-track">
+      <!-- Primer juego de tarjetas -->
+      {legends.map((char: any) => (
+        <a
+          href={`/characters?q=${encodeURIComponent(char.name)}`}
+          class="runway-card group"
+        >
+          <div class="runway-image-wrap">
+            <img
+              src={char.avatar_url || "/images/characters/placeholder.svg"}
+              alt={char.name}
+              class="runway-img"
+              loading="lazy"
+              decoding="async"
+              onerror="this.src='/images/characters/placeholder.svg';"
+            />
+            <div class="runway-gradient-overlay"></div>
+            <div class="runway-badge">
+              {char.homeworld || "Galaxia"}
+            </div>
+          </div>
+
+          <div class="p-4 bg-[#0A0A0A]">
+            <h3 class="text-base font-extrabold text-[#F8FFF0] group-hover:text-[#7FFFD4] font-['Orbitron',sans-serif] transition-colors truncate">
+              {char.name}
+            </h3>
+            <p class="text-[11px] text-[#A3A3A3] line-clamp-1 mt-1 font-mono">
+              {char.species?.[0] || "Humano"} • {char.status || "Canon"}
+            </p>
+            <div class="mt-3 pt-2 border-t border-[#3D3D3D]/50 flex items-center justify-between text-[10px] font-mono text-[#7FFFD4]">
+              <span>EXPLORAR FICHA</span>
+              <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+        </a>
+      ))}
+
+      <!-- Segundo juego duplicado para loop infinito sin cortes -->
+      {legends.map((char: any) => (
+        <a
+          href={`/characters?q=${encodeURIComponent(char.name)}`}
+          class="runway-card group"
+          aria-hidden="true"
+        >
+          <div class="runway-image-wrap">
+            <img
+              src={char.avatar_url || "/images/characters/placeholder.svg"}
+              alt={char.name}
+              class="runway-img"
+              loading="lazy"
+              decoding="async"
+              onerror="this.src='/images/characters/placeholder.svg';"
+            />
+            <div class="runway-gradient-overlay"></div>
+            <div class="runway-badge">
+              {char.homeworld || "Galaxia"}
+            </div>
+          </div>
+
+          <div class="p-4 bg-[#0A0A0A]">
+            <h3 class="text-base font-extrabold text-[#F8FFF0] group-hover:text-[#7FFFD4] font-['Orbitron',sans-serif] transition-colors truncate">
+              {char.name}
+            </h3>
+            <p class="text-[11px] text-[#A3A3A3] line-clamp-1 mt-1 font-mono">
+              {char.species?.[0] || "Humano"} • {char.status || "Canon"}
+            </p>
+            <div class="mt-3 pt-2 border-t border-[#3D3D3D]/50 flex items-center justify-between text-[10px] font-mono text-[#7FFFD4]">
+              <span>EXPLORAR FICHA</span>
+              <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .runway-marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 1rem 0 2rem;
+  }
+
+  .runway-marquee-container::before,
+  .runway-marquee-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  .runway-marquee-container::before {
+    left: 0;
+    background: linear-gradient(to right, #0A0A0A, transparent);
+  }
+
+  .runway-marquee-container::after {
+    right: 0;
+    background: linear-gradient(to left, #0A0A0A, transparent);
+  }
+
+  .runway-track {
+    display: flex;
+    gap: 1.5rem;
+    width: max-content;
+    animation: marquee-scroll 45s linear infinite;
+  }
+
+  .runway-marquee-container:hover .runway-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee-scroll {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .runway-card {
+    width: 260px;
+    flex-shrink: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: #0A0A0A;
+    border: 1px solid #3D3D3D;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .runway-card:hover {
+    transform: translateY(-8px);
+    border-color: #7FFFD4;
+    box-shadow: 0 0 25px rgba(127, 255, 212, 0.3);
+  }
+
+  .runway-image-wrap {
+    aspect-ratio: 3 / 4;
+    position: relative;
+    overflow: hidden;
+    background-color: #121212;
+  }
+
+  .runway-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .runway-card:hover .runway-img {
+    transform: scale(1.08);
+  }
+
+  .runway-gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #0A0A0A 0%, rgba(10, 10, 10, 0.2) 50%, transparent 100%);
+  }
+
+  .runway-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    background: rgba(10, 10, 10, 0.85);
+    border: 1px solid rgba(127, 255, 212, 0.3);
+    color: #7FFFD4;
+    font-size: 9px;
+    font-family: monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+  }
+</style>
