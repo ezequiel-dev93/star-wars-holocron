@@ -1,7 +1,113 @@
-﻿<section
-  class="relative w-full h-screen flex items-center justify-center overflow-hidden"
->
-  <canvas id="starfield-canvas" class="absolute inset-0 w-full h-full"></canvas>
+---
+// Hero.astro - Hero principal con Three.js Starfield + Terminal interactiva en vivo
+---
+
+<section class="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 pb-16 px-4 sm:px-6">
+  <!-- Three.js Starfield Canvas Background -->
+  <canvas id="starfield-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-80"></canvas>
+
+  <!-- Holographic Ambient Glows -->
+  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-cyan-500/10 blur-[130px] rounded-full pointer-events-none"></div>
+  <div class="absolute bottom-10 right-10 w-[400px] h-[250px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+  <!-- Content Container -->
+  <div class="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
+    
+    <!-- Top Cyber Badge -->
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-400/30 text-cyan-300 text-xs font-mono font-semibold uppercase tracking-widest mb-6 shadow-[0_0_20px_rgba(0,240,255,0.2)]">
+      <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+      <span>CANON REST API • V1.0 GALACTIC ARCHIVE</span>
+    </div>
+
+    <!-- Main Title in Orbitron -->
+    <h1 class="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-wider font-['Orbitron',sans-serif] leading-tight sm:leading-none">
+      STAR WARS <br/>
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-200 to-amber-300 drop-shadow-[0_0_35px_rgba(0,240,255,0.4)]">
+        HOLOCRON
+      </span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="mt-6 text-base sm:text-xl text-slate-300 max-w-2xl font-['Inter',sans-serif] leading-relaxed">
+      El archivo canónico definitivo de Star Wars. Explora más de <span class="text-cyan-300 font-semibold">360 personajes oficiales</span> con retratos en alta resolución y consume la API abierta más rápida de la galaxia.
+    </p>
+
+    <!-- CTAs -->
+    <div class="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+      <a
+        href="/characters"
+        class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-cyan-400 text-slate-950 font-bold font-['Orbitron',sans-serif] text-sm tracking-wider uppercase hover:bg-cyan-300 transition-all hover:scale-105 shadow-[0_0_25px_rgba(0,240,255,0.5)] flex items-center justify-center gap-2"
+      >
+        <span>⚔️ Explorar Personajes</span>
+        <span class="font-mono text-xs">(364)</span>
+      </a>
+
+      <a
+        href="/introduccion"
+        class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-cyan-300 border border-cyan-500/30 font-['Orbitron',sans-serif] text-sm tracking-wider uppercase transition-all hover:border-cyan-400 flex items-center justify-center gap-2"
+      >
+        <span>📜 Documentación API</span>
+        <span>↗</span>
+      </a>
+    </div>
+
+    <!-- Terminal Interactiva de API Live -->
+    <div class="mt-14 w-full max-w-2xl text-left rounded-2xl bg-[#030611]/90 border border-cyan-500/30 shadow-[0_0_40px_rgba(0,240,255,0.15)] overflow-hidden">
+      <!-- Terminal Header -->
+      <div class="flex items-center justify-between px-4 py-2.5 bg-slate-950/80 border-b border-cyan-500/20 text-xs font-mono text-slate-400">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+          <span class="ml-2 text-slate-500">bash — holocron-curl</span>
+        </div>
+        <span class="text-cyan-400 font-semibold text-[11px]">HTTP 200 OK • 1ms</span>
+      </div>
+
+      <!-- Terminal Body -->
+      <div class="p-5 font-mono text-xs sm:text-sm overflow-x-auto text-slate-300">
+        <p class="text-cyan-300 font-semibold flex items-center gap-2">
+          <span class="text-emerald-400">➜</span>
+          <span class="text-slate-400">curl -s</span>
+          <span>https://starwars-holocron.vercel.app/api/characters/1</span>
+        </p>
+
+        <pre class="mt-3 text-cyan-400/90 leading-relaxed text-[11px] sm:text-xs"><code>&#123;
+  <span class="text-sky-300">"id"</span>: <span class="text-amber-300">"1"</span>,
+  <span class="text-sky-300">"name"</span>: <span class="text-emerald-300">"Luke Skywalker"</span>,
+  <span class="text-sky-300">"species"</span>: [<span class="text-emerald-300">"Human"</span>],
+  <span class="text-sky-300">"homeworld"</span>: <span class="text-emerald-300">"Tatooine"</span>,
+  <span class="text-sky-300">"height_cm"</span>: <span class="text-amber-300">172</span>,
+  <span class="text-sky-300">"avatar_url"</span>: <span class="text-emerald-300">"/images/characters/luke-skywalker.jpeg"</span>,
+  <span class="text-sky-300">"status"</span>: <span class="text-emerald-300">"Jedi Master"</span>
+&#125;</code></pre>
+      </div>
+    </div>
+
+    <!-- Métricas Galácticas -->
+    <div class="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-3xl">
+      <div class="p-4 rounded-xl bg-slate-900/50 border border-cyan-500/15 backdrop-blur-md">
+        <p class="text-2xl sm:text-3xl font-extrabold text-cyan-300 font-['Orbitron',sans-serif]">364</p>
+        <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-mono">Personajes</p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-slate-900/50 border border-cyan-500/15 backdrop-blur-md">
+        <p class="text-2xl sm:text-3xl font-extrabold text-amber-300 font-['Orbitron',sans-serif]">328</p>
+        <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-mono">Retratos HD</p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-slate-900/50 border border-cyan-500/15 backdrop-blur-md">
+        <p class="text-2xl sm:text-3xl font-extrabold text-emerald-300 font-['Orbitron',sans-serif]">0ms</p>
+        <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-mono">Edge Latency</p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-slate-900/50 border border-cyan-500/15 backdrop-blur-md">
+        <p class="text-2xl sm:text-3xl font-extrabold text-purple-300 font-['Orbitron',sans-serif]">100%</p>
+        <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-mono">Canon Star Wars</p>
+      </div>
+    </div>
+
+  </div>
 </section>
 
 <script>

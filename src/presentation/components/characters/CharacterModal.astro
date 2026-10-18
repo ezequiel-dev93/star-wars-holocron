@@ -1,0 +1,273 @@
+---
+// CharacterModal.astro - Inspector de Personajes y Visor JSON en tiempo real
+---
+
+<div
+  id="holocron-modal"
+  class="fixed inset-0 z-[100] hidden items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-xl transition-opacity duration-300"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-character-name"
+>
+  <!-- Modal Card -->
+  <div
+    id="holocron-modal-card"
+    class="relative w-full max-w-4xl max-h-[90vh] bg-[#050B18] border border-cyan-500/40 rounded-2xl shadow-[0_0_50px_rgba(0,240,255,0.25)] flex flex-col overflow-hidden text-slate-100"
+  >
+    <!-- Header del Modal -->
+    <div class="flex items-center justify-between px-6 py-4 border-b border-cyan-500/20 bg-slate-950/60">
+      <div class="flex items-center gap-3">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_#00F0FF]"></span>
+        <h2 id="modal-character-name" class="text-xl sm:text-2xl font-bold font-['Orbitron',sans-serif] text-white tracking-wide">
+          Cargando...
+        </h2>
+        <span id="modal-character-id" class="px-2 py-0.5 text-xs font-mono rounded bg-cyan-950 text-cyan-400 border border-cyan-500/30">
+          #000
+        </span>
+      </div>
+
+      <!-- Tabs Switcher -->
+      <div class="flex items-center gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800 text-xs font-['Orbitron',sans-serif]">
+        <button
+          id="tab-btn-info"
+          class="px-3 py-1.5 rounded-lg bg-cyan-500 text-slate-950 font-bold transition-all shadow-sm"
+        >
+          Ficha Canónica
+        </button>
+        <button
+          id="tab-btn-json"
+          class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-cyan-300 font-medium transition-all"
+        >
+          {`{ }`} Ver JSON
+        </button>
+      </div>
+
+      <!-- Close Button -->
+      <button
+        id="modal-close-btn"
+        class="ml-3 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+        aria-label="Cerrar modal"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Contenido del Modal (Scrolleable) -->
+    <div class="overflow-y-auto flex-1 p-6" data-lenis-prevent>
+      
+      <!-- VISTA 1: Ficha Técnica -->
+      <div id="tab-content-info" class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <!-- Retrato y Badge -->
+        <div class="md:col-span-5 flex flex-col items-center">
+          <div class="w-full aspect-[3/4] rounded-xl overflow-hidden border border-cyan-500/30 bg-slate-950 shadow-lg relative group">
+            <img
+              id="modal-character-image"
+              src="/images/characters/placeholder.svg"
+              alt="Personaje"
+              class="w-full h-full object-cover object-top"
+              onerror="this.src='/images/characters/placeholder.svg';"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+          </div>
+          
+          <div id="modal-character-homeworld" class="mt-3 text-xs text-slate-400 flex items-center gap-1.5 font-mono">
+            <span>🪐 Planeta:</span>
+            <span class="text-cyan-300 font-semibold" id="modal-homeworld-val">Desconocido</span>
+          </div>
+        </div>
+
+        <!-- Detalles Biográficos y Técnicos -->
+        <div class="md:col-span-7 flex flex-col gap-4">
+          <!-- Biometría Quick Facts -->
+          <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 text-center font-mono text-xs">
+            <div>
+              <p class="text-slate-500 text-[10px] uppercase">Altura</p>
+              <p id="modal-height" class="text-cyan-300 font-semibold mt-0.5">--</p>
+            </div>
+            <div class="border-x border-slate-800">
+              <p class="text-slate-500 text-[10px] uppercase">Peso</p>
+              <p id="modal-mass" class="text-cyan-300 font-semibold mt-0.5">--</p>
+            </div>
+            <div>
+              <p class="text-slate-500 text-[10px] uppercase">Género</p>
+              <p id="modal-gender" class="text-cyan-300 font-semibold mt-0.5 capitalize">--</p>
+            </div>
+          </div>
+
+          <!-- Biografía -->
+          <div>
+            <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider font-['Orbitron',sans-serif] mb-1.5">
+              Registro Histórico
+            </h3>
+            <p id="modal-description" class="text-sm text-slate-300 leading-relaxed bg-slate-900/40 p-3.5 rounded-xl border border-slate-800/60">
+              Sin descripción disponible en los archivos del Holocron.
+            </p>
+          </div>
+
+          <!-- Endpoint API Directo -->
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-cyan-500/20 flex items-center justify-between text-xs font-mono">
+            <span class="text-slate-400 truncate max-w-[280px]" id="modal-api-url">
+              GET /api/characters/1
+            </span>
+            <a
+              id="modal-api-link"
+              href="/api/characters/1"
+              target="_blank"
+              class="px-2.5 py-1 rounded bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 transition-colors"
+            >
+              Abrir Endpoint ↗
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISTA 2: Visor JSON (Oculto por defecto) -->
+      <div id="tab-content-json" class="hidden flex flex-col gap-3">
+        <div class="flex items-center justify-between bg-slate-900/80 px-4 py-2 rounded-lg border border-slate-800 text-xs">
+          <span class="font-mono text-slate-400">application/json (UTF-8)</span>
+          <button
+            id="copy-json-btn"
+            class="flex items-center gap-1.5 px-3 py-1 bg-cyan-500 text-slate-950 font-bold rounded-md hover:bg-cyan-400 transition-colors font-mono"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+            </svg>
+            <span id="copy-btn-text">Copiar JSON</span>
+          </button>
+        </div>
+
+        <pre class="p-4 rounded-xl bg-[#03060E] border border-cyan-500/20 overflow-x-auto text-xs font-mono text-cyan-300 leading-relaxed selection:bg-cyan-500/30"><code id="modal-json-code">{ }</code></pre>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentCharacterData: any = null;
+
+  const modal = document.getElementById("holocron-modal");
+  const modalName = document.getElementById("modal-character-name");
+  const modalId = document.getElementById("modal-character-id");
+  const modalImage = document.getElementById("modal-character-image") as HTMLImageElement;
+  const modalHomeworld = document.getElementById("modal-homeworld-val");
+  const modalHeight = document.getElementById("modal-height");
+  const modalMass = document.getElementById("modal-mass");
+  const modalGender = document.getElementById("modal-gender");
+  const modalDesc = document.getElementById("modal-description");
+  const modalApiUrl = document.getElementById("modal-api-url");
+  const modalApiLink = document.getElementById("modal-api-link") as HTMLAnchorElement;
+  const modalJsonCode = document.getElementById("modal-json-code");
+
+  const tabBtnInfo = document.getElementById("tab-btn-info");
+  const tabBtnJson = document.getElementById("tab-btn-json");
+  const tabContentInfo = document.getElementById("tab-content-info");
+  const tabContentJson = document.getElementById("tab-content-json");
+  const closeBtn = document.getElementById("modal-close-btn");
+  const copyBtn = document.getElementById("copy-json-btn");
+  const copyBtnText = document.getElementById("copy-btn-text");
+
+  function openCharacterModal(data: any) {
+    if (!modal) return;
+    currentCharacterData = data;
+
+    if (modalName) modalName.textContent = data.name;
+    if (modalId) modalId.textContent = `#${String(data.id).padStart(3, '0')}`;
+    if (modalImage) modalImage.src = data.avatarUrl || data.imageUrl || "/images/characters/placeholder.svg";
+    if (modalHomeworld) modalHomeworld.textContent = data.homeworldUrl && data.homeworldUrl !== "unknown" ? data.homeworldUrl : "No registrado";
+    if (modalHeight) modalHeight.textContent = data.height && data.height !== "unknown" ? `${data.height} cm` : "N/A";
+    if (modalMass) modalMass.textContent = data.mass && data.mass !== "unknown" ? `${data.mass} kg` : "N/A";
+    if (modalGender) modalGender.textContent = data.gender || "Desconocido";
+    if (modalDesc) modalDesc.textContent = data.description || "Sin descripción canónica registrada en el Holocron.";
+
+    const apiEndpoint = `/api/characters/${data.id}`;
+    if (modalApiUrl) modalApiUrl.textContent = `GET ${apiEndpoint}`;
+    if (modalApiLink) modalApiLink.href = apiEndpoint;
+
+    // Formatear JSON limpio
+    if (modalJsonCode) {
+      modalJsonCode.textContent = JSON.stringify(data, null, 2);
+    }
+
+    // Default to info tab
+    showTab("info");
+
+    // Mostrar modal
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+    document.body.style.overflow = "";
+  }
+
+  function showTab(tab: "info" | "json") {
+    if (tab === "info") {
+      tabContentInfo?.classList.remove("hidden");
+      tabContentJson?.classList.add("hidden");
+      tabBtnInfo?.classList.add("bg-cyan-500", "text-slate-950", "font-bold");
+      tabBtnInfo?.classList.remove("text-slate-400");
+      tabBtnJson?.classList.remove("bg-cyan-500", "text-slate-950", "font-bold");
+      tabBtnJson?.classList.add("text-slate-400");
+    } else {
+      tabContentInfo?.classList.add("hidden");
+      tabContentJson?.classList.remove("hidden");
+      tabBtnJson?.classList.add("bg-cyan-500", "text-slate-950", "font-bold");
+      tabBtnJson?.classList.remove("text-slate-400");
+      tabBtnInfo?.classList.remove("bg-cyan-500", "text-slate-950", "font-bold");
+      tabBtnInfo?.classList.add("text-slate-400");
+    }
+  }
+
+  // Delegación de eventos para clicks en cartas
+  function setupCardListeners() {
+    document.querySelectorAll(".character-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        const raw = card.getAttribute("data-character");
+        if (raw) {
+          try {
+            const data = JSON.parse(raw);
+            openCharacterModal(data);
+          } catch (e) {
+            console.error("Error parsing character data", e);
+          }
+        }
+      });
+    });
+  }
+
+  setupCardListeners();
+  document.addEventListener("astro:page-load", setupCardListeners);
+
+  // Tabs events
+  tabBtnInfo?.addEventListener("click", () => showTab("info"));
+  tabBtnJson?.addEventListener("click", () => showTab("json"));
+
+  // Close events
+  closeBtn?.addEventListener("click", closeModal);
+  modal?.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+  });
+
+  // Copiar JSON
+  copyBtn?.addEventListener("click", () => {
+    if (currentCharacterData) {
+      navigator.clipboard.writeText(JSON.stringify(currentCharacterData, null, 2));
+      if (copyBtnText) copyBtnText.textContent = "¡Copiado! ✓";
+      copyBtn?.classList.add("bg-green-400");
+      setTimeout(() => {
+        if (copyBtnText) copyBtnText.textContent = "Copiar JSON";
+        copyBtn?.classList.remove("bg-green-400");
+      }, 2000);
+    }
+  });
+</script>

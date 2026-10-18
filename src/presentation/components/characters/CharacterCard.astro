@@ -7,67 +7,67 @@ interface Props {
 
 const { character } = Astro.props;
 
-// Usa el avatar de Supabase si existe, sino el fallback de visualguide
-const imageSrc = character.avatarUrl ?? character.imageUrl;
+const imageSrc = character.avatarUrl || "/images/characters/placeholder.svg";
+const rawJson = JSON.stringify(character);
 ---
 
-<section
-    class="group relative bg-slate-800/50 rounded-xl overflow-hidden border border-slate-700/50 hover:border-amber-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-amber-500/10"
+<div
+    class="character-card group relative bg-[#070d1e]/80 rounded-xl overflow-hidden border border-cyan-500/20 hover:border-cyan-400 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_0_25px_rgba(0,240,255,0.25)] cursor-pointer flex flex-col justify-between"
+    role="button"
+    tabindex="0"
+    data-character={rawJson}
+    aria-label={`Ver ficha y JSON de ${character.name}`}
 >
-    <!-- Badge favorito -->
-    {
-        character.isFavorite && (
-            <div class="absolute top-2 right-2 z-10 bg-amber-500 text-slate-900 text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
-                ★ Favorito
+    <!-- Corner Sci-Fi accents -->
+    <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-cyan-400 opacity-60 group-hover:opacity-100 transition-opacity z-10"></div>
+    <div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-cyan-400 opacity-60 group-hover:opacity-100 transition-opacity z-10"></div>
+    <div class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-cyan-400 opacity-60 group-hover:opacity-100 transition-opacity z-10"></div>
+    <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-cyan-400 opacity-60 group-hover:opacity-100 transition-opacity z-10"></div>
+
+    <div>
+        <!-- Imagen con ratio 3:4 -->
+        <picture class="aspect-[3/4] overflow-hidden bg-slate-950 block relative">
+            <img
+                src={imageSrc}
+                alt={character.name}
+                class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+                onerror="this.onerror=null; this.src='/images/characters/placeholder.svg';"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#070d1e] via-transparent to-transparent opacity-80"></div>
+            
+            <!-- Badge ID / Canon -->
+            <div class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded bg-black/60 backdrop-blur-md border border-cyan-500/30 text-[10px] font-mono text-cyan-300">
+                #{character.id.padStart(3, '0')}
             </div>
-        )
-    }
 
-    <!-- Imagen -->
-    <picture class="aspect-[3/4] overflow-hidden bg-slate-900 block">
-        <img
-            src={imageSrc}
-            alt={character.name}
-            class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
-            loading="lazy"
-            onerror="this.onerror=null; this.src='/images/logos/logo.png'; this.classList.add('p-8', 'opacity-40');"
-        />
-    </picture>
+            <!-- Hint "Click para JSON" -->
+            <div class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded bg-cyan-950/80 backdrop-blur-md border border-cyan-400/40 text-[10px] font-mono text-cyan-200 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                <span>{`{ }`} JSON</span>
+            </div>
+        </picture>
 
-    <!-- Info -->
-    <article class="p-4">
-        <h2
-            class="text-lg font-semibold text-slate-100 group-hover:text-amber-400 transition-colors"
-        >
-            {character.name}
-        </h2>
+        <!-- Información -->
+        <div class="p-3.5">
+            <h2 class="text-base font-bold text-slate-100 group-hover:text-cyan-300 transition-colors line-clamp-1 font-['Orbitron',sans-serif]">
+                {character.name}
+            </h2>
 
-        <!-- Description de Supabase -->
-        {
-            character.description && (
+            {character.description && (
                 <p class="mt-1 text-xs text-slate-400 line-clamp-2 leading-relaxed">
                     {character.description}
                 </p>
-            )
-        }
-
-        <div class="mt-2 flex flex-wrap gap-2 text-xs text-slate-400">
-            {
-                character.birthYear !== "unknown" && (
-                    <span class="px-2 py-1 bg-slate-700/50 rounded">
-                        {character.birthYear}
-                    </span>
-                )
-            }
-            <span class="px-2 py-1 bg-slate-700/50 rounded capitalize">
-                {character.gender}
-            </span>
+            )}
         </div>
-    </article>
-
-    <!-- Hover overlay -->
-    <div
-        class="absolute inset-0 bg-gradient-to-t from-amber-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-    >
     </div>
-</section>
+
+    <!-- Tags en la base -->
+    <div class="px-3.5 pb-3.5 pt-1 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+        <span class="capitalize text-slate-400 font-medium">
+            {character.gender !== "unknown" ? character.gender : "Droide / N/A"}
+        </span>
+        <span class="text-cyan-400/80 font-mono text-[10px] group-hover:text-cyan-300">
+            Ficha + API →
+        </span>
+    </div>
+</div>

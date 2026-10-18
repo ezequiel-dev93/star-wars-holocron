@@ -2,6 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import Header from "@presentation/common/Header.astro";
 import CharacterGrid from "@/presentation/components/characters/CharacterGrid.astro";
+import CharacterModal from "@/presentation/components/characters/CharacterModal.astro";
 import { getCharactersUseCase, characterRepository } from "@/config/dependencies";
 import type { CharacterDTO } from "@/modules/characters/application/dtos/CharacterDTO";
 
@@ -54,37 +55,38 @@ const buildPageUrl = (p: number) => {
 };
 ---
 
-<Layout title="Personajes | Star Wars Holocron" description="Explora más de 360 personajes canónicos del universo Star Wars con datos oficiales y retratos en alta resolución.">
+<Layout title="Catálogo de Personajes | Star Wars Holocron" description="Archivo canónico oficial de Star Wars con 364 personajes, biometría, afiliaciones y visor JSON en vivo.">
   <Header />
 
-  <main class="pt-32 pb-20 px-4 min-h-screen bg-slate-950 text-slate-100">
-    <div class="max-w-7xl mx-auto">
-      <!-- Encabezado -->
-      <div class="mb-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-800 pb-8">
+  <main class="pt-28 pb-24 px-4 sm:px-6 lg:px-10 min-h-screen bg-[#040711] text-slate-100">
+    <div class="max-w-[1700px] mx-auto">
+      <!-- Encabezado Sci-Fi -->
+      <section class="mb-8 pt-4 pb-6 border-b border-cyan-500/15 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold uppercase tracking-wider mb-3">
-            Catálogo Oficial de Star Wars
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-300 text-xs font-semibold uppercase tracking-widest mb-2.5 font-['Orbitron',sans-serif]">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#00F0FF]"></span>
+            Base de Datos Galáctica
           </div>
-          <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-            Holocron de Personajes
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-wide font-['Orbitron',sans-serif] neon-cyan">
+            PERSONAJES DEL CANON
           </h1>
-          <p class="text-slate-400 text-base md:text-lg mt-2 max-w-2xl">
-            Explora {total} personajes del canon oficial de Star Wars, enriquecidos con biometría, afiliaciones, apariciones y retratos oficiales.
+          <p class="text-slate-400 text-sm sm:text-base mt-2 max-w-2xl font-['Inter',sans-serif]">
+            Explora {total} registros canónicos de la galaxia. Haz click en cualquier tarjeta para ver su <span class="text-cyan-300 font-semibold">Ficha Técnica</span> y su respuesta <span class="text-cyan-300 font-semibold font-mono">JSON en tiempo real</span>.
           </p>
         </div>
 
-        <!-- Buscador -->
-        <form method="GET" action="/characters" class="w-full md:w-80">
+        <!-- Buscador Holográfico -->
+        <form method="GET" action="/characters" class="w-full lg:w-96">
           <div class="relative">
             <input
               type="text"
               name="q"
               value={query}
-              placeholder="Buscar personaje..."
-              class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-4 py-2.5 pl-10 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
+              placeholder="Buscar por nombre, especie, bio..."
+              class="w-full bg-[#070D1E]/90 border border-cyan-500/30 rounded-xl px-4 py-3 pl-11 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all font-mono shadow-[0_0_15px_rgba(0,240,255,0.08)]"
             />
             <svg
-              class="absolute left-3 top-3 w-4 h-4 text-slate-500"
+              class="absolute left-3.5 top-3.5 w-4 h-4 text-cyan-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -94,68 +96,66 @@ const buildPageUrl = (p: number) => {
             {query && (
               <a
                 href="/characters"
-                class="absolute right-3 top-2.5 text-xs text-slate-400 hover:text-amber-400"
+                class="absolute right-3.5 top-3 text-xs text-cyan-400 hover:text-white font-mono bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-500/30"
               >
-                Limpiar
+                Limpiar ✕
               </a>
             )}
           </div>
         </form>
-      </div>
+      </section>
 
-      <!-- Grid de Personajes -->
+      <!-- Grid de Personajes Flotante -->
       {characters.length > 0 ? (
         <CharacterGrid characters={characters} />
       ) : (
-        <div class="text-center py-24 border border-dashed border-slate-800 rounded-2xl bg-slate-900/40">
-          <p class="text-xl text-slate-300 font-semibold mb-2">No se encontraron resultados</p>
-          <p class="text-sm text-slate-500 mb-6">No hay personajes que coincidan con "{query}".</p>
+        <div class="text-center py-28 border border-dashed border-cyan-500/20 rounded-2xl bg-slate-950/40">
+          <p class="text-xl text-slate-200 font-bold mb-2 font-['Orbitron',sans-serif]">Registro No Encontrado</p>
+          <p class="text-sm text-slate-400 mb-6 font-mono">No hay archivos en el Holocron que coincidan con "{query}".</p>
           <a
             href="/characters"
-            class="inline-flex items-center px-4 py-2 bg-amber-500 text-slate-950 font-bold rounded-lg text-sm hover:bg-amber-400 transition-colors"
+            class="inline-flex items-center px-5 py-2.5 bg-cyan-500 text-slate-950 font-bold rounded-lg text-xs tracking-wider uppercase hover:bg-cyan-400 transition-colors font-['Orbitron',sans-serif] shadow-[0_0_15px_rgba(0,240,255,0.4)]"
           >
-            Ver todos los personajes
+            Restablecer Búsqueda
           </a>
         </div>
       )}
 
-      <!-- Paginación -->
+      <!-- Barra de Paginación Galáctica -->
       {totalPages > 1 && (
-        <nav aria-label="Paginación" class="mt-14 flex items-center justify-between border-t border-slate-800/80 pt-6">
-          <div>
-            <p class="text-xs text-slate-400">
-              Página <span class="font-bold text-slate-200">{page}</span> de{" "}
-              <span class="font-bold text-slate-200">{totalPages}</span> ({total} resultados)
-            </p>
+        <nav aria-label="Paginación del Holocron" class="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-cyan-500/15 pt-6">
+          <div class="text-xs font-mono text-slate-400">
+            REGISTROS <span class="font-bold text-cyan-300">{(page - 1) * 24 + 1} - {Math.min(page * 24, total)}</span> DE{" "}
+            <span class="font-bold text-white">{total}</span> (PÁGINA {page} / {totalPages})
           </div>
 
           <div class="flex items-center gap-2">
             {hasPrevious ? (
               <a
                 href={buildPageUrl(page - 1)}
-                class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-800 text-slate-200 hover:bg-amber-500 hover:text-slate-950 border border-slate-700 transition-colors"
+                class="px-4 py-2 text-xs font-bold rounded-lg bg-slate-900 text-cyan-300 hover:bg-cyan-500 hover:text-slate-950 border border-cyan-500/30 transition-all font-['Orbitron',sans-serif]"
               >
                 ← Anterior
               </a>
             ) : (
-              <span class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-900/50 text-slate-600 border border-slate-800/50 cursor-not-allowed">
+              <span class="px-4 py-2 text-xs font-bold rounded-lg bg-slate-950/50 text-slate-600 border border-slate-800/50 cursor-not-allowed font-['Orbitron',sans-serif]">
                 ← Anterior
               </span>
             )}
 
-            <div class="hidden sm:flex items-center gap-1 px-2">
-              <span class="text-xs text-slate-400">Pág. {page}</span>
-            </div>
+            <span class="px-3 py-1.5 rounded-lg bg-[#070D1E] border border-cyan-500/20 text-xs font-mono text-cyan-400 font-bold">
+              {page}
+            </span>
 
             {hasNext ? (
               <a
                 href={buildPageUrl(page + 1)}
-                class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-800 text-slate-200 hover:bg-amber-500 hover:text-slate-950 border border-slate-700 transition-colors"
+                class="px-4 py-2 text-xs font-bold rounded-lg bg-slate-900 text-cyan-300 hover:bg-cyan-500 hover:text-slate-950 border border-cyan-500/30 transition-all font-['Orbitron',sans-serif]"
               >
                 Siguiente →
               </a>
             ) : (
-              <span class="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-900/50 text-slate-600 border border-slate-800/50 cursor-not-allowed">
+              <span class="px-4 py-2 text-xs font-bold rounded-lg bg-slate-950/50 text-slate-600 border border-slate-800/50 cursor-not-allowed font-['Orbitron',sans-serif]">
                 Siguiente →
               </span>
             )}
@@ -164,4 +164,7 @@ const buildPageUrl = (p: number) => {
       )}
     </div>
   </main>
+
+  <!-- Inspector Modal (Ficha Técnica + Visor JSON) -->
+  <CharacterModal />
 </Layout>
