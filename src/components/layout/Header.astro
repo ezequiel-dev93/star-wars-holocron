@@ -1,0 +1,217 @@
+---
+import Link from "@components/ui/Link.astro";
+import NavItem from "@components/ui/NavItem.astro";
+import DocsIcon from "@components/ui/icons/DocsIcon.astro";
+import MenuIcon from "@components/ui/icons/MenuIcon.astro";
+import CloseIcon from "@components/ui/icons/CloseIcon.astro";
+import Logo from "@components/ui/Logo.astro";
+---
+
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-50 w-full bg-base/85 backdrop-blur-xl border-b border-accent/15 shadow-[0_4px_30px_rgba(0,0,0,0.7)] transition-all duration-300"
+>
+  <div class="sectionContenedor flex items-center justify-between h-20">
+    <!-- Brand con Logo Holocron -->
+    <div class="flex items-center">
+      <Link
+        href="/"
+        variant="unstyled"
+        class="flex items-center"
+        aria-label="Star Wars Holocron — Inicio"
+      >
+        <Logo size="sm" />
+      </Link>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center" aria-label="Navegación principal">
+      <ul class="flex items-center gap-1 p-1.5 bg-surface/80 border border-smoke/60 rounded-full backdrop-blur-md">
+        <li>
+          <NavItem href="/characters" class="header-nav-link" data-nav="characters">
+            Personajes
+          </NavItem>
+        </li>
+        <li>
+          <NavItem href="/planets" class="header-nav-link" data-nav="planets">
+            Planetas
+          </NavItem>
+        </li>
+        <li>
+          <NavItem href="/movies" class="header-nav-link" data-nav="movies">
+            Películas
+          </NavItem>
+        </li>
+        <li>
+          <NavItem href="/weapons" class="header-nav-link" data-nav="weapons">
+            Armas
+          </NavItem>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Right Actions -->
+    <div class="flex items-center gap-3">
+      <Link
+        href="https://github.com/ezequiel-dev93/star-wars-holocron"
+        variant="ghost"
+        size="sm"
+        class="hidden sm:inline-flex text-xs font-mono border border-smoke/60 hover:border-accent/40"
+      >
+        <span>★ GitHub</span>
+      </Link>
+
+      <Link href="/introduccion" variant="outline" size="sm">
+        <DocsIcon size={14} aria-hidden="true" />
+        <span>Docs API</span>
+      </Link>
+
+      <!-- Mobile Hamburger Button -->
+      <button
+        id="mobile-menu-toggle"
+        class="flex md:hidden items-center justify-center p-2 rounded-lg text-primary/85 hover:text-accent hover:bg-surface border border-smoke/50 transition-colors cursor-pointer"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-nav-container"
+      >
+        <MenuIcon id="menu-icon" />
+        <CloseIcon id="close-icon" style="display: none;" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Drawer -->
+  <nav
+    id="mobile-nav-container"
+    class="hidden flex-col px-6 py-5 bg-base/98 border-b border-accent/25 md:hidden"
+    aria-label="Navegación móvil"
+  >
+    <ul class="flex flex-col gap-2.5">
+      <li>
+        <Link
+          href="/characters"
+          variant="secondary"
+          size="sm"
+          class="mobile-nav-link w-full justify-start"
+          data-nav="characters"
+        >
+          Personajes
+        </Link>
+      </li>
+      <li>
+        <Link
+          href="/planets"
+          variant="secondary"
+          size="sm"
+          class="mobile-nav-link w-full justify-start"
+          data-nav="planets"
+        >
+          Planetas
+        </Link>
+      </li>
+      <li>
+        <Link
+          href="/movies"
+          variant="secondary"
+          size="sm"
+          class="mobile-nav-link w-full justify-start"
+          data-nav="movies"
+        >
+          Películas
+        </Link>
+      </li>
+      <li>
+        <Link
+          href="/weapons"
+          variant="secondary"
+          size="sm"
+          class="mobile-nav-link w-full justify-start"
+          data-nav="weapons"
+        >
+          Armas
+        </Link>
+      </li>
+      <li class="pt-2 border-t border-smoke/40">
+        <Link
+          href="/introduccion"
+          variant="primary"
+          size="sm"
+          class="w-full justify-center"
+        >
+          Documentación REST API ↗
+        </Link>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  #site-header.is-scrolled {
+    background: rgba(10, 10, 10, 0.96);
+    border-bottom-color: rgba(127, 255, 212, 0.35);
+    box-shadow: 0 8px 32px rgba(127, 255, 212, 0.08);
+  }
+
+  :global(.header-nav-link.is-active) {
+    color: var(--color-accent);
+    background: rgba(127, 255, 212, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(127, 255, 212, 0.35);
+    text-shadow: 0 0 10px rgba(127, 255, 212, 0.5);
+  }
+
+  #mobile-nav-container.is-open {
+    display: flex;
+  }
+</style>
+
+<script>
+  const header = document.getElementById("site-header");
+
+  function updateHeader() {
+    if (!header) return;
+    if (window.scrollY > 20) {
+      header.classList.add("is-scrolled");
+    } else {
+      header.classList.remove("is-scrolled");
+    }
+  }
+
+  window.addEventListener("scroll", updateHeader, { passive: true });
+  updateHeader();
+
+  const currentPath = window.location.pathname;
+  document
+    .querySelectorAll<HTMLAnchorElement>(".header-nav-link, .mobile-nav-link")
+    .forEach((link) => {
+      const href = link.getAttribute("href");
+      if (href && href !== "/" && currentPath.startsWith(href)) {
+        link.classList.add("is-active");
+      }
+    });
+
+  const mobileMenuBtn = document.getElementById("mobile-menu-toggle");
+  const navContainer = document.getElementById("mobile-nav-container");
+  const menuIcon = document.getElementById("menu-icon");
+  const closeIcon = document.getElementById("close-icon");
+
+  if (mobileMenuBtn && navContainer && menuIcon && closeIcon) {
+    mobileMenuBtn.addEventListener("click", () => {
+      navContainer.classList.toggle("is-open");
+      const isOpen = navContainer.classList.contains("is-open");
+
+      mobileMenuBtn.setAttribute("aria-expanded", isOpen.toString());
+      mobileMenuBtn.setAttribute(
+        "aria-label",
+        isOpen ? "Cerrar menú" : "Abrir menú"
+      );
+
+      if (isOpen) {
+        menuIcon.style.display = "none";
+        closeIcon.style.display = "block";
+      } else {
+        menuIcon.style.display = "block";
+        closeIcon.style.display = "none";
+      }
+    });
+  }
+</script>

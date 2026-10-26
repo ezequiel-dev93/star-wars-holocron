@@ -1,84 +1,116 @@
-# Star Wars Holocron
+# 🌌 Star Wars Holocron
 
-> **Enterprise-Grade Knowledge Base construido con Astro, React y Screaming Architecture.**
+> **Toda la información del universo Star Wars en un solo lugar: Catálogo Interactivo & API REST Open Source servida en el Edge.**
 
-Las aplicaciones frontend que consumen APIs externas (como SWAPI) frecuentemente sufren de alto acoplamiento, tiempos de carga lentos y lógica de negocio dispersa en la UI. **Star Wars Holocron** resuelve estos problemas proponiendo una plataforma estructurada bajo estándares *enterprise*.
+**Star Wars Holocron** nació con una misión clara: construir el archivo abierto más completo de Star Wars con **364 personajes**, retratos en alta definición, datos físicos, planetas, películas, series y una **API REST gratuita** sin límites ni llaves de acceso.
 
-Este proyecto es la demostración empírica de cómo aplicar principios **SOLID** y **Clean Architecture** (DDD Light) en el ecosistema frontend moderno para lograr una UI/UX premium sin sacrificar performance ni escalabilidad.
-
----
-
-## Diferenciadores y Features Principales
-
-- **Catálogo Interactivo y Híbrido:** Renderizado de contenido estático ultrarrápido (Astro) combinado con React Islands únicamente donde se necesita reactividad compleja (búsqueda dinámica y gestión de estado).
-- **BFF (Backend For Frontend) Propio:** Endpoints integrados (`/api/characters`) que actúan como capa de abstracción y ETL ligero sobre SWAPI, resolviendo relaciones de datos en el servidor y evitando *waterfalls* en el cliente.
-- **Gestión Avanzada de Estado:** Lógica de clasificación de favoritos con estructuras de datos anidadas (carpetas) consumiendo Supabase.
-- **UI/UX Premium:** Animaciones complejas coreografiadas con GSAP y renderizado 3D de fondo (Three.js), manteniendo ruteo optimizado y un framerate de 60fps.
+Es un proyecto **100% Open Source y abierto a colaboradores**. Si quieres sumar personajes, completar imágenes faltantes o impulsar los módulos de Planetas, Películas y Armas, ¡tus Pull Requests son bienvenidos!
 
 ---
 
-## Stack Tecnológico
+## ✨ Características Principales
+
+- **364 Perfiles con Retratos HD Integrados:** A diferencia de las APIs tradicionales de solo texto, cada personaje incluye su retrato local, historia, especie, planeta natal y apariciones en películas y series.
+- **API REST en el Edge (`~0ms`):** Dataset cargado directamente en memoria local sin dependencias externas frágiles ni necesidad de API Keys.
+- **Terminal Sandbox Interactiva en Vivo:** Editor de código híbrido en la página principal para probar consultas en `JavaScript`, `cURL` y `Python` en tiempo real.
+- **Filtros Avanzados:** Búsqueda por nombre, `slug`, planeta (`?planet=Tatooine`), especie (`?species=Droid`), texto libre (`?q=skywalker`) o personajes sin foto para colaboradores (`?missing=1`).
+- **Documentación Integrada con Starlight:** Guía interactiva en `/introduccion`.
+
+---
+
+## 🏗️ Arquitectura del Proyecto (`core/`, `modules/`, `components/`)
+
+El proyecto combina **Clean Architecture** para la lógica de dominio y **Screaming Architecture** para los módulos de negocio:
+
+```text
+src/
+├── core/                         # Lógica de negocio pura y casos de uso
+│   └── characters/
+│       ├── domain/               # Entidad Character e interfaz ICharacterRepository
+│       ├── application/          # Casos de uso (GetCharacters, GetCharacterById) y CharacterDTO
+│       ├── infrastructure/       # LocalCharacterRepository (filtros, búsqueda y paginación en memoria)
+│       └── index.ts              # Punto único de exportación e inyección
+│
+├── modules/                      # Módulos por feature (Screaming Architecture)
+│   └── characters/
+│       ├── data/                 # Dataset de 364 personajes
+│       ├── components/           # CharacterCard.astro, CharacterGrid.astro, CharacterModal.astro
+│       └── types/                # Contratos y tipos del módulo
+│
+├── components/                   # Componentes globales y de páginas
+│   ├── ui/                       # Link.astro, Logo.astro, SectionContainer.astro, NavItem.astro, icons/
+│   ├── layout/                   # Header.astro, Footer.astro, SEO.astro, Cursor.astro, SmoothScroll.astro
+│   └── home/                     # Hero.astro, DevTerminal.astro, CommunitySection.astro, ArchiveSectors.astro
+│
+├── lib/                          # Animaciones y motores gráficos (Three.js Starfield, GSAP)
+├── pages/                        # Rutas de Astro y endpoints REST (/api/characters)
+└── styles/                       # Sistema de diseño y paleta semántica en Tailwind CSS v4 (@theme)
+```
+
+---
+
+## 🛠️ Stack Tecnológico
 
 | Capa | Tecnología |
 | :--- | :--- |
-| **Core & Framework** | Astro 5, TypeScript |
-| **UI & Islands** | React 19, Tailwind CSS v4 |
-| **Data Fetching & State**| TanStack React Query, React Hook Form, Zod |
-| **Infraestructura** | Supabase (PostgreSQL, Storage) |
-| **Animaciones** | GSAP, Three.js |
+| **Framework & SSR** | Astro 7 + `@astrojs/vercel` |
+| **Estilos & Sistema de Diseño** | Tailwind CSS v4 (`@theme` con tokens semánticos) |
+| **Documentación API** | Astro Starlight |
+| **Gráficos 3D & Animaciones** | Three.js (Starfield interactivo), GSAP 3, Lenis Smooth Scroll |
+| **Lenguaje** | TypeScript (Strict Mode) |
 
 ---
 
-## Decisiones Técnicas Clave (El "Por Qué")
+## 🚀 Endpoints Principales de la API
 
-Lsas herramientas son secundarias a la arquitectura. Estas son las decisiones core del proyecto:
+### 1. Listar y filtrar personajes
+```http
+GET /api/characters?page=1&limit=24&q=skywalker&species=Human&planet=Tatooine
+```
 
-*   **Screaming Architecture sobre Vistas Acopladas:**
-    ¿Por qué no usar el típico esquema de framework (`components/`, `pages/`)? La estructura del proyecto grita el dominio (`modules/characters`). Cada entidad es un recurso autocontenido dividido en `domain`, `application` e `infrastructure`. Esto garantiza que la lógica de negocio sobreviva a cambios de framework (como de hecho ocurrió, migrando partes de Next.js a Astro sin reescribir la lógica).
-*   **Islas Reactivas vs. Single Page Application (SPA):**
-    Construir esto como una SPA tradicional habría castigado el *Time-To-Interactive* enviando megabytes de JavaScript innecesario. Astro envía el HTML completo estático, y solo "despierta" a React en la barra de búsqueda y filtros. El resultado es rendimiento puro al nivel del usuario.
-*   **Inversión de Control y Capa HTTP Abstracta:**
-    El frontend jamás habla con SWAPI directamente. Se implementó un `FetchHttpClient` inyectado por dependencias (`config/dependencies.ts`). Esto facilita la inyección de mocks para testing unario y prepara el terreno para estrategias de caché con Redis en el servidor.
-*   **Storage Dinámico (Supabase Path vs URLs Absolutas):**
-    Al almacenar referencias relativas de los avatares en la base de datos en lugar de la URL absoluta del CDN, el dominio se vuelve agnóstico a la infraestructura de red. Esto reduce los payloads de consultas a la DB y reduce dramáticamente el costo de refactorización si el día de mañana se migra el Storage provider.
-
----
-
-## Demo
-
-- **Live Demo:** [(Var ser desplegado en el futuro en Vercel)]
+### 2. Obtener un personaje por ID o Slug
+```http
+GET /api/characters/1
+GET /api/characters/ahsoka-tano
+```
 
 ---
 
-## Instalación y Entorno Local
+## 💻 Instalación y Desarrollo Local
 
 ```bash
-# 1. Clonar e instalar dependencias
+# 1. Instalar dependencias
 pnpm install
 
-# 2. Configurar variables de entorno (.env)
-# Requiere credenciales de Supabase (ver .env.example)
-
-# 3. Iniciar entorno de desarrollo local
+# 2. Iniciar servidor de desarrollo (http://localhost:4321)
 pnpm run dev
 
-# 4. Compilar para producción (Prueba estricta de TypeScript y optimizaciones Build)
+# 3. Verificar tipos de Astro y TypeScript
+npx astro check
+
+# 4. Compilar para producción (Vercel)
 pnpm run build
+```
 
-El servidor arranca localmente en http://localhost:4321.
+---
 
-##  Aprendizajes y Evolución Continua
-Aplicar de forma purista Hexagonal Architecture en frontend frontend suele incurrir en sobre-ingeniería, por lo que este proyecto adopta un enfoque "DDD Light". Fue un excelente reto aprender a balancear el pragmatismo que exige la web (velocidad de delivery) manteniendo fronteras de dominio irrompibles.
+## 🤝 ¿Cómo Colaborar?
 
-Próximas mejoras diseñadas en el Roadmap:
-- Integración de End-to-End Testing (E2E) con Playwright.
-- Virtualización de DOM (react-virtualized o similar) para manejar catálogos al infinito sin bloqueos de memoria.
-- Caché perimetral o en memoria (Redis) en el propio BFF node/Astro.
+¡Queremos que este archivo tenga **toda la información de Star Wars**! Puedes colaborar de varias formas:
 
-~~~
-Desarrollado por Ezequiel Suarez. Este repositorio es de códdigo abierto y parte de mi portafolio profesional.
-~~~
+1. **Completar retratos faltantes:** Entra a `/characters?missing=1` para ver qué personajes aún no tienen imagen y súbela en `public/images/characters/`.
+2. **Enriquecer fichas de personajes:** Edita `src/data/characters.json` para agregar descripciones, planetas o afiliaciones.
+3. **Impulsar nuevos módulos:** Ayúdanos a construir los datasets y endpoints de **Planetas** (`/planets`), **Películas & Series** (`/movies`) y **Armería & Flotas** (`/weapons`).
+
+### Pasos para enviar tu Pull Request:
+1. Haz un **Fork** de este repositorio.
+2. Crea una rama para tu mejora (`git checkout -b feat/nuevo-personaje`).
+3. Haz commit de tus cambios (`git commit -m "feat: agregar retrato y bio"`).
+4. Abre un **Pull Request** hacia la rama principal.
+
+---
 
 ## 📝 Licencia
 
-Este proyecto es de código cerrado y pertenece a Ezequiel Balbuena.
+Distribuido bajo licencia **MIT**. Desarrollado por [**Ezequiel Suarez**](https://www.ezequielsuarez-dev.com/) y la comunidad Open Source.
+*Star Wars y todos sus personajes, logotipos e imágenes son marcas registradas de Lucasfilm Ltd. y The Walt Disney Company.*

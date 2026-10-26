@@ -1,0 +1,73 @@
+---
+interface Props {
+  size?: "sm" | "md" | "lg";
+  class?: string;
+  withIcon?: boolean;
+}
+
+const { size = "md", class: className = "", withIcon = true } = Astro.props;
+
+const sizeStyles = {
+  sm: {
+    main: "text-sm sm:text-base tracking-[0.2em]",
+    sub: "text-[9px] sm:text-[10px] tracking-[0.35em]",
+    icon: "w-6 h-6",
+    gap: "gap-2.5",
+  },
+  md: {
+    main: "text-lg sm:text-xl tracking-[0.25em]",
+    sub: "text-[11px] sm:text-xs tracking-[0.4em]",
+    icon: "w-8 h-8",
+    gap: "gap-3",
+  },
+  lg: {
+    main: "text-3xl sm:text-5xl md:text-6xl tracking-[0.22em]",
+    sub: "text-xs sm:text-base md:text-lg tracking-[0.45em]",
+    icon: "w-12 h-12 sm:w-16 sm:h-16",
+    gap: "gap-4",
+  },
+};
+
+const current = sizeStyles[size] || sizeStyles.md;
+---
+
+<div class={`inline-flex items-center ${current.gap} select-none group ${className}`}>
+  {withIcon && (
+    <div class={`relative flex items-center justify-center ${current.icon} shrink-0`}>
+      <svg
+        viewBox="0 0 100 100"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-full h-full text-accent drop-shadow-[0_0_12px_rgba(127,255,212,0.65)] group-hover:rotate-12 transition-transform duration-500"
+      >
+        <polygon
+          points="50,5 90,25 90,75 50,95 10,75 10,25"
+          stroke="currentColor"
+          stroke-width="5"
+          fill="rgba(127, 255, 212, 0.08)"
+        />
+        <polygon
+          points="50,22 75,36 75,64 50,78 25,64 25,36"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-dasharray="4 2"
+          fill="rgba(127, 255, 212, 0.2)"
+        />
+        <circle cx="50" cy="50" r="7" fill="currentColor" class="animate-pulse" />
+      </svg>
+    </div>
+  )}
+
+  <div class="flex flex-col items-start justify-center text-left">
+    <span
+      class={`font-extrabold uppercase text-primary font-orbitron leading-none transition-colors group-hover:text-white ${current.main}`}
+    >
+      STAR WARS
+    </span>
+    <span
+      class={`font-black uppercase text-accent font-orbitron leading-tight mt-1 transition-all duration-300 drop-shadow-[0_0_8px_rgba(127,255,212,0.8)] ${current.sub}`}
+    >
+      HOLOCRON
+    </span>
+  </div>
+</div>

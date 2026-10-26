@@ -1,0 +1,14 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Link from "@components/ui/Link.astro";
+
+interface Props extends HTMLAttributes<"a"> {
+  href: string;
+}
+
+const { href, class: className = "", ...rest } = Astro.props;
+---
+
+<Link href={href} variant="nav" class={className} {...rest}>
+  <slot />
+</Link>

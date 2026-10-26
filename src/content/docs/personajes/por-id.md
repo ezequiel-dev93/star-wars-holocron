@@ -1,53 +1,38 @@
 ---
-title: Obtener personaje por ID
-description: Consultá los datos completos de un personaje específico usando su ID numérico.
+title: Obtener personaje por ID o Slug
+description: Consultá los datos completos de un personaje usando su ID numérico o su slug.
 ---
 
 import { Badge } from '@astrojs/starlight/components';
 
 ## `GET /api/characters/[id]` <Badge text="GET" variant="success" />
 
-Devuelve los datos de un personaje específico.
+Devuelve la ficha completa de un personaje específico buscando por su **ID numérico**, su **slug** o su **nombre**.
 
 ### URL
 
-```
+```http
 GET https://star-wars-holocron.vercel.app/api/characters/:id
 ```
 
 ### Path Params
 
-| Parámetro | Tipo   | Descripción                      |
-|-----------|--------|----------------------------------|
-| `id`      | number | ID numérico del personaje (SWAPI) |
+| Parámetro | Tipo   | Descripción                                                      |
+|-----------|--------|------------------------------------------------------------------|
+| `id`      | string | ID numérico (`1`), slug (`luke-skywalker`) o nombre del personaje |
 
 ### Ejemplo de petición
 
 ```js
-// Obtener a Luke Skywalker (ID: 1)
+// Por ID numérico
 const res = await fetch('/api/characters/1');
 const character = await res.json();
 
-console.log(character.name);     // "Luke Skywalker"
-console.log(character.imageUrl); // URL de la imagen
-```
+// O por slug
+const ahsoka = await fetch('/api/characters/ahsoka-tano').then(r => r.json());
 
-### Mostrar nombre e imagen en una card
-
-```js
-async function renderCharacterCard(id) {
-  const res = await fetch(`/api/characters/${id}`);
-  const char = await res.json();
-
-  return `
-    <div class="card">
-      <img src="${char.imageUrl}" alt="${char.name}" />
-      <h2>${char.name}</h2>
-      <p>Altura: ${char.height} cm</p>
-      <p>Nacimiento: ${char.birthYear}</p>
-    </div>
-  `;
-}
+console.log(ahsoka.name);     // "Ahsoka Tano"
+console.log(ahsoka.imageUrl); // "/images/characters/ahsoka-tano.jpeg"
 ```
 
 ### Respuesta exitosa — `200 OK`
@@ -55,18 +40,26 @@ async function renderCharacterCard(id) {
 ```json
 {
   "id": "1",
+  "slug": "luke-skywalker",
   "name": "Luke Skywalker",
   "height": "172",
   "mass": "77",
   "hairColor": "blond",
-  "skinColor": "fair",
+  "skinColor": "unknown",
   "eyeColor": "blue",
   "birthYear": "19BBY",
   "gender": "male",
-  "homeworldUrl": "https://swapi.dev/api/planets/1/",
-  "imageUrl": "https://starwars-visualguide.com/assets/img/characters/1.jpg",
-  "description": null,
-  "avatarUrl": null,
+  "homeworldUrl": "Tatooine",
+  "imageUrl": "/images/characters/luke-skywalker.jpeg",
+  "species": ["Human"],
+  "affiliations": [],
+  "films": [
+    "A New Hope",
+    "The Empire Strikes Back",
+    "Return of the Jedi"
+  ],
+  "description": "Luke Skywalker was a Tatooine farmboy who rose from humble beginnings...",
+  "avatarUrl": "/images/characters/luke-skywalker.jpeg",
   "isFavorite": false
 }
 ```
@@ -76,18 +69,19 @@ async function renderCharacterCard(id) {
 | Código | Descripción                                   |
 |--------|-----------------------------------------------|
 | `400`  | El parámetro `id` no fue enviado              |
-| `404`  | No se encontró un personaje con ese ID        |
+| `404`  | No se encontró un personaje con ese ID o slug |
 | `500`  | Error interno del servidor                    |
 
-### IDs de personajes populares
+### Personajes populares para probar
 
-| ID | Personaje          |
-|----|--------------------|
-| 1  | Luke Skywalker     |
-| 2  | C-3PO              |
-| 3  | R2-D2              |
-| 4  | Darth Vader        |
-| 5  | Leia Organa        |
-| 10 | Obi-Wan Kenobi     |
-| 14 | Han Solo           |
-| 20 | Yoda               |
+| ID   | Slug               | Personaje          |
+|------|--------------------|--------------------|
+| `1`  | `luke-skywalker`   | Luke Skywalker     |
+| `2`  | `c-3po`            | C-3PO              |
+| `3`  | `r2-d2`            | R2-D2              |
+| `4`  | `darth-vader`      | Darth Vader        |
+| `5`  | `leia-organa`      | Leia Organa        |
+| `10` | `obi-wan-kenobi`   | Obi-Wan Kenobi     |
+| `13` | `han-solo`         | Han Solo           |
+| `19` | `yoda`             | Yoda               |
+| `45` | `ahsoka-tano`      | Ahsoka Tano        |

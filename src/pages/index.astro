@@ -1,149 +1,25 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Header from "@presentation/common/Header.astro";
-import Hero from "@presentation/common/Hero.astro";
-import HolocronLoader from "@presentation/common/HolocronLoader.astro";
-import LegendsRunway from "@/presentation/components/home/LegendsRunway.astro";
-import DevTerminal from "@/presentation/components/home/DevTerminal.astro";
-import CommunitySection from "@/presentation/components/home/CommunitySection.astro";
-import SectionContainer from "@presentation/common/SectionContainer.astro";
+import Header from "@components/layout/Header.astro";
+import Hero from "@components/home/Hero.astro";
+import DevTerminal from "@components/home/DevTerminal.astro";
+import CommunitySection from "@components/home/CommunitySection.astro";
+import ArchiveSectors from "@components/home/ArchiveSectors.astro";
+import Footer from "@components/layout/Footer.astro";
 ---
 
 <Layout
   title="Star Wars Holocron | Archivo Canónico & REST API"
   description="El archivo digital de Star Wars de alto nivel: 364 personajes canónicos, biometría completa, retratos HD y REST API servida a 0ms en el Edge."
 >
-  <!-- Loader Cinematográfico de 4 Columnas con GSAP 3 -->
-  <HolocronLoader />
-
-  <!-- Navegación Glassmorphism Holocron -->
   <Header />
 
-  <main class="bg-[#0A0A0A] text-[#F8FFF0] overflow-hidden">
-    <!-- Hero con Starfield Three.js y Métricas -->
+  <main class="bg-base text-primary overflow-hidden">
     <Hero />
-
-    <!-- Pasarela Cinematográfica de Leyendas Galácticas -->
-    <LegendsRunway />
-
-    <!-- Terminal de Desarrollo e Integración en Vivo -->
     <DevTerminal />
-
-    <!-- Propósito & Comunidad Open Source -->
     <CommunitySection />
-
-    <!-- Sección: Sectores del Archivo Galáctico -->
-    <SectionContainer class="py-20 border-t border-[#3D3D3D]/60">
-      <div class="text-center max-w-2xl mx-auto mb-14">
-        <div class="inline-flex items-center gap-2 text-xs font-mono text-[#7FFFD4] uppercase tracking-widest mb-2 font-semibold">
-          <span>❖</span> EXPLORACIÓN MULTIDIMENSIONAL
-        </div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#F8FFF0] font-['Orbitron',sans-serif]">
-          SECTORES DEL ARCHIVO
-        </h2>
-        <p class="mt-2 text-xs sm:text-sm text-[#A3A3A3]">
-          Navega a través de las distintas divisiones de datos canónicos recopilados en el Holocron.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Sector 1: Personajes -->
-        <a
-          href="/characters"
-          class="p-6 rounded-2xl bg-[#0E0E0E] border border-[#3D3D3D] hover:border-[#7FFFD4] transition-all hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(127,255,212,0.25)] block group"
-        >
-          <div class="w-12 h-12 rounded-xl bg-[#7FFFD4]/10 border border-[#7FFFD4]/30 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-            👤
-          </div>
-          <h3 class="text-lg font-bold text-[#F8FFF0] font-['Orbitron',sans-serif] group-hover:text-[#7FFFD4] transition-colors">
-            Personajes
-          </h3>
-          <p class="text-xs text-[#A3A3A3] mt-2 leading-relaxed">
-            364 perfiles canónicos con biometría, especies, mundos natales y visor JSON en vivo.
-          </p>
-          <span class="inline-block mt-4 text-xs font-mono text-[#7FFFD4] font-semibold">
-            Abrir Sector →
-          </span>
-        </a>
-
-        <!-- Sector 2: Planetas -->
-        <a
-          href="/planets"
-          class="p-6 rounded-2xl bg-[#0E0E0E] border border-[#3D3D3D] hover:border-[#7FFFD4]/40 transition-all hover:-translate-y-1 block group"
-        >
-          <div class="w-12 h-12 rounded-xl bg-[#1C1C1C] border border-[#3D3D3D] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-            🪐
-          </div>
-          <h3 class="text-lg font-bold text-[#F8FFF0] font-['Orbitron',sans-serif] group-hover:text-[#7FFFD4] transition-colors">
-            Planetas
-          </h3>
-          <p class="text-xs text-[#A3A3A3] mt-2 leading-relaxed">
-            Mundos, climas, terrenos y coordenadas desde el Núcleo Galáctico hasta el Borde Exterior.
-          </p>
-          <span class="inline-block mt-4 text-xs font-mono text-[#A3A3A3]">
-            En Catálogo →
-          </span>
-        </a>
-
-        <!-- Sector 3: Películas -->
-        <a
-          href="/movies"
-          class="p-6 rounded-2xl bg-[#0E0E0E] border border-[#3D3D3D] hover:border-[#7FFFD4]/40 transition-all hover:-translate-y-1 block group"
-        >
-          <div class="w-12 h-12 rounded-xl bg-[#1C1C1C] border border-[#3D3D3D] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-            🎬
-          </div>
-          <h3 class="text-lg font-bold text-[#F8FFF0] font-['Orbitron',sans-serif] group-hover:text-[#7FFFD4] transition-colors">
-            Películas & Series
-          </h3>
-          <p class="text-xs text-[#A3A3A3] mt-2 leading-relaxed">
-            Línea temporal canónica desde la Era de la República hasta la caída de la Primera Orden.
-          </p>
-          <span class="inline-block mt-4 text-xs font-mono text-[#A3A3A3]">
-            En Catálogo →
-          </span>
-        </a>
-
-        <!-- Sector 4: Armas & Naves -->
-        <a
-          href="/weapons"
-          class="p-6 rounded-2xl bg-[#0E0E0E] border border-[#3D3D3D] hover:border-[#7FFFD4]/40 transition-all hover:-translate-y-1 block group"
-        >
-          <div class="w-12 h-12 rounded-xl bg-[#1C1C1C] border border-[#3D3D3D] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-            ⚔️
-          </div>
-          <h3 class="text-lg font-bold text-[#F8FFF0] font-['Orbitron',sans-serif] group-hover:text-[#7FFFD4] transition-colors">
-            Armería & Flotas
-          </h3>
-          <p class="text-xs text-[#A3A3A3] mt-2 leading-relaxed">
-            Sables de luz, blasters pesados, cazas estelares X-Wing y destructores imperiales.
-          </p>
-          <span class="inline-block mt-4 text-xs font-mono text-[#A3A3A3]">
-            En Catálogo →
-          </span>
-        </a>
-      </div>
-    </SectionContainer>
-
-    <!-- Footer Galáctico -->
-    <footer class="border-t border-[#3D3D3D]/60 py-12 text-center text-xs font-mono text-[#A3A3A3] bg-[#070707]">
-      <div class="sectionContenedor flex flex-col items-center gap-3">
-        <p class="text-[#F8FFF0]/80">
-          Star Wars Holocron — Proyecto Open Source de tributo al universo de Star Wars.
-        </p>
-        <p class="text-[11px] text-[#A3A3A3]/70 max-w-xl">
-          Star Wars y todos sus personajes, logotipos e imágenes son marcas registradas de Lucasfilm Ltd. y The Walt Disney Company.
-        </p>
-        <div class="flex flex-wrap items-center justify-center gap-4 mt-2 text-[#7FFFD4] font-semibold">
-          <a href="/characters" class="hover:underline">Personajes</a>
-          <span>•</span>
-          <a href="/introduccion" class="hover:underline">Documentación API</a>
-          <span>•</span>
-          <a href="https://github.com/ezequiel-dev93/star-wars-holocron" target="_blank" rel="noopener noreferrer" class="hover:underline">GitHub</a>
-          <span>•</span>
-          <a href="https://github.com/ezequiel-dev93/star-wars-holocron#readme" target="_blank" rel="noopener noreferrer" class="hover:underline">README</a>
-        </div>
-      </div>
-    </footer>
+    <ArchiveSectors />
   </main>
+
+  <Footer />
 </Layout>

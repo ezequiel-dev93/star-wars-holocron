@@ -1,0 +1,65 @@
+---
+import Link from "@components/ui/Link.astro";
+import Logo from "@components/ui/Logo.astro";
+---
+
+<footer class="relative border-t border-smoke/60 bg-deep pt-14 pb-10 text-xs text-muted overflow-hidden">
+  <!-- Glow ambiental sutil en el borde superior -->
+  <div class="
+    absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-px
+    bg-gradient-to-r from-transparent via-accent/50 to-transparent
+  "></div>
+
+  <div class="sectionContenedor flex flex-col gap-10">
+    <!-- Fila Superior: Marca y Navegación -->
+    <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
+      <div class="flex flex-col items-center md:items-start gap-3 text-center md:text-left">
+        <Link href="/" variant="unstyled" aria-label="Inicio Star Wars Holocron">
+          <Logo size="sm" />
+        </Link>
+        <p class="text-primary/85 font-inter text-xs sm:text-sm max-w-md leading-relaxed">
+          Archivo Digital & API REST Open Source creado para reunir toda la información del universo Star Wars en un solo lugar.
+        </p>
+      </div>
+
+      <div class="flex flex-col items-center md:items-end gap-4">
+        <nav aria-label="Enlaces del pie de página" class="flex flex-wrap items-center justify-center gap-5 sm:gap-6 font-mono text-xs">
+          <Link href="/characters" variant="inline">Personajes</Link>
+          <Link href="/planets" variant="inline">Planetas</Link>
+          <Link href="/movies" variant="inline">Películas</Link>
+          <Link href="/weapons" variant="inline">Armas</Link>
+          <Link href="/introduccion" variant="inline">Documentación API</Link>
+          <Link href="https://github.com/ezequiel-dev93/star-wars-holocron" variant="inline">
+            GitHub ↗
+          </Link>
+          <Link href="https://github.com/ezequiel-dev93/star-wars-holocron#readme" variant="inline">
+            README ↗
+          </Link>
+        </nav>
+
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-smoke/60 text-[11px] font-mono text-muted">
+          <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+          <span>HOLOCRON EDGE NODE • ONLINE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fila Inferior: Autoría (Ezequiel Suarez) y Aviso Legal -->
+    <div class="pt-6 border-t border-smoke/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <p class="text-[11px] text-dim max-w-xl font-mono">
+        Star Wars y todos sus personajes, logotipos e imágenes son marcas registradas de Lucasfilm Ltd. y The Walt Disney Company.
+      </p>
+
+      <div class="inline-flex items-center gap-1.5 text-xs font-mono text-muted">
+        <span>Desarrollado por</span>
+        <Link
+          href="https://www.ezequielsuarez-dev.com/"
+          variant="inline"
+          class="font-orbitron font-bold text-accent"
+        >
+          Ezequiel Suarez ↗
+        </Link>
+      </div>
+    </div>
+  </div>
+</footer>

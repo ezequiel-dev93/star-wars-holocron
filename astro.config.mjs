@@ -12,8 +12,9 @@ export default defineConfig({
         starlight({
             title: 'Star Wars Holocron',
             description: 'Documentación oficial de la API REST del universo Star Wars.',
+            favicon: '/favicon.svg',
             logo: {
-                src: './public/images/logos/logo.png',
+                src: './public/favicon.svg',
                 alt: 'Star Wars Holocron',
             },
             social: [],

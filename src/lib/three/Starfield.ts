@@ -1,4 +1,4 @@
-﻿import * as THREE from 'three';
+import * as THREE from 'three';
 
 interface StarLayer {
   points: THREE.Points;
@@ -25,7 +25,7 @@ export class Starfield {
   private scene: THREE.Scene;
   private camera: THREE.PerspectiveCamera;
   private layers: StarLayer[] = [];
-  private clock: THREE.Clock;
+  private startTime = performance.now();
   private animationId = 0;
 
   private mouseNx = -9999;
@@ -51,7 +51,7 @@ export class Starfield {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.camera.position.z = 5;
-    this.clock = new THREE.Clock();
+    this.startTime = performance.now();
 
     const starTexture = this.buildStarTexture();
     this.buildLayers(starTexture);
@@ -147,7 +147,7 @@ export class Starfield {
 
   private animate = (): void => {
     this.animationId = requestAnimationFrame(this.animate);
-    const elapsed = this.clock.getElapsedTime();
+    const elapsed = (performance.now() - this.startTime) * 0.001;
 
     this.camera.rotation.y += 0.04 * (this.targetCamX - this.camera.rotation.y);
     this.camera.rotation.x += 0.04 * (this.targetCamY - this.camera.rotation.x);

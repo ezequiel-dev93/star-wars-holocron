@@ -1,23 +1,53 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Header from "@presentation/common/Header.astro";
+import Header from "@components/layout/Header.astro";
+import Footer from "@components/layout/Footer.astro";
+import SectionContainer from "@components/ui/SectionContainer.astro";
+import Link from "@components/ui/Link.astro";
 ---
 
-<Layout title="Armas | Star Wars Holocron" description="Explora las armas del universo Star Wars">
+<Layout
+  title="Armería & Flotas | Star Wars Holocron"
+  description="Explora las armas y naves del universo Star Wars"
+>
   <Header />
 
-  <main class="pt-32 pb-16 px-4 min-h-screen">
-    <div class="max-w-7xl mx-auto">
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-        Armas
-      </h1>
-      <p class="text-slate-400 text-lg mb-12 max-w-2xl">
-        Explora las armas del universo Star Wars.
-      </p>
-
-      <div class="flex items-center justify-center py-20 border border-dashed border-slate-700 rounded-xl">
-        <p class="text-slate-500 text-lg">Próximamente — Grid de armas</p>
+  <main class="pt-32 pb-20 min-h-screen bg-base text-primary">
+    <SectionContainer>
+      <div class="mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-accent/30 text-accent text-xs font-mono uppercase tracking-widest mb-3">
+          <span>⚔️</span> ARSENAL GALÁCTICO
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black text-primary font-orbitron tracking-tight">
+          ARMERÍA & FLOTAS
+        </h1>
+        <p class="text-muted text-base mt-2 max-w-2xl font-inter">
+          Sables de luz, blasters pesados, cazas estelares y destructores imperiales del canon oficial.
+        </p>
       </div>
-    </div>
+
+      <div class="flex flex-col items-center justify-center py-24 px-6 border border-dashed border-smoke rounded-2xl bg-card text-center">
+        <p class="text-primary font-orbitron text-xl font-bold mb-2">
+          Sector en Sincronización
+        </p>
+        <p class="text-muted text-sm font-mono max-w-md mb-6">
+          El módulo de Armería & Flotas está abierto a contribuciones de la comunidad en GitHub.
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <Link href="/characters" variant="primary" size="sm">
+            Explorar Personajes (364)
+          </Link>
+          <Link
+            href="https://github.com/ezequiel-dev93/star-wars-holocron"
+            variant="secondary"
+            size="sm"
+          >
+            Colaborar en GitHub ↗
+          </Link>
+        </div>
+      </div>
+    </SectionContainer>
   </main>
+
+  <Footer />
 </Layout>

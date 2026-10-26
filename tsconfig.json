@@ -6,11 +6,14 @@
       "@/*": [
         "src/*"
       ],
+      "@core/*": [
+        "src/core/*"
+      ],
       "@modules/*": [
         "src/modules/*"
       ],
-      "@presentation/*": [
-        "src/presentation/*"
+      "@components/*": [
+        "src/components/*"
       ],
       "@layouts/*": [
         "src/layouts/*"

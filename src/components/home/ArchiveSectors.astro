@@ -1,0 +1,115 @@
+---
+import Link from "@components/ui/Link.astro";
+import SectionContainer from "@components/ui/SectionContainer.astro";
+
+const sectors = [
+  {
+    title: "Personajes",
+    href: "/characters",
+    icon: "👤",
+    badge: "ACTIVO • 364 FICHAS",
+    isActive: true,
+    description:
+      "Perfiles completos con altura, peso, especies, planetas natales, afiliaciones y visor JSON en vivo.",
+    cta: "Abrir Sector →",
+  },
+  {
+    title: "Planetas",
+    href: "/planets",
+    icon: "🪐",
+    badge: "PRÓXIMAMENTE",
+    isActive: false,
+    description:
+      "Mundos, climas, terrenos, sistemas estelares y regiones desde el Núcleo hasta el Borde Exterior.",
+    cta: "Ver Sector →",
+  },
+  {
+    title: "Películas & Series",
+    href: "/movies",
+    icon: "🎬",
+    badge: "PRÓXIMAMENTE",
+    isActive: false,
+    description:
+      "Todas las películas y series ordenadas por era, directores, estrenos y personajes que aparecen.",
+    cta: "Ver Sector →",
+  },
+  {
+    title: "Armería & Flotas",
+    href: "/weapons",
+    icon: "⚔️",
+    badge: "PRÓXIMAMENTE",
+    isActive: false,
+    description:
+      "Sables de luz, blasters, cazas estelares X-Wing, cargueros y destructores estelares.",
+    cta: "Ver Sector →",
+  },
+];
+---
+
+<SectionContainer class="py-24">
+  <div class="text-center max-w-2xl mx-auto mb-14">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface border border-accent/30 text-accent text-xs font-mono font-semibold uppercase tracking-widest mb-3">
+      <span>❖</span> EXPLORACIÓN MULTIDIMENSIONAL
+    </div>
+    <h2 class="text-3xl sm:text-4xl font-extrabold text-primary font-orbitron tracking-wide">
+      SECTORES DEL ARCHIVO
+    </h2>
+    <p class="mt-3 text-sm sm:text-base text-muted font-inter">
+      Navega por las distintas divisiones de información de Star Wars en el Holocron.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    {sectors.map((sector) => (
+      <Link
+        href={sector.href}
+        variant="unstyled"
+        class={`p-6 rounded-2xl bg-card border transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between group ${
+          sector.isActive
+            ? "border-accent/50 hover:border-accent shadow-[0_0_28px_rgba(127,255,212,0.14)]"
+            : "border-smoke hover:border-accent/40"
+        }`}
+      >
+        <div>
+          <div class="flex items-center justify-between mb-5">
+            <div
+              class={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl transition-transform group-hover:scale-110 ${
+                sector.isActive
+                  ? "bg-accent/15 border border-accent/40"
+                  : "bg-surface border border-smoke"
+              }`}
+            >
+              {sector.icon}
+            </div>
+            <span
+              class={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold ${
+                sector.isActive
+                  ? "bg-accent/15 text-accent border border-accent/30"
+                  : "bg-surface text-muted border border-smoke"
+              }`}
+            >
+              {sector.badge}
+            </span>
+          </div>
+
+          <h3 class="text-lg font-bold text-primary font-orbitron group-hover:text-accent transition-colors">
+            {sector.title}
+          </h3>
+          <p class="text-xs sm:text-sm text-muted mt-2.5 leading-relaxed font-inter">
+            {sector.description}
+          </p>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-smoke/50 flex items-center justify-between">
+          <span
+            class={`text-xs font-mono font-semibold ${
+              sector.isActive ? "text-accent" : "text-muted group-hover:text-primary"
+            }`}
+          >
+            {sector.cta}
+          </span>
+        </div>
+      </Link>
+    ))}
+  </div>
+</SectionContainer>

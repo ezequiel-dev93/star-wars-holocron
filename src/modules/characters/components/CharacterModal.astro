@@ -1,0 +1,447 @@
+---
+import Link from "@components/ui/Link.astro";
+---
+
+<div
+  id="holocron-modal"
+  class="fixed inset-0 z-[100] hidden items-center justify-center p-3 sm:p-6 bg-base/85 backdrop-blur-xl transition-opacity duration-300"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-character-name"
+>
+  <!-- Modal Card -->
+  <div
+    id="holocron-modal-card"
+    class="relative w-full max-w-4xl max-h-[92vh] bg-card border border-accent/40 rounded-2xl shadow-[0_0_50px_rgba(127,255,212,0.22)] flex flex-col overflow-hidden text-primary"
+  >
+    <!-- Header del Modal -->
+    <div class="flex flex-wrap items-center justify-between gap-3 px-6 py-4 border-b border-smoke bg-surface">
+      <div class="flex items-center gap-3">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-accent animate-pulse shadow-[0_0_10px_rgba(127,255,212,0.9)]"></span>
+        <h2 id="modal-character-name" class="text-xl sm:text-2xl font-bold font-orbitron text-primary tracking-wide">
+          Cargando...
+        </h2>
+        <span id="modal-character-id" class="px-2 py-0.5 text-xs font-mono rounded bg-base text-accent border border-accent/30">
+          #000
+        </span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <!-- Prev / Next Character Buttons -->
+        <div class="hidden sm:flex items-center gap-1 mr-1">
+          <button
+            id="modal-prev-btn"
+            type="button"
+            class="px-2.5 py-1.5 rounded-lg bg-base hover:bg-elevated text-muted hover:text-accent border border-smoke text-xs font-mono transition-colors cursor-pointer"
+            title="Personaje anterior (Flecha izquierda)"
+          >
+            ←
+          </button>
+          <button
+            id="modal-next-btn"
+            type="button"
+            class="px-2.5 py-1.5 rounded-lg bg-base hover:bg-elevated text-muted hover:text-accent border border-smoke text-xs font-mono transition-colors cursor-pointer"
+            title="Siguiente personaje (Flecha derecha)"
+          >
+            →
+          </button>
+        </div>
+
+        <!-- Tabs Switcher -->
+        <div class="flex items-center gap-1 bg-base p-1 rounded-xl border border-smoke text-xs font-orbitron">
+          <button
+            id="tab-btn-info"
+            type="button"
+            class="px-3 py-1.5 rounded-lg bg-accent text-base font-bold transition-all cursor-pointer"
+          >
+            Ficha Completa
+          </button>
+          <button
+            id="tab-btn-json"
+            type="button"
+            class="px-3 py-1.5 rounded-lg text-muted hover:text-accent font-medium transition-all cursor-pointer"
+          >
+            {`{ }`} Ver JSON
+          </button>
+        </div>
+
+        <!-- Close Button -->
+        <button
+          id="modal-close-btn"
+          type="button"
+          class="p-2 rounded-lg text-muted hover:text-primary hover:bg-elevated border border-transparent hover:border-smoke transition-colors cursor-pointer"
+          aria-label="Cerrar modal"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Contenido del Modal (Scrolleable) -->
+    <div class="overflow-y-auto flex-1 p-6" data-lenis-prevent>
+      <!-- VISTA 1: Ficha Completa -->
+      <div id="tab-content-info" class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <!-- Columna Izquierda: Retrato, Especie y Planeta -->
+        <div class="md:col-span-4 flex flex-col gap-3">
+          <div class="w-full aspect-[3/4] rounded-xl overflow-hidden border border-smoke bg-surface shadow-lg relative group">
+            <img
+              id="modal-character-image"
+              src="/images/characters/placeholder.svg"
+              alt="Personaje"
+              class="w-full h-full object-cover object-top"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-base/75 via-transparent to-transparent"></div>
+          </div>
+
+          <!-- Etiquetas rápidas: Especie & Planeta Natal -->
+          <div class="flex flex-col gap-2 p-3.5 rounded-xl bg-surface border border-smoke text-xs font-mono">
+            <div class="flex items-center justify-between">
+              <span class="text-muted">🧬 Especie:</span>
+              <a
+                id="modal-species-link"
+                href="/characters"
+                class="text-accent font-semibold hover:underline"
+              >
+                Desconocida
+              </a>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-smoke/60">
+              <span class="text-muted">🪐 Planeta:</span>
+              <a
+                id="modal-homeworld-link"
+                href="/characters"
+                class="text-accent font-semibold hover:underline"
+              >
+                Desconocido
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Biometría, Historia, Películas/Series y Endpoint -->
+        <div class="md:col-span-8 flex flex-col gap-5">
+          <!-- Biometría (6 celdas) -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 p-3.5 rounded-xl bg-surface border border-smoke text-center font-mono text-xs">
+            <div class="p-2 rounded-lg bg-card border border-smoke/50">
+              <p class="text-muted text-[10px] uppercase">Altura</p>
+              <p id="modal-height" class="text-accent font-semibold mt-0.5">--</p>
+            </div>
+            <div class="p-2 rounded-lg bg-card border border-smoke/50">
+              <p class="text-muted text-[10px] uppercase">Peso</p>
+              <p id="modal-mass" class="text-accent font-semibold mt-0.5">--</p>
+            </div>
+            <div class="p-2 rounded-lg bg-card border border-smoke/50">
+              <p class="text-muted text-[10px] uppercase">Género</p>
+              <p id="modal-gender" class="text-accent font-semibold mt-0.5 capitalize">--</p>
+            </div>
+            <div class="p-2 rounded-lg bg-card border border-smoke/50">
+              <p class="text-muted text-[10px] uppercase">Nacimiento</p>
+              <p id="modal-birth" class="text-primary font-semibold mt-0.5">--</p>
+            </div>
+            <div class="p-2 rounded-lg bg-card border border-smoke/50">
+              <p class="text-muted text-[10px] uppercase">Color de Ojos</p>
+              <p id="modal-eyes" class="text-primary font-semibold mt-0.5 capitalize">--</p>
+            </div>
+            <div class="p-2 rounded-lg bg-card border border-smoke/50">
+              <p class="text-muted text-[10px] uppercase">Cabello / Piel</p>
+              <p id="modal-hair" class="text-primary font-semibold mt-0.5 capitalize">--</p>
+            </div>
+          </div>
+
+          <!-- Historia / Descripción -->
+          <div>
+            <h3 class="text-xs font-bold text-accent uppercase tracking-wider font-orbitron mb-2">
+              Historia del Personaje
+            </h3>
+            <div class="max-h-44 overflow-y-auto bg-surface p-4 rounded-xl border border-smoke" data-lenis-prevent>
+              <p id="modal-description" class="text-sm text-primary/90 leading-relaxed font-inter">
+                Sin descripción disponible.
+              </p>
+            </div>
+          </div>
+
+          <!-- Apariciones (Películas, Series y Juegos) -->
+          <div id="modal-films-section">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-xs font-bold text-accent uppercase tracking-wider font-orbitron">
+                Apariciones (Películas & Series)
+              </h3>
+              <span id="modal-films-count" class="text-[11px] font-mono text-muted">
+                0 registros
+              </span>
+            </div>
+            <div
+              id="modal-films-list"
+              class="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto p-3 rounded-xl bg-surface border border-smoke"
+              data-lenis-prevent
+            ></div>
+          </div>
+
+          <!-- Endpoint API Directo -->
+          <div class="p-3.5 rounded-xl bg-surface border border-smoke flex flex-wrap items-center justify-between gap-3 text-xs font-mono mt-auto">
+            <span class="text-muted truncate max-w-[260px]" id="modal-api-url">
+              GET /api/characters/1
+            </span>
+            <Link
+              id="modal-api-link"
+              href="/api/characters/1"
+              variant="outline"
+              size="sm"
+              external
+            >
+              Abrir Endpoint ↗
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISTA 2: Visor JSON (Oculto por defecto) -->
+      <div id="tab-content-json" class="hidden flex-col gap-3">
+        <div class="flex items-center justify-between bg-surface px-4 py-2.5 rounded-xl border border-smoke text-xs">
+          <span class="font-mono text-muted">application/json • UTF-8</span>
+          <button
+            id="copy-json-btn"
+            type="button"
+            class="flex items-center gap-1.5 px-3.5 py-1.5 bg-accent text-base font-bold rounded-lg hover:bg-primary transition-colors font-mono cursor-pointer"
+          >
+            <span id="copy-btn-text">Copiar JSON</span>
+          </button>
+        </div>
+
+        <pre class="p-4 rounded-xl bg-deep border border-smoke overflow-x-auto text-xs font-mono text-accent leading-relaxed"><code id="modal-json-code">{ }</code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentCharacterData: any = null;
+  let currentCardIndex = -1;
+
+  const modal = document.getElementById("holocron-modal");
+  const modalName = document.getElementById("modal-character-name");
+  const modalId = document.getElementById("modal-character-id");
+  const modalImage = document.getElementById("modal-character-image") as HTMLImageElement | null;
+  const modalSpeciesLink = document.getElementById("modal-species-link") as HTMLAnchorElement | null;
+  const modalHomeworldLink = document.getElementById("modal-homeworld-link") as HTMLAnchorElement | null;
+  const modalHeight = document.getElementById("modal-height");
+  const modalMass = document.getElementById("modal-mass");
+  const modalGender = document.getElementById("modal-gender");
+  const modalBirth = document.getElementById("modal-birth");
+  const modalEyes = document.getElementById("modal-eyes");
+  const modalHair = document.getElementById("modal-hair");
+  const modalDesc = document.getElementById("modal-description");
+  const modalFilmsSection = document.getElementById("modal-films-section");
+  const modalFilmsCount = document.getElementById("modal-films-count");
+  const modalFilmsList = document.getElementById("modal-films-list");
+  const modalApiUrl = document.getElementById("modal-api-url");
+  const modalApiLink = document.getElementById("modal-api-link") as HTMLAnchorElement | null;
+  const modalJsonCode = document.getElementById("modal-json-code");
+
+  const tabBtnInfo = document.getElementById("tab-btn-info");
+  const tabBtnJson = document.getElementById("tab-btn-json");
+  const tabContentInfo = document.getElementById("tab-content-info");
+  const tabContentJson = document.getElementById("tab-content-json");
+  const closeBtn = document.getElementById("modal-close-btn");
+  const prevBtn = document.getElementById("modal-prev-btn");
+  const nextBtn = document.getElementById("modal-next-btn");
+  const copyBtn = document.getElementById("copy-json-btn");
+  const copyBtnText = document.getElementById("copy-btn-text");
+
+  function getAllCards(): HTMLElement[] {
+    return Array.from(document.querySelectorAll<HTMLElement>(".character-card"));
+  }
+
+  function openCharacterModal(data: any, index?: number) {
+    if (!modal) return;
+    currentCharacterData = data;
+    if (typeof index === "number") {
+      currentCardIndex = index;
+    }
+
+    if (modalName) modalName.textContent = data.name;
+    if (modalId) modalId.textContent = `#${String(data.id).padStart(3, "0")}`;
+    if (modalImage) {
+      modalImage.src =
+        data.avatarUrl || data.imageUrl || "/images/characters/placeholder.svg";
+    }
+
+    const mainSpecies =
+      Array.isArray(data.species) && data.species.length > 0
+        ? data.species.join(", ")
+        : "Humano / N/A";
+    if (modalSpeciesLink) {
+      modalSpeciesLink.textContent = mainSpecies;
+      const spQuery = data.species?.[0] || "";
+      modalSpeciesLink.href = spQuery
+        ? `/characters?species=${encodeURIComponent(spQuery)}`
+        : "/characters";
+    }
+
+    const hw =
+      data.homeworldUrl && data.homeworldUrl !== "unknown"
+        ? data.homeworldUrl
+        : "No registrado";
+    if (modalHomeworldLink) {
+      modalHomeworldLink.textContent = hw;
+      modalHomeworldLink.href =
+        hw !== "No registrado"
+          ? `/characters?planet=${encodeURIComponent(hw)}`
+          : "/characters";
+    }
+
+    if (modalHeight)
+      modalHeight.textContent =
+        data.height && data.height !== "unknown" ? `${data.height} cm` : "N/A";
+    if (modalMass)
+      modalMass.textContent =
+        data.mass && data.mass !== "unknown" ? `${data.mass} kg` : "N/A";
+    if (modalGender)
+      modalGender.textContent =
+        data.gender && data.gender !== "unknown" ? data.gender : "N/A";
+    if (modalBirth)
+      modalBirth.textContent =
+        data.birthYear && data.birthYear !== "unknown" ? data.birthYear : "N/A";
+    if (modalEyes)
+      modalEyes.textContent =
+        data.eyeColor && data.eyeColor !== "unknown" ? data.eyeColor : "N/A";
+
+    const hairOrSkin =
+      data.hairColor && data.hairColor !== "unknown"
+        ? data.hairColor
+        : data.skinColor && data.skinColor !== "unknown"
+          ? data.skinColor
+          : "N/A";
+    if (modalHair) modalHair.textContent = hairOrSkin;
+
+    if (modalDesc) {
+      modalDesc.textContent =
+        data.description ||
+        "Este personaje aún no tiene biografía detallada. ¡Puedes colaborar en GitHub para completarla!";
+    }
+
+    // Apariciones
+    const films: string[] = Array.isArray(data.films) ? data.films : [];
+    if (modalFilmsSection && modalFilmsList && modalFilmsCount) {
+      modalFilmsCount.textContent = `${films.length} apariciones`;
+      modalFilmsList.innerHTML = "";
+
+      if (films.length > 0) {
+        modalFilmsSection.classList.remove("hidden");
+        films.forEach((film) => {
+          const badge = document.createElement("a");
+          badge.href = `/characters?q=${encodeURIComponent(film)}`;
+          badge.className =
+            "px-2.5 py-1 rounded-lg bg-card hover:bg-elevated border border-smoke hover:border-accent/50 text-[11px] font-mono text-primary hover:text-accent transition-colors";
+          badge.textContent = film;
+          modalFilmsList.appendChild(badge);
+        });
+      } else {
+        const empty = document.createElement("span");
+        empty.className = "text-xs text-muted font-mono";
+        empty.textContent = "Sin apariciones listadas aún.";
+        modalFilmsList.appendChild(empty);
+      }
+    }
+
+    const apiEndpoint = `/api/characters/${data.slug || data.id}`;
+    if (modalApiUrl) modalApiUrl.textContent = `GET ${apiEndpoint}`;
+    if (modalApiLink) modalApiLink.href = apiEndpoint;
+
+    if (modalJsonCode) {
+      modalJsonCode.textContent = JSON.stringify(data, null, 2);
+    }
+
+    showTab("info");
+
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    document.body.style.overflow = "hidden";
+  }
+
+  function navigateCard(direction: -1 | 1) {
+    const cards = getAllCards();
+    if (!cards.length) return;
+    const nextIdx = (currentCardIndex + direction + cards.length) % cards.length;
+    const targetCard = cards[nextIdx];
+    const raw = targetCard?.getAttribute("data-character");
+    if (raw) {
+      try {
+        openCharacterModal(JSON.parse(raw), nextIdx);
+      } catch {}
+    }
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+    document.body.style.overflow = "";
+  }
+
+  function showTab(tab: "info" | "json") {
+    if (tab === "info") {
+      tabContentInfo?.classList.remove("hidden");
+      tabContentJson?.classList.add("hidden");
+      tabContentJson?.classList.remove("flex");
+      tabBtnInfo?.classList.add("bg-accent", "text-base", "font-bold");
+      tabBtnInfo?.classList.remove("text-muted");
+      tabBtnJson?.classList.remove("bg-accent", "text-base", "font-bold");
+      tabBtnJson?.classList.add("text-muted");
+    } else {
+      tabContentInfo?.classList.add("hidden");
+      tabContentJson?.classList.remove("hidden");
+      tabContentJson?.classList.add("flex");
+      tabBtnJson?.classList.add("bg-accent", "text-base", "font-bold");
+      tabBtnJson?.classList.remove("text-muted");
+      tabBtnInfo?.classList.remove("bg-accent", "text-base", "font-bold");
+      tabBtnInfo?.classList.add("text-muted");
+    }
+  }
+
+  tabBtnInfo?.addEventListener("click", () => showTab("info"));
+  tabBtnJson?.addEventListener("click", () => showTab("json"));
+  closeBtn?.addEventListener("click", closeModal);
+  prevBtn?.addEventListener("click", () => navigateCard(-1));
+  nextBtn?.addEventListener("click", () => navigateCard(1));
+
+  modal?.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (modal?.classList.contains("hidden")) return;
+    if (e.key === "Escape") closeModal();
+    if (e.key === "ArrowLeft") navigateCard(-1);
+    if (e.key === "ArrowRight") navigateCard(1);
+  });
+
+  copyBtn?.addEventListener("click", async () => {
+    if (!currentCharacterData) return;
+    await navigator.clipboard.writeText(
+      JSON.stringify(currentCharacterData, null, 2)
+    );
+    if (copyBtnText) copyBtnText.textContent = "¡Copiado!";
+    setTimeout(() => {
+      if (copyBtnText) copyBtnText.textContent = "Copiar JSON";
+    }, 2000);
+  });
+
+  document.addEventListener("click", (e) => {
+    const card = (e.target as HTMLElement).closest(".character-card") as HTMLElement | null;
+    if (!card) return;
+    const cards = getAllCards();
+    const idx = cards.indexOf(card);
+    const rawData = card.getAttribute("data-character");
+    if (rawData) {
+      try {
+        const parsed = JSON.parse(rawData);
+        openCharacterModal(parsed, idx);
+      } catch (err) {
+        console.error("Error al parsear datos de personaje", err);
+      }
+    }
+  });
+</script>

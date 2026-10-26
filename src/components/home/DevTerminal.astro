@@ -1,0 +1,450 @@
+---
+import Link from "@components/ui/Link.astro";
+import SectionContainer from "@components/ui/SectionContainer.astro";
+---
+
+<section
+  id="terminal-sandbox"
+  class="relative z-10 py-24 bg-base border-b border-smoke/50"
+>
+  <SectionContainer>
+    <!-- Encabezado de la Sección -->
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface border border-accent/30 text-accent text-xs font-mono font-semibold uppercase tracking-widest mb-3">
+          <span>⚡</span> API SANDBOX INTERACTIVO
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-primary font-orbitron tracking-wide">
+          TERMINAL DE DESARROLLO EN VIVO
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-muted font-inter leading-relaxed">
+          Edita la ruta del endpoint o escribe directamente tu código en el editor. Presiona{" "}
+          <span class="text-accent font-mono font-semibold">▶ Ejecutar</span> (o{" "}
+          <kbd class="px-1.5 py-0.5 rounded bg-surface border border-smoke text-xs font-mono text-primary">
+            Ctrl + Enter
+          </kbd>
+          ) para consultar la API en tiempo real.
+        </p>
+      </div>
+
+      <!-- Presets rápidos -->
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+        <span class="text-muted mr-1">Presets:</span>
+        <button
+          type="button"
+          class="preset-endpoint-btn px-3 py-1.5 rounded-lg bg-surface hover:bg-elevated text-accent border border-accent/40 transition-colors cursor-pointer"
+          data-endpoint="/api/characters/1"
+        >
+          /characters/1
+        </button>
+        <button
+          type="button"
+          class="preset-endpoint-btn px-3 py-1.5 rounded-lg bg-surface hover:bg-elevated text-muted hover:text-primary border border-smoke transition-colors cursor-pointer"
+          data-endpoint="/api/characters/darth-vader"
+        >
+          /characters/darth-vader
+        </button>
+        <button
+          type="button"
+          class="preset-endpoint-btn px-3 py-1.5 rounded-lg bg-surface hover:bg-elevated text-muted hover:text-primary border border-smoke transition-colors cursor-pointer"
+          data-endpoint="/api/characters?q=skywalker"
+        >
+          ?q=skywalker
+        </button>
+        <button
+          type="button"
+          class="preset-endpoint-btn px-3 py-1.5 rounded-lg bg-surface hover:bg-elevated text-muted hover:text-primary border border-smoke transition-colors cursor-pointer"
+          data-endpoint="/api/characters?page=1&limit=3"
+        >
+          ?page=1&limit=3
+        </button>
+      </div>
+    </div>
+
+    <!-- Layout Principal: Terminal Editable (8 cols) + Especificaciones Técnicas (4 cols) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Consola / Editor Híbrido (8 columnas) -->
+      <div class="lg:col-span-8 rounded-2xl bg-card border border-smoke shadow-[0_0_40px_rgba(0,0,0,0.85)] overflow-hidden">
+        <!-- Barra superior de ventana -->
+        <div class="flex flex-wrap items-center justify-between px-4 py-3 bg-surface border-b border-smoke gap-3">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-status-danger inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-status-warn inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-status-ok inline-block"></span>
+            <span class="ml-2 text-xs font-mono text-muted">
+              holocron-sandbox — editor interactivo
+            </span>
+          </div>
+
+          <!-- Selector de Lenguaje -->
+          <div class="flex items-center gap-1 bg-base p-1 rounded-xl border border-smoke text-xs font-mono">
+            <button
+              type="button"
+              class="terminal-tab-btn px-3 py-1 rounded-lg bg-accent text-base font-bold transition-all cursor-pointer"
+              data-lang="js"
+            >
+              JavaScript
+            </button>
+            <button
+              type="button"
+              class="terminal-tab-btn px-3 py-1 rounded-lg text-muted hover:text-primary transition-all cursor-pointer"
+              data-lang="curl"
+            >
+              cURL
+            </button>
+            <button
+              type="button"
+              class="terminal-tab-btn px-3 py-1 rounded-lg text-muted hover:text-primary transition-all cursor-pointer"
+              data-lang="python"
+            >
+              Python
+            </button>
+          </div>
+        </div>
+
+        <!-- Barra de Endpoint Editable + Controles de Ejecución -->
+        <div class="p-3.5 bg-base/90 border-b border-smoke flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 font-mono text-xs">
+          <div class="flex items-center gap-2 flex-1 bg-surface border border-smoke focus-within:border-accent rounded-xl px-3 py-2 transition-colors">
+            <span class="px-2 py-0.5 rounded bg-accent/15 text-accent font-bold border border-accent/30 shrink-0">
+              GET
+            </span>
+            <input
+              id="endpoint-input"
+              type="text"
+              value="/api/characters/1"
+              aria-label="Ruta del endpoint de la API"
+              placeholder="/api/characters/1 o /api/characters?q=yoda"
+              class="w-full bg-transparent text-primary focus:outline-none font-mono text-xs"
+            />
+          </div>
+
+          <div class="flex items-center gap-2 shrink-0">
+            <button
+              id="reset-snippet-btn"
+              type="button"
+              class="px-3 py-2 rounded-xl bg-surface hover:bg-elevated text-muted hover:text-primary border border-smoke transition-colors cursor-pointer"
+              title="Restablecer código original"
+            >
+              Restablecer
+            </button>
+            <button
+              id="copy-snippet-btn"
+              type="button"
+              class="px-3.5 py-2 rounded-xl bg-surface hover:bg-elevated text-primary border border-smoke transition-colors cursor-pointer"
+            >
+              <span id="copy-text">Copiar</span>
+            </button>
+            <button
+              id="execute-request-btn"
+              type="button"
+              class="px-4 py-2 rounded-xl bg-accent text-base font-extrabold hover:bg-primary transition-all shadow-[0_0_16px_rgba(127,255,212,0.4)] flex items-center gap-1.5 cursor-pointer"
+            >
+              <span>▶ Ejecutar</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Editor de Código Editable en Vivo -->
+        <div class="relative bg-deep border-b border-smoke">
+          <div class="flex items-center justify-between px-4 py-1.5 bg-surface/50 border-b border-smoke/50 text-[11px] font-mono text-muted">
+            <span>✏️ Puedes editar el código o la URL directamente aquí abajo:</span>
+            <span class="text-accent/80">Editable • Ctrl+Enter para ejecutar</span>
+          </div>
+
+          <div class="grid grid-cols-[40px_1fr] font-mono text-xs">
+            <!-- Números de línea -->
+            <div
+              id="editor-line-numbers"
+              class="py-4 px-2 text-right text-dim bg-base/60 select-none border-r border-smoke/40 leading-relaxed"
+              aria-hidden="true"
+            >
+              1<br />2<br />3<br />4<br />5
+            </div>
+
+            <!-- Textarea editable de código -->
+            <textarea
+              id="code-editor-textarea"
+              rows="5"
+              spellcheck="false"
+              aria-label="Editor de código interactivo"
+              class="w-full p-4 bg-transparent text-accent font-mono text-xs leading-relaxed focus:outline-none resize-y min-h-[128px]"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Consola de Respuesta JSON en Tiempo Real -->
+        <div class="p-5 bg-base font-mono text-xs">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2.5 border-b border-smoke/50 text-[11px]">
+            <div class="flex items-center gap-2">
+              <span id="response-dot" class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+              <span class="text-primary font-bold tracking-wider">RESPUESTA HTTP JSON</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span id="response-url-badge" class="text-muted">GET /api/characters/1</span>
+              <span
+                id="response-status"
+                class="px-2 py-0.5 rounded bg-accent/15 text-accent border border-accent/30 font-semibold"
+              >
+                200 OK • Edge
+              </span>
+            </div>
+          </div>
+
+          <pre
+            id="terminal-json-output"
+            data-lenis-prevent
+            class="text-primary/90 max-h-72 overflow-y-auto leading-relaxed text-xs bg-card p-4 rounded-xl border border-smoke/60"
+          ><code>&#123;
+  "id": "1",
+  "slug": "luke-skywalker",
+  "name": "Luke Skywalker",
+  "height": "172",
+  "mass": "73",
+  "gender": "Male",
+  "homeworldUrl": "Tatooine",
+  "species": ["Human"],
+  "avatarUrl": "/images/characters/luke-skywalker.jpeg"
+&#125;</code></pre>
+        </div>
+      </div>
+
+      <!-- Tarjetas de Especificaciones para Desarrolladores (4 columnas) -->
+      <div class="lg:col-span-4 flex flex-col gap-4">
+        <div class="p-6 rounded-2xl bg-card border border-smoke hover:border-accent/50 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-accent/10 border border-accent/30 flex items-center justify-center text-accent text-lg mb-3 font-mono font-bold">
+            01
+          </div>
+          <h3 class="text-base font-bold text-primary font-orbitron">
+            Búsqueda por ID, Slug o Query
+          </h3>
+          <p class="text-xs text-muted mt-2 leading-relaxed font-inter">
+            Consulta tanto por ID numérico (<code class="text-accent font-mono">/api/characters/1</code>) como por slug (<code class="text-accent font-mono">/api/characters/ahsoka-tano</code>) o filtra con <code class="text-accent font-mono">?q=jedi&limit=5</code>.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-card border border-smoke hover:border-accent/50 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-accent/10 border border-accent/30 flex items-center justify-center text-accent text-lg mb-3 font-mono font-bold">
+            02
+          </div>
+          <h3 class="text-base font-bold text-primary font-orbitron">
+            CORS Abierto & Cero Auth
+          </h3>
+          <p class="text-xs text-muted mt-2 leading-relaxed font-inter">
+            Diseñada para prototipar y lanzar a producción en React, Astro, Next.js, Vue o aplicaciones móviles sin bloqueos de CORS ni registro de tokens.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-card border border-smoke hover:border-accent/50 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-accent/10 border border-accent/30 flex items-center justify-center text-accent text-lg mb-3 font-mono font-bold">
+            03
+          </div>
+          <h3 class="text-base font-bold text-primary font-orbitron">
+            Guía Completa en Starlight
+          </h3>
+          <p class="text-xs text-muted mt-2 mb-4 leading-relaxed font-inter">
+            Revisa todos los esquemas de respuesta DTO, códigos de estado y ejemplos de paginación en la documentación técnica.
+          </p>
+          <Link href="/introduccion" variant="inline" class="text-xs font-orbitron">
+            <span>Explorar Documentación API</span>
+            <span>→</span>
+          </Link>
+        </div>
+      </div>
+    </div>
+  </SectionContainer>
+</section>
+
+<script>
+  let currentLang = "js";
+  let currentEndpoint = "/api/characters/1";
+
+  const snippets: Record<string, (ep: string) => string> = {
+    js: (ep) =>
+      `// Edita la ruta o ejecuta con Ctrl + Enter
+const res = await fetch("${ep}");
+const data = await res.json();
+console.log(data);`,
+    curl: (ep) =>
+      `# Petición HTTP GET directa al Holocron
+curl -s -X GET "${window.location.origin}${ep}" \\
+  -H "Accept: application/json"`,
+    python: (ep) =>
+      `# Consulta con Python requests
+import requests
+
+response = requests.get("${window.location.origin}${ep}")
+print(response.json())`,
+  };
+
+  const editorTextarea = document.getElementById(
+    "code-editor-textarea"
+  ) as HTMLTextAreaElement | null;
+  const lineNumbers = document.getElementById("editor-line-numbers");
+  const endpointInput = document.getElementById(
+    "endpoint-input"
+  ) as HTMLInputElement | null;
+  const execBtn = document.getElementById("execute-request-btn");
+  const resetBtn = document.getElementById("reset-snippet-btn");
+  const copyBtn = document.getElementById("copy-snippet-btn");
+  const copyText = document.getElementById("copy-text");
+  const jsonOutput = document.getElementById("terminal-json-output");
+  const statusDisplay = document.getElementById("response-status");
+  const urlBadge = document.getElementById("response-url-badge");
+
+  function updateLineNumbers(code: string) {
+    if (!lineNumbers) return;
+    const count = Math.max(1, code.split("\n").length);
+    lineNumbers.innerHTML = Array.from({ length: count }, (_, i) => i + 1).join(
+      "<br />"
+    );
+  }
+
+  function normalizeEndpoint(raw: string): string {
+    const trimmed = raw.trim();
+    if (!trimmed) return "/api/characters/1";
+    if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+      try {
+        const u = new URL(trimmed);
+        return `${u.pathname}${u.search}`;
+      } catch {
+        return "/api/characters/1";
+      }
+    }
+    if (trimmed.startsWith("/api/")) return trimmed;
+    if (trimmed.startsWith("api/")) return `/${trimmed}`;
+    if (trimmed.startsWith("/")) return `/api${trimmed}`;
+    return `/api/${trimmed}`;
+  }
+
+  function extractEndpointFromCode(code: string): string | null {
+    const match = code.match(/(\/api\/[a-zA-Z0-9_\-/?=&%]+)/);
+    if (match?.[1]) {
+      return match[1];
+    }
+    return null;
+  }
+
+  function syncEditorFromState() {
+    if (!editorTextarea) return;
+    const code = snippets[currentLang]?.(currentEndpoint) || "";
+    editorTextarea.value = code;
+    updateLineNumbers(code);
+  }
+
+  // Inicializar editor
+  syncEditorFromState();
+
+  // Si el usuario escribe en el textarea, actualizar líneas y sincronizar ruta si cambió
+  editorTextarea?.addEventListener("input", () => {
+    const val = editorTextarea.value;
+    updateLineNumbers(val);
+    const extracted = extractEndpointFromCode(val);
+    if (extracted && endpointInput) {
+      currentEndpoint = extracted;
+      endpointInput.value = extracted;
+    }
+  });
+
+  // Atajo Ctrl+Enter o Cmd+Enter en el editor para ejecutar
+  editorTextarea?.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+      e.preventDefault();
+      runLiveRequest();
+    }
+  });
+
+  // Si el usuario escribe en el input de endpoint
+  endpointInput?.addEventListener("input", () => {
+    currentEndpoint = normalizeEndpoint(endpointInput.value);
+    syncEditorFromState();
+  });
+
+  endpointInput?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      currentEndpoint = normalizeEndpoint(endpointInput.value);
+      endpointInput.value = currentEndpoint;
+      syncEditorFromState();
+      runLiveRequest();
+    }
+  });
+
+  // Presets rápidos
+  document
+    .querySelectorAll<HTMLButtonElement>(".preset-endpoint-btn")
+    .forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const ep = btn.getAttribute("data-endpoint") || "/api/characters/1";
+        currentEndpoint = ep;
+        if (endpointInput) endpointInput.value = ep;
+        syncEditorFromState();
+        runLiveRequest();
+      });
+    });
+
+  // Pestañas de lenguaje
+  document
+    .querySelectorAll<HTMLButtonElement>(".terminal-tab-btn")
+    .forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".terminal-tab-btn").forEach((b) => {
+          b.classList.remove("bg-accent", "text-base", "font-bold");
+          b.classList.add("text-muted");
+        });
+        btn.classList.add("bg-accent", "text-base", "font-bold");
+        btn.classList.remove("text-muted");
+        currentLang = btn.getAttribute("data-lang") || "js";
+        syncEditorFromState();
+      });
+    });
+
+  // Restablecer
+  resetBtn?.addEventListener("click", () => {
+    currentEndpoint = "/api/characters/1";
+    if (endpointInput) endpointInput.value = currentEndpoint;
+    syncEditorFromState();
+  });
+
+  // Copiar
+  copyBtn?.addEventListener("click", async () => {
+    const code = editorTextarea?.value || "";
+    await navigator.clipboard.writeText(code);
+    if (copyText) copyText.textContent = "¡Copiado!";
+    setTimeout(() => {
+      if (copyText) copyText.textContent = "Copiar";
+    }, 2000);
+  });
+
+  // Ejecutar Petición Real
+  async function runLiveRequest() {
+    if (!execBtn || !jsonOutput || !statusDisplay) return;
+
+    const codeEndpoint = editorTextarea
+      ? extractEndpointFromCode(editorTextarea.value)
+      : null;
+    const targetEndpoint = normalizeEndpoint(codeEndpoint || currentEndpoint);
+
+    if (endpointInput) endpointInput.value = targetEndpoint;
+    if (urlBadge) urlBadge.textContent = `GET ${targetEndpoint}`;
+
+    execBtn.textContent = "⏳ Ejecutando...";
+    statusDisplay.textContent = "FETCHING...";
+
+    try {
+      const start = performance.now();
+      const res = await fetch(targetEndpoint);
+      const data = await res.json();
+      const duration = Math.round(performance.now() - start);
+
+      statusDisplay.textContent = `${res.status} ${res.statusText || "OK"} • ${duration}ms`;
+      jsonOutput.textContent = JSON.stringify(data, null, 2);
+    } catch (err) {
+      statusDisplay.textContent = "ERROR DE RED";
+      jsonOutput.textContent = `No se pudo completar la consulta a ${targetEndpoint}:\n${String(err)}`;
+    } finally {
+      execBtn.textContent = "▶ Ejecutar";
+    }
+  }
+
+  execBtn?.addEventListener("click", runLiveRequest);
+</script>
