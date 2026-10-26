@@ -12,7 +12,7 @@ Devuelve una lista paginada de personajes con soporte de búsqueda y filtros com
 ### URL
 
 ```http
-GET https://star-wars-holocron.vercel.app/api/characters
+GET https://holocron.ezequielsuarez-dev.com/api/characters
 ```
 
 ### Query Params

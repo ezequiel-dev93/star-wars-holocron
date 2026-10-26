@@ -12,7 +12,7 @@ Devuelve la ficha completa de un personaje espec√≠fico buscando por su **ID num√
 ### URL
 
 ```http
-GET https://star-wars-holocron.vercel.app/api/characters/:id
+GET https://holocron.ezequielsuarez-dev.com/api/characters/:id
 ```
 
 ### Path Params

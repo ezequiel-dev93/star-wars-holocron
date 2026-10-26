@@ -6,6 +6,10 @@
 
 Es un proyecto **100% Open Source y abierto a colaboradores**. Si quieres sumar personajes, completar imágenes faltantes o impulsar los módulos de Planetas, Películas y Armas, ¡tus Pull Requests son bienvenidos!
 
+- 🌐 **Web Oficial & Catálogo:** [https://holocron.ezequielsuarez-dev.com/](https://holocron.ezequielsuarez-dev.com/)
+- 📜 **Documentación de la API:** [https://holocron.ezequielsuarez-dev.com/introduccion](https://holocron.ezequielsuarez-dev.com/introduccion)
+- ⚡ **Endpoint Base:** `https://holocron.ezequielsuarez-dev.com/api`
+
 ---
 
 ## ✨ Características Principales

@@ -8,7 +8,7 @@ La API de Holocron no requiere autenticación. Solo necesitás hacer un `fetch` 
 ## Tu primera petición
 
 ```js
-const response = await fetch('https://star-wars-holocron.vercel.app/api/characters');
+const response = await fetch('https://holocron.ezequielsuarez-dev.com/api/characters');
 const data = await response.json();
 
 console.log(data.characters); // Array de personajes
@@ -23,7 +23,7 @@ console.log(data.characters); // Array de personajes
     <ul id="characters"></ul>
 
     <script>
-      fetch('https://star-wars-holocron.vercel.app/api/characters')
+      fetch('https://holocron.ezequielsuarez-dev.com/api/characters')
         .then(res => res.json())
         .then(data => {
           const list = document.getElementById('characters');

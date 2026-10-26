@@ -37,7 +37,7 @@ Podés usar esta API para:
 ## URL Base
 
 ```
-https://star-wars-holocron.vercel.app/api
+https://holocron.ezequielsuarez-dev.com/api
 ```
 
 Todos los endpoints devuelven **JSON** y no requieren autenticación.

@@ -5,6 +5,7 @@ import vercel from '@astrojs/vercel';
 import starlight from '@astrojs/starlight';
 
 export default defineConfig({
+    site: 'https://holocron.ezequielsuarez-dev.com',
     output: 'server',
     adapter: vercel(),
     integrations: [
