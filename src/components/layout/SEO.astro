@@ -15,6 +15,35 @@ const canonicalURL = new URL(
   Astro.url.pathname,
   Astro.site || Astro.url.origin
 );
+
+const authorName = "Ezequiel Suarez";
+const authorUrl = "https://www.ezequielsuarez-dev.com/";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: title,
+  description,
+  url: canonicalURL.toString(),
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Any",
+  inLanguage: "es",
+  isAccessibleForFree: true,
+  author: {
+    "@type": "Person",
+    name: authorName,
+    url: authorUrl,
+    sameAs: [
+      authorUrl,
+      "https://github.com/ezequiel-dev93",
+    ],
+  },
+  creator: {
+    "@type": "Person",
+    name: authorName,
+    url: authorUrl,
+  },
+};
 ---
 
 <meta charset="UTF-8" />
@@ -25,9 +54,15 @@ const canonicalURL = new URL(
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="author" content={authorName} />
+<meta name="creator" content={authorName} />
+<meta name="publisher" content={authorName} />
+<link rel="author" href={authorUrl} />
 <link rel="canonical" href={canonicalURL} />
 
 <meta property="og:type" content="website" />
+<meta property="og:site_name" content="Star Wars Holocron" />
+<meta property="og:locale" content="es_ES" />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
@@ -46,3 +81,9 @@ const canonicalURL = new URL(
 />
 
 <meta name="theme-color" content="#0A0A0A" />
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(structuredData)}
+/>

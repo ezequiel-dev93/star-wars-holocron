@@ -14,6 +14,22 @@ export default defineConfig({
             title: 'Star Wars Holocron',
             description: 'Documentación oficial de la API REST del universo Star Wars.',
             favicon: '/favicon.svg',
+            head: [
+                {
+                    tag: 'meta',
+                    attrs: {
+                        name: 'author',
+                        content: 'Ezequiel Suarez',
+                    },
+                },
+                {
+                    tag: 'link',
+                    attrs: {
+                        rel: 'author',
+                        href: 'https://www.ezequielsuarez-dev.com/',
+                    },
+                },
+            ],
             logo: {
                 src: './public/favicon.svg',
                 alt: 'Star Wars Holocron',
